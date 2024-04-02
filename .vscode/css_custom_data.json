@@ -1,0 +1,13 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@tailwind",
+      "description": "Use the @tailwind directive to insert Tailwind's `base`, `components`, `utilities`, and `screens` styles into your CSS."
+    },
+    {
+      "name": "@apply",
+      "description": "Tailwind's @apply directive extracts repeated utility patterns to custom CSS classes when a template partial feels heavy-handed."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": false,
+  "arrowParens": "always",
+  "endOfLine": "crlf",
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "printWidth": 100,
+  "pluginSearchDirs": ["."]
+}
