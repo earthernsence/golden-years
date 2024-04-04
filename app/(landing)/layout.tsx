@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "App name",
+  title: "Golden Years",
   description: "Volunteering, in a snap",
 };
 

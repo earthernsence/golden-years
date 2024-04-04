@@ -13,7 +13,7 @@ export const Testimonials = () => (
       </div>
       <div className="text-xs w-[200px] sm:w-[250px] md:w-[300px]">
         &quot;
-        App name helped me connect to my student volunteers
+        Golden Years helped me connect to my student volunteers
         more effectively than anywhere else.
         &quot;
       </div>
@@ -32,7 +32,7 @@ export const Testimonials = () => (
       </div>
       <div className="text-xs w-[200px] sm:w-[250px] md:w-[300px]">
         &quot;
-        With app name, we created a team of
+        With Golden Years, we created a team of
         dedicated individuals who want to make the world
         better.
         &quot;
@@ -52,7 +52,7 @@ export const Testimonials = () => (
       </div>
       <div className="text-xs w-[200px] sm:w-[250px] md:w-[300px]">
         &quot;
-        App name has done more for our community than
+        Golden Years has done more for our community than
         we can thank it for.
         &quot;
       </div>

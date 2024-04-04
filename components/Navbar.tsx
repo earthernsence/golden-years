@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { useScroll } from "@/hooks/use-scroll";
 
 import { cn } from "@/lib/utils";
+import { Logo } from "./Logo";
 
 export const Navbar = () => {
   const scrolled = useScroll();
@@ -16,7 +17,9 @@ export const Navbar = () => {
       "dark:bg-dark",
       scrolled && "border-b shadow-sm"
     )}>
-      <Link href="/" className="font-semibold text-center mr-4">App name</Link>
+      <Link href="/" className="font-semibold text-center mr-4 w-1/12">
+        <Logo />
+      </Link>
       <br />
       <div className="flex flex-row text-sm w-full justify-start flex-wrap list-none items-center">
         <Link

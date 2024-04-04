@@ -1,9 +1,10 @@
 import { Metadata } from "next";
+
 import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "App name | About",
-  description: "Volunteering, in a snap",
+  title: "Golden Years | About",
+  description: "Connecting students to opportunities",
 };
 
 const AboutLayout = ({

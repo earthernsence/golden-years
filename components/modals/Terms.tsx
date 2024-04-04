@@ -29,7 +29,7 @@ export const TermsModal = () => {
         </DialogHeader>
         <DialogDescription>
           <div className="flex items-center text-xs">
-            App name is a simple, interactive way of scheduling events and getting the help for your events.
+            Golden Years is a simple, interactive way of scheduling events and getting the help for your events.
           </div>
           <div className="flex items-center text-xs">
             Updated March 31, 2024
@@ -68,16 +68,16 @@ export const TermsModal = () => {
         </div>
         <span className="border-b flex h-2 justify-items-center mt-1 mb-2" />
         <div className="text-xs text-justify w-full">
-          We, the creators of App name, will attempt to ensure the truthfulness of all Events posted.
+          We, the creators of Golden Years, will attempt to ensure the truthfulness of all Events posted.
           <br />
-          We, the creators of App name, are not responsible for any inaccuracies in the information on
+          We, the creators of Golden Years, are not responsible for any inaccuracies in the information on
           User or Organiser accounts or created Events.
           <br />
-          We, the creators of App name, reserve the right to modify or delete any Event or Account at any time
+          We, the creators of Golden Years, reserve the right to modify or delete any Event or Account at any time
           in our sole discretion. We, therefore, reserve the right to change or update information and to correct
           errors, inaccuracies, or omissions at any time without prior notice.
           <br />
-          We, the creators of App name, reserve the right to refuse service, terminate accounts, remove or edit
+          We, the creators of Golden Years, reserve the right to refuse service, terminate accounts, remove or edit
           content at our sole discretion.
         </div>
         <span className="border-b flex h-2 justify-items-center mt-1 mb-2" />

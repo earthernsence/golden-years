@@ -3,14 +3,15 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 
+import { ConvexClientProvider } from "@/components/providers/convex";
 import { ModalProvider } from "@/components/providers/modal";
 import { ThemeProvider } from "@/components/providers/theme";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "600"] });
 
 export const metadata: Metadata = {
-  title: "App name",
-  description: "Volunteering, in a snap",
+  title: "Golden Years",
+  description: "Connecting students to opportunities",
 };
 
 export default function RootLayout({
@@ -21,19 +22,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-          storageKey="rat-project-251"
-        >
-          <ModalProvider />
-          {children}
-        </ThemeProvider>
+        <ConvexClientProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            storageKey="rat-project-251"
+          >
+            <ModalProvider />
+            {children}
+          </ThemeProvider>
+        </ConvexClientProvider>
       </body>
     </html>
   );
 }
-
-// TODO: Change all instances of "app name" to something substantive

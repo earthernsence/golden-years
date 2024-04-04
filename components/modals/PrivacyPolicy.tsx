@@ -21,7 +21,7 @@ export const PrivacyPolicyModal = () => {
         </DialogHeader>
         <DialogDescription>
           <div className="flex items-center text-sm">
-          App name is a simple, interactive way of scheduling events and getting the help for your events.
+          Golden Years is a simple, interactive way of scheduling events and getting the help for your events.
           </div>
         </DialogDescription>
       </DialogContent>
