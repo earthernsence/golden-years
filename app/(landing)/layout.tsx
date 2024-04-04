@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
@@ -12,11 +13,14 @@ const LandingLayout = ({
 }: {
   children: React.ReactNode
 }) => (
-  <div className="h-full dark:bg-dark">
+  <div className="flex flex-col h-screen justify-between dark:bg-dark">
     <Navbar />
-    <main className="h-full pt-40">
+    <main className="mb-auto">
       { children }
     </main>
+    <footer>
+      <Footer />
+    </footer>
   </div>
 );
 

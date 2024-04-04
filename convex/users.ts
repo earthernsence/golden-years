@@ -1,0 +1,41 @@
+import { v } from "convex/values";
+
+import { Doc, Id } from "./_generated/dataModel";
+import { mutation, query } from "./_generated/server";
+
+export const create = mutation({
+  args: {
+    userId: v.string(),
+    name: v.string(),
+    username: v.string(),
+    signupTime: v.string(),
+    admin: v.boolean(),
+    bio: v.optional(v.string()),
+    location: v.optional(v.string()),
+    image: v.optional(v.string()),
+    groups: v.optional(v.array(v.string())),
+  },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated!");
+    }
+
+    const userId = identity.subject;
+
+    const user = await ctx.db.insert("users", {
+      userId,
+      name: args.name,
+      username: args.username,
+      signupTime: args.signupTime,
+      admin: args.admin,
+      bio: args.bio,
+      location: args.location,
+      image: args.image,
+      groups: args.groups
+    });
+
+    return user;
+  }
+});

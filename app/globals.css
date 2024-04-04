@@ -4,11 +4,12 @@
 
 ::-webkit-scrollbar {
   width: 1.25rem;
+  background-color: var(--scrollbar);
 }
 
 ::-webkit-scrollbar-thumb {
   background-clip: content-box;
-  background-color: grey;
+  background-color: var(--scrollbar-thumb);
   border: 0.2rem solid transparent;
   border-radius: 0.5rem;
 }
@@ -55,6 +56,9 @@ body,
     --ring: 20 14.3% 4.1%;
 
     --radius: 0.5rem;
+
+    --scrollbar: #f1f1f1;
+    --scrollbar-thumb: #c1c1c1;
   }
 
   .dark {
@@ -85,6 +89,9 @@ body,
     --border: 12 6.5% 15.1%;
     --input: 12 6.5% 15.1%;
     --ring: 24 5.7% 82.9%;
+
+    --scrollbar: #2a2a2a;
+    --scrollbar-thumb: #1f1f1f;
   }
 }
 
