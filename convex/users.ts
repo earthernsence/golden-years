@@ -14,6 +14,13 @@ export const create = mutation({
     location: v.optional(v.string()),
     image: v.optional(v.string()),
     groups: v.optional(v.array(v.string())),
+    events: v.optional(v.array(v.object({
+      date: v.string(),
+      title: v.string(),
+      location: v.string(),
+      description: v.string(),
+      image: v.optional(v.string())
+    })))
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -33,7 +40,8 @@ export const create = mutation({
       bio: args.bio,
       location: args.location,
       image: args.image,
-      groups: args.groups
+      groups: args.groups,
+      events: args.events
     });
 
     return user;

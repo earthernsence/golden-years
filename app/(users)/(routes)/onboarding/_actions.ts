@@ -13,8 +13,12 @@ export const completeOnboarding = async(formData: FormData) => {
     const res = await clerkClient.users.updateUser(userId, {
       publicMetadata: {
         onboardingComplete: true,
-        applicationName: formData.get("applicationName"),
-        applicationType: formData.get("applicationType"),
+        name: formData.get("name")?.toString() || "",
+        username: formData.get("username")?.toString() || "",
+        signupTime: new Date().toLocaleString(),
+        admin: false,
+        bio: formData.get("bio")?.toString() || "",
+        location: formData.get("location")?.toString() || "",
       },
     });
     return { message: res.publicMetadata };
