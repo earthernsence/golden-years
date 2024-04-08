@@ -15,7 +15,7 @@ export const completeOnboarding = async(formData: FormData) => {
         onboardingComplete: true,
         name: formData.get("name")?.toString() || "",
         username: formData.get("username")?.toString() || "",
-        signupTime: new Date().toLocaleString(),
+        signupTime: Date.now(),
         admin: false,
         bio: formData.get("bio")?.toString() || "",
         location: formData.get("location")?.toString() || "",

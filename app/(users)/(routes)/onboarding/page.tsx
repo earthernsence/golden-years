@@ -1,21 +1,26 @@
 "use client";
 
-
+import { useMutation, useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 
 import { api } from "@/convex/_generated/api";
 import { completeOnboarding } from "./_actions";
-import { useMutation } from "convex/react";
 
 export default function OnboardingPage() {
   const [error, setError] = useState("");
   const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.users.create);
+  const usernames = useQuery(api.users.usernames);
 
   const handleSubmit = async(formData: FormData) => {
+    if (usernames?.includes(formData.get("username")?.toString() || "")) {
+      setError("That username is taken!");
+      return;
+    }
+
     const res = await completeOnboarding(formData);
 
     if (res?.message) {
@@ -28,8 +33,9 @@ export default function OnboardingPage() {
         userId: user.id,
         name: `${user.fullName}`,
         username: user.publicMetadata.username,
-        signupTime: new Date().toLocaleString(),
+        signupTime: Date.now(),
         admin: false,
+        image: user.imageUrl,
         bio: user.publicMetadata.bio,
         location: user.publicMetadata.location,
       });

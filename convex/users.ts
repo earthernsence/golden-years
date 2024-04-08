@@ -8,7 +8,7 @@ export const create = mutation({
     userId: v.string(),
     name: v.string(),
     username: v.string(),
-    signupTime: v.string(),
+    signupTime: v.number(),
     admin: v.boolean(),
     bio: v.optional(v.string()),
     location: v.optional(v.string()),
@@ -45,5 +45,30 @@ export const create = mutation({
     });
 
     return user;
+  }
+});
+
+export const usernames = query({
+  handler: async ctx => {
+    const users = await ctx.db.query("users").collect();
+
+    return users.map(user => user.username);
+  }
+});
+
+export const getUser = query({
+  args: {
+    username: v.string()
+  },
+  handler: async(ctx, args) => {
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_username", q =>
+        q.eq("username", args.username)
+      ).collect();
+
+    if (!user) return null;
+
+    return user.pop();
   }
 });

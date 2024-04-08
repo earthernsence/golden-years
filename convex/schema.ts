@@ -6,7 +6,7 @@ export default defineSchema({
     userId: v.string(),
     name: v.string(),
     username: v.string(),
-    signupTime: v.string(),
+    signupTime: v.number(),
     admin: v.boolean(),
     bio: v.optional(v.string()),
     location: v.optional(v.string()),
@@ -21,4 +21,6 @@ export default defineSchema({
     })))
   })
     .index("by_user", ["userId"])
+    .index("by_username", ["username"])
+    .index("by_username_userid", ["userId", "username"])
 });

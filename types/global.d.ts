@@ -10,7 +10,7 @@ declare global {
   interface UserPublicMetadata {
     name: string,
     username: string,
-    signupTime: string,
+    signupTime: number,
     admin: boolean,
     bio: string,
     location: string,

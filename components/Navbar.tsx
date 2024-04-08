@@ -1,6 +1,6 @@
 "use client";
 
-import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useConvexAuth } from "convex/react";
 
@@ -18,6 +18,7 @@ import Spinner from "./Spinner";
 export const Navbar = () => {
   const scrolled = useScroll();
   const { isAuthenticated, isLoading } = useConvexAuth();
+  const { user } = useUser();
 
   return (
     <div className={cn(
@@ -71,9 +72,11 @@ export const Navbar = () => {
         {isAuthenticated && !isLoading && (
           <>
             <UserButton afterSignOutUrl="/" />
-            <Button variant="outline" size="sm">
-              Go to profile
-            </Button>
+            <Link href={`/users/${user?.publicMetadata.username}`}>
+              <Button variant="outline" size="sm">
+                Go to profile
+              </Button>
+            </Link>
           </>
         ) }
         <ThemeToggle />
