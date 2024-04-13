@@ -15,11 +15,16 @@ export const create = mutation({
     image: v.optional(v.string()),
     groups: v.optional(v.array(v.string())),
     events: v.optional(v.array(v.object({
-      date: v.string(),
+      eventId: v.string(),
       title: v.string(),
-      location: v.string(),
+      date: v.number(),
       description: v.string(),
-      image: v.optional(v.string())
+      image: v.optional(v.string()),
+      location: v.string(),
+      organiser: v.object({
+        name: v.string(),
+        username: v.string()
+      })
     })))
   },
   handler: async(ctx, args) => {

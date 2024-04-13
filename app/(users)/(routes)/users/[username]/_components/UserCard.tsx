@@ -1,8 +1,8 @@
 import Image from "next/image";
 
+import { cn } from "@/lib/utils";
 import { Doc } from "@/convex/_generated/dataModel";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { cn } from "@/lib/utils";
 
 import { TimeSpan } from "./formatter/TimeSpan";
 
@@ -90,15 +90,3 @@ UserCard.Skeleton = function UserCardSkeleton() {
     </div>
   );
 };
-
-/*
-<div className="flex flex-row w-1/2 h-2/3 bg-muted-foreground/10 rounded-md border dark:border-white p-4">
-      <div className="flex flex-col w-1/4">
-        <div className="flex flex-col items-center gap-y-1">
-          <Skeleton className="w-36 h-36 rounded-full" />
-          <Skeleton className="w-12 h-4 rounded-sm" />
-          <Skeleton className="w-10 h-4 rounded-sm" />
-        </div>
-      </div>
-    </div>
-*/
