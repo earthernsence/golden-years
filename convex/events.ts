@@ -10,3 +10,20 @@ export const get = query({
     return events;
   }
 });
+
+export const getSpecificEvent = query({
+  args: {
+    id: v.string()
+  },
+  handler: async(ctx, args) => {
+    const event = await ctx.db
+      .query("events")
+      .withIndex("by_event_id", q =>
+        q.eq("eventId", args.id)
+      ).collect();
+
+    if (!event) return null;
+
+    return event.pop();
+  }
+});

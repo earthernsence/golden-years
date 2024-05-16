@@ -18,7 +18,7 @@ export const UserCard = ({ user }: UserCardProps) => {
       <div className="flex flex-col w-1/4">
         <div className="flex flex-col items-center gap-y-1">
           <Image
-            src={user.image ?? "/no_image.png"}
+            src={user.image || "/no_image.png"}
             alt="User image"
             className="w-36 h-36 rounded-full border dark:border-gray-500"
             width={1024}
