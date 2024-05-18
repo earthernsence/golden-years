@@ -4,9 +4,12 @@ import { useMutation, useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import { z } from "zod";
 
 import { api } from "@/convex/_generated/api";
 import { completeOnboarding } from "./_actions";
+
+import { formSchema, OnboardingForm } from "./OnboardingForm";
 
 export default function OnboardingPage() {
   const [error, setError] = useState("");
@@ -15,13 +18,13 @@ export default function OnboardingPage() {
   const create = useMutation(api.users.create);
   const usernames = useQuery(api.users.usernames);
 
-  const handleSubmit = async(formData: FormData) => {
-    if (usernames?.includes(formData.get("username")?.toString() || "")) {
+  const onSubmit = async(values: z.infer<typeof formSchema>) => {
+    if (usernames?.includes(values.username)) {
       setError("That username is taken!");
       return;
     }
 
-    const res = await completeOnboarding(formData);
+    const res = await completeOnboarding(values);
 
     if (res?.message) {
       await user?.reload();
@@ -31,47 +34,26 @@ export default function OnboardingPage() {
 
       create({
         userId: user.id,
-        name: `${user.fullName}`,
+        name: user.publicMetadata.name,
         username: user.publicMetadata.username,
         signupTime: Date.now(),
         admin: false,
         image: user.imageUrl,
         bio: user.publicMetadata.bio,
-        location: user.publicMetadata.location,
+        location: user.publicMetadata.location
       });
     }
+
     if (res?.error) {
       setError(res?.error);
     }
   };
 
   return (
-    <div>
-      <div className="text-xl">Let&apos;s finish setting up your account</div>
-      <form action={handleSubmit}>
-        <div>
-          <label>Your name</label>
-          <p>This name will be what&apos;s displayed on the site</p>
-          <input type="text" name="name" required />
-        </div>
-        <div>
-          <label>Username</label>
-          <p>This is not displayed anywhere, but is used to link to your account</p>
-          <input type="text" name="username" required />
-        </div>
-        <div>
-          <label>Biography</label>
-          <p>Add an optional biography to be displayed on your profile</p>
-          <input type="text" name="bio" />
-        </div>
-        <div>
-          <label>Location</label>
-          <p>Your location, displayed on your profile</p>
-          <input type="text" name="location" />
-        </div>
-        {error && <p className="text-red-600">Error: {error}</p>}
-        <button type="submit">Submit</button>
-      </form>
+    <div className="flex flex-col justify-center items-center align-middle">
+      <div className="text-2xl text-center">one last thing...</div>
+      <OnboardingForm onSubmit={onSubmit} />
+      <div className="text-red-500">{ error }</div>
     </div>
   );
 }

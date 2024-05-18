@@ -27,7 +27,7 @@ export const Navbar = () => {
       "dark:bg-dark",
       "border-b shadow-sm"
     )}>
-      <Link href="/" className="font-semibold text-center mr-6 md:w-1/12">
+      <Link href="/" className="font-semibold flex text-center mr-4 md:w-1/12">
         <Wordmark />
       </Link>
       <div className="flex md:hidden">

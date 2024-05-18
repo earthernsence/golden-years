@@ -5,7 +5,7 @@ import { Skeleton } from "./ui/Skeleton";
 
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-interface EventCardProps {
+interface Event {
   eventId: string,
   title: string,
   date: number,
@@ -19,14 +19,8 @@ interface EventCardProps {
 }
 
 const EventCard = ({
-  eventId,
-  title,
-  date,
-  description,
-  image,
-  location,
-  organiser
-}: EventCardProps) => {
+  event
+}: { event: Event }) => {
   const something = true;
 
   return (
@@ -34,23 +28,23 @@ const EventCard = ({
       <div className="flex w-1/4">
         <Image
           className="flex border-gray-300 border-2 mr-4"
-          src={image || "/no_image.png"}
-          alt={`Event image for ${title}`}
+          src={event.image || "/no_image.png"}
+          alt={`Event image for ${event.title}`}
           height={128} width={128}
         />
       </div>
       <div className="flex flex-col relative w-1/2">
-        <div className="text-2xl text-white">{ title }</div>
-        <div className="text-md text-gray-400 truncate">{ description }</div>
-        <div className="text-xs text-gray-500">{ location } on { date }</div>
+        <div className="text-2xl text-white">{ event.title }</div>
+        <div className="text-md text-gray-400 truncate">{ event.description }</div>
+        <div className="text-xs text-gray-500">{ event.location } on { new Date(event.date).toDateString() }</div>
       </div>
       <div className="flex xs:flex-col md:flex-row w-1/4 justify-center place-items-center">
         <div className="flex flex-col">
           <Icon
             icon={faUser}
-            link={`/users/${organiser.username}`}
+            link={`/users/${event.organiser.username}`}
           />
-          <div className="text-md text-white">Organised by { organiser.name }</div>
+          <div className="text-md text-white">Organised by { event.organiser.name }</div>
         </div>
       </div>
     </div>

@@ -6,8 +6,6 @@ import { useQuery } from "convex/react";
 import EventCard from "@/components/EventCard";
 
 const EventsPage = () => {
-  const something = true;
-
   const events = useQuery(api.events.get);
 
   if (events === null) {
@@ -23,16 +21,7 @@ const EventsPage = () => {
                     dark:bg-dark xs:text-left md:text-justify">
       {
         events?.map(event => (
-          <EventCard
-            key={event.eventId}
-            eventId={event.eventId}
-            title={event.title}
-            date={event.date}
-            description={event.description}
-            image={event.image}
-            location={event.location}
-            organiser={event.organiser}
-          />
+          <EventCard key={event.eventId} event={event} />
         ))
       }
     </div>

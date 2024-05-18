@@ -1,8 +1,10 @@
 "use server";
 
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import { formSchema } from "./OnboardingForm";
+import { z } from "zod";
 
-export const completeOnboarding = async(formData: FormData) => {
+export const completeOnboarding = async(values: z.infer<typeof formSchema>) => {
   const { userId } = auth();
 
   if (!userId) {
@@ -13,12 +15,12 @@ export const completeOnboarding = async(formData: FormData) => {
     const res = await clerkClient.users.updateUser(userId, {
       publicMetadata: {
         onboardingComplete: true,
-        name: formData.get("name")?.toString() || "",
-        username: formData.get("username")?.toString() || "",
+        name: values.name,
+        username: values.username,
         signupTime: Date.now(),
         admin: false,
-        bio: formData.get("bio")?.toString() || "",
-        location: formData.get("location")?.toString() || "",
+        bio: values.bio || "",
+        location: values.location || "",
       },
     });
     return { message: res.publicMetadata };
