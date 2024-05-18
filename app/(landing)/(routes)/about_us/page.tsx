@@ -1,17 +1,24 @@
 import Image from "next/image";
 
 import aboutImage from "#/about_cc_sl.jpg";
-import aboutImage2 from "#/about_jr_cc.jpg";
 
 const AboutPage = () => (
   <>
     <div className="place-self-center max-w-7xl h-full pt-0 pb-12 pl-16 pr-16
                    dark:bg-dark xs:text-left md:text-justify">
+      <div className="text-4xl pb-4 xs:text-center md:text-left">Our Mission</div>
+      Our mission is to secure funding to provide essential materials aimed at enhancing the quality of
+      life for residents in nursing homes. Through a combination of fundraising events and charitable donations,
+      our organization seeks to raise awareness and support individuals affected by Alzheimer&apos;s disease and
+      dementia, with a particular focus on those residing in low-income nursing homes who lack necessary resources
+      to meet their everyday needs.
+      <br />
+      <br />
       <div className="text-4xl pb-4 xs:text-center md:text-left">About Us</div>
-      Quisque commodo, erat a interdum accumsan, urna tortor ultricies nisi, rhoncus facilisis tellus nibh at orci.
+      {/* Quisque commodo, erat a interdum accumsan, urna tortor ultricies nisi, rhoncus facilisis tellus nibh at orci.
       Nullam in odio justo. Nunc non maximus purus, non ornare ligula. Cras nisi sapien, bibendum vel ornare in,
       rutrum at metus. Fusce sodales arcu mauris, non bibendum lorem aliquet quis. Sed sed dui ut dui pharetra porta.
-      Ut fringilla orci purus, quis aliquet dui rutrum non. Praesent quis tellus a neque lobortis malesuada.
+      Ut fringilla orci purus, quis aliquet dui rutrum non. Praesent quis tellus a neque lobortis malesuada. */}
       <div className="relative flex xs:flex-col md:flex-row justify-between items-center w-full">
         <div className="xs:w-full md:w-1/3 p-4">
           <Image
@@ -26,15 +33,20 @@ const AboutPage = () => (
           </div>
         </div>
         <div className="xs:w-full md:w-2/3">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer viverra lacus lacus,
-          id fermentum diam pharetra sed. Ut ut cursus mauris. Donec vulputate est vitae ante
-          pulvinar dapibus nec sed libero. Vestibulum et dolor ut urna volutpat ornare ac in nisi.
-          Duis sed est tellus. Mauris fringilla sapien magna, sit amet laoreet augue consectetur vitae.
-          Nam luctus ligula nec viverra feugiat. Aenean scelerisque condimentum magna tristique ultricies.
-          Aenean commodo arcu neque. Ut tristique tellus in leo hendrerit pellentesque in eget magna.
+         My name is Carissa Choi, and my name is Sydney Lewis. We are two seniors at Francis Howell High School
+         who conceived a meaningful idea while visiting a college campus. We envisioned a non-profit organization
+         designed to help high school students engage with their community and bridge the significant gap between
+         the youth and the elderly. Many of our club members, including ourselves, have grandparents who exhibit
+         symptoms or have been diagnosed with geriatric illnesses, a medical specialty focused on the unique health
+         needs of the elderly.
+          <br />
+          <br />
+         As the co-presidents and founders of Golden Years, a club at FHHS and a non-profit organization,
+         our mission is to raise awareness about illnesses that profoundly affect our grandparents.
+         Come learn about us more by scrolling down!
         </div>
       </div>
-      <div className="relative flex xs:flex-col md:flex-row justify-between items-center w-full">
+      {/* <div className="relative flex xs:flex-col md:flex-row justify-between items-center w-full">
         <div className="xs:w-full md:w-2/3">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer viverra lacus lacus,
           id fermentum diam pharetra sed. Ut ut cursus mauris. Donec vulputate est vitae ante
@@ -54,7 +66,7 @@ const AboutPage = () => (
             The creator & developer, Carissa Choi and Jace Royer
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   </>
 );

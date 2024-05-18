@@ -27,12 +27,13 @@ export const TermsModal = () => {
           Terms & Conditions
           </div>
         </DialogHeader>
-        <DialogDescription>
+        <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
-            Golden Years is a simple, interactive way of scheduling events and getting the help for your events.
+            Golden Years is a simple, interactive way of connecting volunteers to opportunities
+            in nursing and assisted living homes, created by Carissa Choi and Sydney Lewis.
           </div>
           <div className="flex items-center text-xs">
-            Updated March 31, 2024
+            Updated May 17, 2024
           </div>
         </DialogDescription>
         <div className="text-xs text-justify w-full">

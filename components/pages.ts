@@ -12,5 +12,9 @@ export const Pages: Array<Page> = [
   {
     route: "/events",
     text: "Events"
-  }
+  },
+  // {
+  //   route: "/members",
+  //   text: "Members"
+  // }
 ];

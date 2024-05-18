@@ -1,5 +1,6 @@
+import LandingCarousel from "./_components/Carousel";
+
 import { Header } from "./_components/Header";
-import { Testimonials } from "./_components/Testimonials";
 
 const LandingPage = () => (
   <main className="min-h-full flex flex-col pt-40">
@@ -9,7 +10,7 @@ const LandingPage = () => (
                         md:justify-start"
     >
       <Header />
-      <Testimonials />
+      <LandingCarousel />
     </section>
   </main>
 );

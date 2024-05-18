@@ -1,10 +1,28 @@
-export const Logo = () => (
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
+import Image from "next/image";
+
+import logoImage from "#/golden_years_logo.png";
+
+// ESLint is awful with enums. Sorry.
+enum LogoSizes {
+  ExtraSmall = 100,
+  Normal = 300,
+}
+interface LogoProps {
+  size: keyof typeof LogoSizes
+}
+
+export const Logo = ({
+  size
+}: LogoProps) => (
   <>
-    <div className="hidden md:inline-flex">
-      <span className="text-yellow-800 dark:text-yellow-600 ml-px">Golden</span> Years
-    </div>
-    <div className="flex md:hidden">
-      <span className="text-yellow-800 dark:text-yellow-600 ml-px">G</span>Y
-    </div>
+    <Image
+      src={logoImage}
+      className="flex items-center"
+      alt="Golden Years Logo"
+      width={LogoSizes[size]}
+      height={LogoSizes[size]}
+    />
   </>
 );

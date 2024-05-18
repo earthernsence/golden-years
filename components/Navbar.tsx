@@ -5,18 +5,19 @@ import Link from "next/link";
 import { useConvexAuth } from "convex/react";
 
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { useScroll } from "@/hooks/use-scroll";
 
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/Button";
 
 import { Page, Pages } from "./pages";
-import { Logo } from "./Logo";
+import { Wordmark } from "./Wordmark";
+
 import Spinner from "./Spinner";
 
+import MobileNavigationSheet from "./MobileNavigationSheet";
+
 export const Navbar = () => {
-  const scrolled = useScroll();
   const { isAuthenticated, isLoading } = useConvexAuth();
   const { user } = useUser();
 
@@ -24,13 +25,16 @@ export const Navbar = () => {
     <div className={cn(
       "z-50 bg-background fixed top-0 flex flex-row items-center w-full p-6",
       "dark:bg-dark",
-      scrolled && "border-b shadow-sm"
+      "border-b shadow-sm"
     )}>
-      <Link href="/" className="font-semibold text-center mr-4 md:w-1/12">
-        <Logo />
+      <Link href="/" className="font-semibold text-center mr-6 md:w-1/12">
+        <Wordmark />
       </Link>
+      <div className="flex md:hidden">
+        <MobileNavigationSheet />
+      </div>
       <br />
-      <div className="flex-row text-sm w-full justify-start flex-wrap list-none items-center gap-x-4 xs:hidden md:flex">
+      <div className="flex-row text-sm w-full justify-start flex-wrap list-none items-center gap-x-6 xs:hidden md:flex">
         {
           Pages.filter(page => page.text !== "Home").map((page: Page, index: number) => (
             <Link
