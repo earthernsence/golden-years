@@ -28,6 +28,9 @@ export const formSchema = z.object({
   }).max(50, {
     message: "Username cannot be more than 50 characters."
   }),
+  email: z.string().email({
+    message: "Not a valid email address."
+  }),
   bio: z.string().min(2, {
     message: "Bio must be at least 2 characters."
   }).max(200, {
@@ -52,6 +55,7 @@ export function OnboardingForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      email: "",
       username: "",
       bio: "",
       location: "",
@@ -76,6 +80,23 @@ export function OnboardingForm({
               <FormDescription>
                 This is the name that will appear when you sign up for events and on your profile.
                 It is <span className="italic">different</span> than your username.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem className="max-w-screen-xs">
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="your email" {...field} />
+              </FormControl>
+              <FormDescription>
+                This email will not appear on your profile, but will instead be used to contact you
+                about events you sign up for.
               </FormDescription>
               <FormMessage />
             </FormItem>

@@ -35,6 +35,7 @@ export default function OnboardingPage() {
       create({
         userId: user.id,
         name: user.publicMetadata.name,
+        email: user.publicMetadata.email,
         username: user.publicMetadata.username,
         signupTime: Date.now(),
         admin: false,

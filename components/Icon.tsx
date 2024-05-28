@@ -4,12 +4,14 @@ import { IconDefinition } from "@fortawesome/free-brands-svg-icons";
 interface IconProps {
   icon: IconDefinition,
   link?: string,
-  className?: string
+  className?: string,
+  onClick?: Function
 }
 
-export const Icon = ({ icon, link, className }: IconProps) => (
+export const Icon = ({ icon, link, className, onClick }: IconProps) => (
   <a
     href={link}
+    onClick={onClick ? () => onClick() : undefined}
     target="_blank"
     className={`text-black dark:text-white opacity-50 mr-4 cursor-pointer
               transition-all duration-200 ease-in-out

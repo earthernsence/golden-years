@@ -5,6 +5,7 @@ export default defineSchema({
   users: defineTable({
     userId: v.string(),
     name: v.string(),
+    email: v.optional(v.string()),
     username: v.string(),
     signupTime: v.number(),
     admin: v.boolean(),
@@ -19,8 +20,14 @@ export default defineSchema({
       description: v.string(),
       image: v.optional(v.string()),
       location: v.string(),
+      participants: v.optional(v.array(v.object({
+        name: v.string(),
+        email: v.string(),
+        username: v.string()
+      }))),
       organiser: v.object({
         name: v.string(),
+        email: v.string(),
         username: v.string()
       })
     })))
@@ -35,8 +42,15 @@ export default defineSchema({
     description: v.string(),
     image: v.optional(v.string()),
     location: v.string(),
+    slots: v.optional(v.number()),
+    participants: v.optional(v.array(v.object({
+      name: v.string(),
+      email: v.string(),
+      username: v.string()
+    }))),
     organiser: v.object({
       name: v.string(),
+      email: v.string(),
       username: v.string()
     })
   })

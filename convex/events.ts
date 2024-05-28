@@ -27,3 +27,27 @@ export const getSpecificEvent = query({
     return event.pop();
   }
 });
+
+export const addParticipant = mutation({
+  args: {
+    eventId: v.id("events"),
+    participants: v.optional(v.array(v.object({
+      name: v.string(),
+      email: v.string(),
+      username: v.string()
+    })))
+  },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const event = await ctx.db.patch(args.eventId, {
+      participants: args.participants
+    });
+
+    return event;
+  },
+});
