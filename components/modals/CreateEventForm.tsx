@@ -89,7 +89,7 @@ export function CreateEventForm({
           name="date"
           render={({ field }) => (
             <FormItem className="max-w-screen-xs flex flex-col">
-              <FormLabel>Date</FormLabel>
+              <FormLabel>Date and Time (U.S. Central Time GMT-5)</FormLabel>
               <FormControl>
                 <DateTimePicker
                   granularity="minute"

@@ -10,7 +10,7 @@ const UserProfilePageLayout = ({
 }) => (
   <div className="flex flex-col h-screen justify-between dark:bg-dark">
     <Navbar />
-    <main className="mb-auto h-full">
+    <main className="mb-auto h-auto">
       { children }
     </main>
     <footer>

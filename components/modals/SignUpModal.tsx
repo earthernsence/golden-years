@@ -11,11 +11,10 @@ import {
   DialogHeader
 } from "@/components/ui/Dialog";
 import { Button } from "@/components/ui/Button";
+import { useToast } from "@/components/ui/use-toast";
 
 import { api } from "@/convex/_generated/api";
 import { useSignupModal } from "@/hooks/use-signup-modal";
-
-import { useToast } from "../ui/use-toast";
 
 export const SignUpModal = () => {
   const signup = useSignupModal();
@@ -38,8 +37,8 @@ export const SignUpModal = () => {
           </DialogHeader>
           <DialogDescription className="space-y-1">
             <div className="flex items-center text-xs">
-              Your information will be sent to the event organiser. You will also receive a confirmation email
-              with information relevant to this event.
+              Your information will appear on the event page under &quot;Participants&quot;, and other users
+              will be able to visit your account.
             </div>
           </DialogDescription>
           <div className="text-lg text-justify w-full">
@@ -110,8 +109,8 @@ export const SignUpModal = () => {
         </DialogHeader>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
-            Your information will be sent to the event organiser. You will also receive a confirmation email
-            with information relevant to this event.
+            Your information will appear on the event page under &quot;Participants&quot;, and other users
+            will be able to visit your account.
           </div>
         </DialogDescription>
         <div className="text-2xl text-justify w-full">
@@ -131,7 +130,9 @@ export const SignUpModal = () => {
           Things to Know
         </div>
         <div className="text-sm text-justify w-full">
-          By confirming your signup, you understand that you are liable for attending this event.
+          By confirming your signup, you understand that you are planning to attend this event. If it is necessary,
+          you will be able to leave this event from your user page under &quot;Future Events&quot;. Please be sure to
+          notify the Event Organiser if you plan to leave the event.
           If you fail to attend this event without proper notification of the event organiser, the President
           will be notified.
           If the event is cancelled, the event organiser will notify you, likely through an email. If there is

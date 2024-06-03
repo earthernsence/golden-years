@@ -1,8 +1,9 @@
 "use client";
 
-import { api } from "@/convex/_generated/api";
+import { useAuth } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
-import { useUser } from "@clerk/nextjs";
+
+import { api } from "@/convex/_generated/api";
 
 import { FutureEvents } from "./_components/FutureEvents";
 import { UserCard } from "./_components/UserCard";
@@ -17,7 +18,7 @@ const UserPage = ({ params }: UserPageProps) => {
   const usernames = useQuery(api.users.usernames);
   const isUserReal = usernames?.includes(params.username);
 
-  const { user } = useUser();
+  const { userId } = useAuth();
 
   const dbUser = useQuery(api.users.getUser, {
     username: params.username
@@ -45,8 +46,7 @@ const UserPage = ({ params }: UserPageProps) => {
     );
   }
 
-  // A really hacky way of checking if the user signed in is the same as the actual page
-  const isUser = user?.primaryEmailAddress?.emailAddress === dbUser.email;
+  const isUser = userId === dbUser.userId;
 
   return (
     <main className="min-h-full h-full flex flex-col pt-40">

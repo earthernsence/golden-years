@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { CreateEventModal } from "../modals/CreateEventModal";
+import { LeaveEventModal } from "../modals/LeaveEventModal";
 import { PrivacyPolicyModal } from "../modals/PrivacyPolicy";
 import { SignUpModal } from "../modals/SignUpModal";
 import { TermsModal } from "../modals/Terms";
@@ -22,6 +23,7 @@ export const ModalProvider = () => {
       <TermsModal />
       <SignUpModal />
       <CreateEventModal />
+      <LeaveEventModal />
     </>
   );
 };

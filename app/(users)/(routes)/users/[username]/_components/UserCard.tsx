@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 import { Doc } from "@/convex/_generated/dataModel";
 import { Skeleton } from "@/components/ui/Skeleton";
 
-import { TimeSpan } from "./formatter/TimeSpan";
 import { PastEvents } from "./PastEvents";
+import { TimeSpan } from "./formatter/TimeSpan";
 
 interface UserCardProps {
   user: Doc<"users">
@@ -26,7 +26,9 @@ export const UserCard = ({ user }: UserCardProps) => (
           height={1024}
         />
         <div className="flex flex-col">
-          <div className={cn("font-bold", user.admin && "text-red-500")}>{user.name}</div>
+          <div className={cn("font-bold", user.admin && "text-red-500")}>
+            {user.name}
+          </div>
           <div className="text-xs opacity-50">{user.username}</div>
         </div>
       </div>

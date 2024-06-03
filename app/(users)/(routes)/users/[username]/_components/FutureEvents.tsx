@@ -1,10 +1,10 @@
 "use client";
 
-import { Calendar } from "lucide-react";
 import Link from "next/link";
 import { useQuery } from "convex/react";
 
 import { api } from "@/convex/_generated/api";
+import { FutureEvent } from "./FutureEvent";
 
 interface FutureEventsProps {
   events?: Array<string>
@@ -16,7 +16,7 @@ export const FutureEvents = ({ events }: FutureEventsProps) => {
   if (!events) {
     return (
       <div className="flex text-sm">
-        You have not participated in any events.
+        You have not participated in any events. Sign up for one <Link href={`/events`}>here</Link>!
       </div>
     );
   }
@@ -28,26 +28,21 @@ export const FutureEvents = ({ events }: FutureEventsProps) => {
   if (participatedFutureEvents === undefined || participatedFutureEvents.length === 0) {
     return (
       <div className="flex text-sm">
-          This user has not participated in any events.
+          You have not participated in any events. Sign up for one <Link href={`/events`}>here</Link>!
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col w-1/2">
-      <div className="text-2xl xs:text-center md:text-left">Future Events</div>
-      {
-        participatedFutureEvents.map((event, index) => (
-          <Link
-            key={index}
-            className="text-xs flex flex-row text-left items-center"
-            href={`/events/${event.eventId}`}
-          >
-            <Calendar />
-            {event.title}
-          </Link>
-        ))
-      }
+    <div className="flex flex-col xs:w-full md:w-1/2">
+      <div className="text-2xl font-semibold text-center mb-2">Future Events</div>
+      <div className="flex flex-col items-center space-y-4">
+        {
+          participatedFutureEvents.map((event, index) => (
+            <FutureEvent event={event} key={index} />
+          ))
+        }
+      </div>
     </div>
   );
 };

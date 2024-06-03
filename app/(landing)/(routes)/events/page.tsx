@@ -44,8 +44,8 @@ const EventsPage = () => {
   return (
     <div className="place-self-center max-w-full h-full md:w-2/3 xs:w-11/12 pt-0 pb-12 md:pl-16 md:pr-16
                     dark:bg-dark xs:text-left md:text-justify">
-      <div className="flex xs:flex-col md:flex-row md:justify-between xs:items-center">
-        <div className="text-4xl pb-4 xs:text-center md:text-left">
+      <div className="flex xs:flex-col md:flex-row md:justify-between xs:items-center pb-4">
+        <div className="text-4xl xs:pb-2 md:pb-0 xs:text-center md:text-left">
           Events
         </div>
         { isAdmin && (
