@@ -50,7 +50,7 @@ export const SignUpModal = () => {
     );
   }
 
-  // TODO: Add emailing functionality on signup
+  // TODO: Add emailing functionality on signup. Requires DNS server.
 
   const formattedDate = () => {
     if (!signup.event) return "No date.";
@@ -66,7 +66,7 @@ export const SignUpModal = () => {
 
     if (!actualUser.username || !actualUser.email) return;
 
-    if (actualUser.events?.includes(signup.event)) {
+    if (actualUser.events?.includes(signup.event.eventId)) {
       toast({
         title: "You're already signed up for this event, silly!",
         description: "You can view your future events from your profile."
@@ -74,14 +74,18 @@ export const SignUpModal = () => {
       return;
     }
 
+    const initialEvents = actualUser?.events || [];
+
     updateUserEvents({
       userId: actualUser._id,
-      events: [signup.event]
+      events: [...initialEvents, signup.event.eventId]
     });
+
+    const initialParticipants = actualEvent?.participants || [];
 
     updateEventParticipants({
       eventId: actualEvent._id,
-      participants: [{
+      participants: [...initialParticipants, {
         username: actualUser.username,
         email: actualUser.email,
         name: actualUser.name

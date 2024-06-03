@@ -4,35 +4,27 @@ import { faArrowRightToBracket, faUser } from "@fortawesome/free-solid-svg-icons
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
+import { useQuery } from "convex/react";
 
 import Icon from "./Icon";
 import { Skeleton } from "./ui/Skeleton";
 import { useToast } from "./ui/use-toast";
 
+import { api } from "@/convex/_generated/api";
+import { Doc } from "@/convex/_generated/dataModel";
 import { useSignupModal } from "@/hooks/use-signup-modal";
-
-interface Event {
-  eventId: string,
-  title: string,
-  date: number,
-  description: string,
-  image?: string,
-  location: string,
-  organiser: {
-    name: string,
-    username: string
-  }
-}
 
 const EventCard = ({
   event
-}: { event: Event }) => {
-  const { isSignedIn } = useAuth();
+}: { event: Doc<"events"> }) => {
+  const { isSignedIn, userId } = useAuth();
   const { toast } = useToast();
   const signup = useSignupModal();
 
+  const user = useQuery(api.users.getUserById, { id: `${userId}` });
+
   const signUp = () => {
-    if (!isSignedIn) {
+    if (!isSignedIn || !user) {
       toast({
         title: "Cannot sign up for event",
         description: "You must be signed in in order to sign up for events."
@@ -47,8 +39,23 @@ const EventCard = ({
         description: `This event took place on ${new Date(event.date).toDateString()}.
         Today is ${new Date().toDateString()}.`
       });
-      // TODO: readd this return statement
-      // return;
+      return;
+    }
+
+    if (event?.participants.map(participant => participant.username).includes(user.username || "")) {
+      toast({
+        title: "You are already signed up for this event!",
+        description: "You can visit your profile to see your future events."
+      });
+      return;
+    }
+
+    if (event.participants.length + 1 > event?.slots) {
+      toast({
+        title: "Sorry, this event is full.",
+        description: "Try signing up for one of our other events!"
+      });
+      return;
     }
 
     signup.onOpen(event);
@@ -72,11 +79,11 @@ const EventCard = ({
         />
       </div>
       <div className="flex flex-col relative xs:w-5/6 md:w-1/2 xs:mb-4 md:mb-0">
-        <Link href={`/events/${event.eventId}`} className="text-2xl xs:text-center md:text-left text-white">
+        <Link href={`/events/${event.eventId}`} className="text-2xl xs:text-center md:text-left dark:text-white">
           { event.title }
         </Link>
-        <div className="text-md text-gray-400 truncate">{ event.description }</div>
-        <div className="text-xs text-gray-500">
+        <div className="text-md light:text-gray-700 dark:text-gray-400 truncate">{ event.description }</div>
+        <div className="text-xs light:text-gray-800 dark:text-gray-500">
           { event.location } on { new Date(event.date).toDateString() } at { getTime() }
         </div>
       </div>
@@ -86,14 +93,14 @@ const EventCard = ({
             icon={faUser}
             link={`/users/${event.organiser.username}`}
           />
-          <div className="text-md text-white">Organised by { event.organiser.name }</div>
+          <div className="text-md dark:text-white">Organised by { event.organiser.name }</div>
         </div>
         <div className="flex flex-row items-center text-left">
           <Icon
             icon={faArrowRightToBracket}
             onClick={signUp}
           />
-          <div className="text-md text-white">Sign up</div>
+          <div className="text-md dark:text-white">Sign up</div>
         </div>
       </div>
     </div>

@@ -7,11 +7,17 @@ interface Event {
   description: string,
   image?: string,
   location: string,
+  slots: number,
+  participants: Array<{
+    name: string,
+    email: string,
+    username: string
+  }>,
   organiser: {
     name: string,
     email: string,
     username: string
-  }
+  },
 }
 
 type SignupModalStore = {

@@ -5,6 +5,7 @@ import { Doc } from "@/convex/_generated/dataModel";
 import { Skeleton } from "@/components/ui/Skeleton";
 
 import { TimeSpan } from "./formatter/TimeSpan";
+import { PastEvents } from "./PastEvents";
 
 interface UserCardProps {
   user: Doc<"users">
@@ -12,7 +13,7 @@ interface UserCardProps {
 
 export const UserCard = ({ user }: UserCardProps) => (
   <div className="flex p-4 gap-x-2 bg-muted-foreground/10 rounded-md border
-                  xs:flex-col md:flex-row xs:w-full md:w-2/5 xs:h-auto md:h-2/3
+                  xs:flex-col md:flex-row xs:w-full md:w-auto xs:h-auto md:h-2/3
                 dark:border-white"
   >
     <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 items-center justify-center">
@@ -48,13 +49,13 @@ export const UserCard = ({ user }: UserCardProps) => (
       <br />
       <div className="h-1/6 text-left text-sm">
         <div className="text-lg font-semibold">Groups</div>
-        {user.groups ?? "None provided..."}
+        {user.groups ?? "This user is not currently a member of any Groups."}
         {/* <GroupsList /> component */}
       </div>
       <br />
       <div className="h-1/3 text-left text-sm">
         <div className="text-lg font-semibold">Past events</div>
-        {/* <EventsList /> component */}
+        <PastEvents events={user.events} />
       </div>
     </div>
   </div>

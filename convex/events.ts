@@ -51,3 +51,42 @@ export const addParticipant = mutation({
     return event;
   },
 });
+
+export const create = mutation({
+  args: {
+    title: v.string(),
+    date: v.number(),
+    description: v.string(),
+    image: v.optional(v.string()),
+    location: v.string(),
+    slots: v.number(),
+    organiser: v.object({
+      name: v.string(),
+      email: v.string(),
+      username: v.string()
+    })
+  },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated!");
+    }
+
+    const events = await ctx.db.query("events").collect();
+
+    const event = await ctx.db.insert("events", {
+      eventId: `${events.length}`,
+      title: args.title,
+      date: args.date,
+      description: args.description,
+      image: args.image || "",
+      location: args.location,
+      slots: args.slots,
+      participants: [],
+      organiser: args.organiser
+    });
+
+    return event;
+  },
+});

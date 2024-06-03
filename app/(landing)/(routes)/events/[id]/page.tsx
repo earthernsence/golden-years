@@ -26,7 +26,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
   const eventId = parseInt(params.id, 10);
   const event = useQuery(api.events.getSpecificEvent, { id: `${eventId}` });
 
-  const { isSignedIn, sessionId, userId } = useAuth();
+  const { isSignedIn } = useAuth();
   const { user } = useUser();
   const { toast } = useToast();
   const signup = useSignupModal();
@@ -69,8 +69,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
         description: `This event took place on ${new Date(event.date).toDateString()}.
         Today is ${new Date().toDateString()}.`
       });
-      // TODO: readd this return statement
-      // return;
+      return;
     }
 
     if (event?.participants.map(participant => participant.username).includes(user?.publicMetadata.username || "")) {
@@ -101,7 +100,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
 
   return (
     <>
-      <div className="flex w-1/2 items-start">
+      <div className="flex md:w-1/2 xs:items-center md:items-start">
         <Link
           className="flex flex-row text-left items-center text-sm opacity-50 hover:opacity-100 hover:cursor-pointer"
           href="/events"
@@ -111,30 +110,31 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
         </Link>
       </div>
       <br />
-      <div className="flex flex-row w-1/2 h-2/3 bg-muted-foreground/10 rounded-md border dark:border-white p-4 gap-x-2">
-        <div className="flex flex-col w-1/4">
-          <div className="flex flex-col items-center gap-y-2">
+      <div className="flex xs:flex-col md:flex-row p-4 xs:gap-y-2 md:gap-y-0
+      xs:w-11/12 md:w-1/2 xs:h-auto md:h-2/3 bg-muted-foreground/10 rounded-md border dark:border-white gap-x-2">
+        <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 items-center justify-center">
+          <div className="flex flex-col items-center xs:gap-x-2 gap-y-2">
             <Image
               src={event.image || "/no_image.png"}
               alt="Event image"
-              className="w-36 h-36 rounded-sm border dark:border-gray-500"
+              className="xs:w-48 xs:h-48 md:w-36 md:h-36 rounded-sm border dark:border-gray-500"
               width={1024}
               height={1024}
             />
-            <div className="flex flex-col text-sm">
+            <div className="flex xs:flex-row xs:gap-x-2 md:flex-col text-sm">
               <div className="flex flex-row items-center text-left">
                 <Icon
                   icon={faUser}
                   link={`/users/${event.organiser.username}`}
                 />
-                <div className="text-md text-white">Organised by { event.organiser.name }</div>
+                <div className="text-md dark:text-white">Organised by { event.organiser.name }</div>
               </div>
               <div className="flex flex-row items-center text-left">
                 <Icon
                   icon={faArrowRightToBracket}
                   onClick={signUp}
                 />
-                <div className="text-md text-white">Sign up</div>
+                <div className="text-md dark:text-white">Sign up</div>
               </div>
             </div>
           </div>
@@ -156,7 +156,9 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
             {event.location}
           </div>
           <div className="text-left text-sm">
-            <div className="text-lg font-semibold">Participants</div>
+            <div className="text-lg font-semibold">
+              Participants ({event.participants?.length}/{event.slots} slots filled)
+            </div>
             <ParticipantsList participants={event.participants} />
           </div>
         </div>

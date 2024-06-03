@@ -23,7 +23,7 @@ export const ParticipantsList = ({
   }
 
   return (
-    <div className="flex">
+    <div className="flex flex-col">
       {
         participants.map((participant: Participant, index: number) => (
           <Link

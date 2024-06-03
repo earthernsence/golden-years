@@ -14,25 +14,7 @@ export const create = mutation({
     bio: v.optional(v.string()),
     location: v.optional(v.string()),
     image: v.optional(v.string()),
-    groups: v.optional(v.array(v.string())),
-    events: v.optional(v.array(v.object({
-      eventId: v.string(),
-      title: v.string(),
-      date: v.number(),
-      description: v.string(),
-      image: v.optional(v.string()),
-      location: v.string(),
-      participants: v.optional(v.array(v.object({
-        name: v.string(),
-        email: v.string(),
-        username: v.string()
-      }))),
-      organiser: v.object({
-        name: v.string(),
-        email: v.string(),
-        username: v.string()
-      })
-    })))
+    groups: v.optional(v.array(v.string()))
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -54,7 +36,7 @@ export const create = mutation({
       location: args.location,
       image: args.image,
       groups: args.groups,
-      events: args.events
+      events: []
     });
 
     return user;
@@ -86,27 +68,31 @@ export const getUser = query({
   }
 });
 
+export const getUserById = query({
+  args: {
+    id: v.optional(v.union(v.string(), v.id("users"))),
+  },
+  handler: async(ctx, args) => {
+    if (!args.id || args.id === undefined) {
+      return null;
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_username_userid", q =>
+        q.eq("userId", args.id || "")
+      ).collect();
+
+    if (!user) return null;
+
+    return user.pop();
+  }
+});
+
 export const updateEvents = mutation({
   args: {
     userId: v.id("users"),
-    events: v.optional(v.array(v.object({
-      eventId: v.string(),
-      title: v.string(),
-      date: v.number(),
-      description: v.string(),
-      image: v.optional(v.string()),
-      location: v.string(),
-      participants: v.optional(v.array(v.object({
-        name: v.string(),
-        email: v.string(),
-        username: v.string()
-      }))),
-      organiser: v.object({
-        name: v.string(),
-        email: v.string(),
-        username: v.string()
-      })
-    })))
+    events: v.array(v.string())
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();

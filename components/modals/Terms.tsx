@@ -33,7 +33,7 @@ export const TermsModal = () => {
             in nursing and assisted living homes, created by Carissa Choi and Sydney Lewis.
           </div>
           <div className="flex items-center text-xs">
-            Updated May 17, 2024
+            Updated May 31, 2024
           </div>
         </DialogDescription>
         <div className="text-xs text-justify w-full">
@@ -54,7 +54,7 @@ export const TermsModal = () => {
           the information on both your account and any Event you sign up for. Failure to provide accurate information
           as is necessitated by these Terms will result in the termination of the User&apos;s account.
           <br />
-          The creation of a User account is optional. It is possible for Users to sign up for Events without one.
+          The creation of a User account is optional, but is required for Users to sign up for Events.
         </div>
         <span className="border-b flex h-2 justify-items-center mt-1 mb-2" />
         <div className="text-xs text-justify w-full">

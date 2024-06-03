@@ -10,7 +10,7 @@ As the User, you are also entrusted to be completely and fully accurate, to the 
 the information on both your account and any Event you sign up for. Failure to provide accurate information
 as is necessitated by these Terms will result in the termination of the User's account.
 
-The creation of a User account is optional. It is possible for Users to sign up for Events without one.
+The creation of a User account is optional, but is required for Users to sign up for Events.
 
 As an Organiser, when creating an Event, you are faithfully and accurately reporting the
 details of your Event, in full, and are responsible for continuously monitoring your Event.
