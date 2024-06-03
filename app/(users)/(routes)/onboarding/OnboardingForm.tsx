@@ -17,6 +17,9 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 
+import { usePrivacyPolicyModal } from "@/hooks/use-privacy-policy-modal";
+import { useTermsModal } from "@/hooks/use-terms-modal";
+
 export const formSchema = z.object({
   name: z.string().min(2, {
     message: "Display name must be at least 2 characters."
@@ -40,7 +43,8 @@ export const formSchema = z.object({
     message: "Location must be at least 2 characters."
   }).max(50, {
     message: "Location cannot be more than 50 characters."
-  }).optional().or(z.literal(""))
+  }).optional().or(z.literal("")),
+  terms: z.string()
 });
 
 interface OnboardingFormProps {
@@ -51,6 +55,9 @@ interface OnboardingFormProps {
 export function OnboardingForm({
   onSubmit
 }: OnboardingFormProps) {
+  const terms = useTermsModal();
+  const privacy = usePrivacyPolicyModal();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,6 +66,7 @@ export function OnboardingForm({
       username: "",
       bio: "",
       location: "",
+      terms: "false",
     }
   });
 
@@ -150,6 +158,24 @@ export function OnboardingForm({
                 Use a city or the school that you attend. This is not required.
               </FormDescription>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="terms"
+          render={({ field }) => (
+            <FormItem className="max-w-screen-xs">
+              <FormLabel>Terms and Privacy Policy</FormLabel>
+              <FormControl>
+                <Input type="checkbox" {...field} />
+              </FormControl>
+              <FormDescription>
+                Visit our{" "}
+                <span onClick={terms.onOpen} className="underline text-sky-500 cursor-pointer">Terms of Service</span>
+                and our{" "}
+                <span onClick={privacy.onOpen} className="underline text-sky-500 cursor-pointer">Privacy Policy</span>.
+              </FormDescription>
             </FormItem>
           )}
         />

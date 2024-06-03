@@ -17,6 +17,7 @@ export const completeOnboarding = async(values: z.infer<typeof formSchema>) => {
         onboardingComplete: true,
         name: values.name,
         username: values.username,
+        email: values.email,
         signupTime: Date.now(),
         admin: false,
         bio: values.bio || "",

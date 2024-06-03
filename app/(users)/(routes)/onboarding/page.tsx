@@ -24,6 +24,11 @@ export default function OnboardingPage() {
       return;
     }
 
+    if (!(/true/u).test(values.terms)) {
+      setError("You must accept the Terms of Services and the Privacy Policy to register for an account.");
+      return;
+    }
+
     const res = await completeOnboarding(values);
 
     if (res?.message) {
