@@ -1,1 +1,7 @@
 /components/ui
+/app/(users)/(routes)/users/[username]/_components/formatter/*.ts
+
+# Not currently in use, so I'm not too worried about ignoring it here
+/app/api/confirm-signup-email.ts
+
+/transactional/

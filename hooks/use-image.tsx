@@ -4,6 +4,7 @@ type ImageStore = {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
+  // eslint-disable-next-line no-unused-vars
   onReplace: (url: string) => void;
   url?: string;
 }

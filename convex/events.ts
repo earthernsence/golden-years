@@ -1,6 +1,5 @@
 import { v } from "convex/values";
 
-import { Doc, Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
 
 export const get = query({

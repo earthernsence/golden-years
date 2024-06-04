@@ -1,4 +1,9 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable max-params */
+// Code from Antimatter Dimensions
+
 import Decimal from "break_infinity.js";
+// eslint-disable-next-line no-duplicate-imports
 import type { DecimalSource } from "break_infinity.js";
 
 abstract class Notation {
@@ -152,4 +157,5 @@ export const formatWithCommas = function formatWithCommas(value: string) {
   return decimalPointSplit.join(".");
 };
 
-export const formatInt = (value: number | Decimal) => formatWithCommas(typeof value === "number" ? value.toFixed(0) : value.toNumber().toFixed(0));
+export const formatInt = (value: number | Decimal) =>
+  formatWithCommas(typeof value === "number" ? value.toFixed(0) : value.toNumber().toFixed(0));
