@@ -73,7 +73,7 @@ export function EditProfileForm({
             <FormItem className="max-w-screen-xs text-left text-sm">
               <FormLabel className="text-lg font-semibold">Name</FormLabel>
               <FormControl>
-                <Input placeholder="your displayed name" {...field} />
+                <Input placeholder="your displayed name" className="dark:bg-dark" {...field} />
               </FormControl>
               <FormDescription>
                 This is the name that will appear when you sign up for events and on your profile.
@@ -90,7 +90,7 @@ export function EditProfileForm({
             <FormItem className="max-w-screen-xs text-left text-sm">
               <FormLabel className="text-lg font-semibold">Email</FormLabel>
               <FormControl>
-                <Input placeholder="your email" {...field} />
+                <Input placeholder="your email" className="dark:bg-dark" {...field} />
               </FormControl>
               <FormDescription>
                 This email will not appear on your profile, but will instead be used to contact you
@@ -107,7 +107,7 @@ export function EditProfileForm({
             <FormItem className="max-w-screen-xs text-left text-sm">
               <FormLabel className="text-lg font-semibold">Bio</FormLabel>
               <FormControl>
-                <Textarea placeholder="a little about yourself" className="resize-none" {...field} />
+                <Textarea placeholder="a little about yourself" className="resize-none dark:bg-dark" {...field} />
               </FormControl>
               <FormDescription>
                 Information about you that will appear on your profile.
@@ -125,7 +125,7 @@ export function EditProfileForm({
             <FormItem className="max-w-screen-xs text-left text-sm">
               <FormLabel className="text-lg font-semibold">Location</FormLabel>
               <FormControl>
-                <Input placeholder="your location or school" {...field} />
+                <Input placeholder="your location or school" className="dark:bg-dark" {...field} />
               </FormControl>
               <FormDescription>
                 Use a city or the school that you attend. This is not required.

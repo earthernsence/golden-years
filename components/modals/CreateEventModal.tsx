@@ -57,11 +57,7 @@ export const CreateEventModal = () => {
       image: imageURL,
       location: values.location,
       slots: parseInt(values.slots, 10),
-      organiser: {
-        name: user.name,
-        email: user.email,
-        username: user.username,
-      }
+      organiser: user.userId,
     });
 
     modal.onClose();

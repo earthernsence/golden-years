@@ -8,16 +8,8 @@ interface Event {
   image?: string,
   location: string,
   slots: number,
-  participants: Array<{
-    name: string,
-    email: string,
-    username: string
-  }>,
-  organiser: {
-    name: string,
-    email: string,
-    username: string
-  },
+  participants: Array<string>,
+  organiser: string,
 }
 
 type LeaveEventModalStore = {

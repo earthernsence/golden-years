@@ -31,11 +31,7 @@ export const getSpecificEvent = query({
 export const addParticipant = mutation({
   args: {
     eventId: v.id("events"),
-    participants: v.optional(v.array(v.object({
-      name: v.string(),
-      email: v.string(),
-      username: v.string()
-    })))
+    participants: v.optional(v.array(v.string()))
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -60,11 +56,7 @@ export const create = mutation({
     image: v.optional(v.string()),
     location: v.string(),
     slots: v.number(),
-    organiser: v.object({
-      name: v.string(),
-      email: v.string(),
-      username: v.string()
-    })
+    organiser: v.string(),
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();

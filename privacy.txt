@@ -1,0 +1,57 @@
+Access to the Site and the use of the Services is conditioned upon your acceptance of, and compliance with,
+this Policy. By accessing or using the Services, you agree to be bound by these Terms. If you disagree with
+any part of these Policy, then you do not have permission to access the Services, and you must immediately
+cease accessing and/or using the Services.
+
+We do not knowingly add users to our website without permission. A user
+is added to our site if and only if they register themselves as a User.
+
+Golden Years does not and cannot control how Event Organisers use the information provided to them, such as
+your name, username, and email. If an Event Organiser adds your information to our Site and you do not wish
+to be a part of our service, contact us and our staff will delete you from our system.
+
+No information is collected about you if you do not register an Account
+on Golden Years.
+
+Below is a summary of the categories of information we collect, where we get it from, and why we collect it.
+
+Golden Years collects two types of information: your provided User information and any information about an
+Event. Any information collected by Google or Apple, the service used on sign-up, aside from the information
+listed here, is not used by Golden Years, nor is Golden Years responsible
+for how that information is used.
+
+Your User Information
+
+Golden Years collects the following information about a User.
+Only Golden Years and Event Organisers receive this information for their own use.
+The information listed here, besides a User's email, is available on each User's page.
+All of this is provided by the User when they register for an Account:
+- a name
+- an email
+- a username
+- a location, such as a city or school (not required)
+- a biography (not requiured)
+- a profile image (from your Google or Apple account, whichever was used to sign in to Golden Years).
+
+This information is collected in order to fulfill your requests for services and information,
+improve our Site's functionality, improve our Services, and for other business purposes.
+
+Event Information
+
+Golden Years collects the following information about an Event.
+Only Golden Years receives this information for their own use.
+The information listed here, besides the Organiser's and the User's email, is available
+on each Event's page.
+All of this information, besides the Participant's emails, usernames, and names (which is given
+to Golden Years when a User signs up for an Event), is provided by the Event Organiser when they create
+an Event:
+- a title
+- an image
+- a description
+- a location
+- the Organiser's information, as provided from their user account
+- any Participant's information, as provided from their user account.
+
+As a reminder, it is of utmost importance that the information you share publicly on the Site is, well,
+public. Be sure to follow good internet safety practices and avoid oversharing. Golden Years is not liable
+for the misuse of information that you choose to place on the Site.

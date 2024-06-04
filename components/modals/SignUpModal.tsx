@@ -84,11 +84,7 @@ export const SignUpModal = () => {
 
     updateEventParticipants({
       eventId: actualEvent._id,
-      participants: [...initialParticipants, {
-        username: actualUser.username,
-        email: actualUser.email,
-        name: actualUser.name
-      }]
+      participants: [...initialParticipants, actualUser.userId]
     });
 
     toast({

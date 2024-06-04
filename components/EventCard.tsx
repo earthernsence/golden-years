@@ -22,6 +22,16 @@ const EventCard = ({
   const signup = useSignupModal();
 
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
+  const organiser = useQuery(api.users.getUserById, { id: `${event.organiser}` });
+
+  if (!organiser) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-full">
+        <div className="text-4xl">Oops!</div>
+        There was an error loading this event. Try refreshing the page.
+      </div>
+    );
+  }
 
   const signUp = () => {
     if (!isSignedIn || !user) {
@@ -42,7 +52,7 @@ const EventCard = ({
       return;
     }
 
-    if (event?.participants.map(participant => participant.username).includes(user.username || "")) {
+    if (event?.participants.includes(user.userId || "")) {
       toast({
         title: "You are already signed up for this event!",
         description: "You can visit your profile to see your future events."
@@ -91,9 +101,9 @@ const EventCard = ({
         <div className="flex flex-row items-center text-left">
           <Icon
             icon={faUser}
-            link={`/users/${event.organiser.username}`}
+            link={`/users/${organiser.username}`}
           />
-          <div className="text-md dark:text-white">Organised by { event.organiser.name }</div>
+          <div className="text-md dark:text-white">Organised by { organiser.name }</div>
         </div>
         <div className="flex flex-row items-center text-left">
           <Icon

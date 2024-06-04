@@ -28,6 +28,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
 
   const { isSignedIn, userId } = useAuth();
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
+  const organiser = useQuery(api.users.getUserById, { id: `${event?.organiser}` });
   const { toast } = useToast();
   const signup = useSignupModal();
 
@@ -49,6 +50,15 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
       <div className="flex flex-col items-center justify-center min-h-full">
         <div className="text-4xl">Oops!</div>
         No event found with id {params.id}!
+      </div>
+    );
+  }
+
+  if (!organiser) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-full">
+        <div className="text-4xl">Oops!</div>
+        There was an error loading this event. Try refreshing the page.
       </div>
     );
   }
@@ -124,9 +134,9 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
               <div className="flex flex-row items-center text-left">
                 <Icon
                   icon={faUser}
-                  link={`/users/${event.organiser.username}`}
+                  link={`/users/${organiser.username}`}
                 />
-                <div className="text-md dark:text-white">Organised by { event.organiser.name }</div>
+                <div className="text-md dark:text-white">Organised by { organiser.name }</div>
               </div>
               <div className="flex flex-row items-center text-left">
                 <Icon

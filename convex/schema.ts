@@ -26,16 +26,8 @@ export default defineSchema({
     image: v.optional(v.string()),
     location: v.string(),
     slots: v.number(),
-    participants: v.array(v.object({
-      name: v.string(),
-      email: v.string(),
-      username: v.string()
-    })),
-    organiser: v.object({
-      name: v.string(),
-      email: v.string(),
-      username: v.string()
-    })
+    participants: v.array(v.string()),
+    organiser: v.string()
   })
     .index("by_event_id", ["eventId"])
     .index("by_date", ["date"])

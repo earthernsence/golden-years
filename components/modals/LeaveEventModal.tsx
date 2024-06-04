@@ -73,7 +73,7 @@ export const LeaveEventModal = () => {
 
     updateEventParticipants({
       eventId: event?._id,
-      participants: initialParticipants.filter(part => part.name !== user.name),
+      participants: initialParticipants.filter(part => part !== user.userId),
     });
 
     toast({

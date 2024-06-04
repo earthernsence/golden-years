@@ -2,10 +2,13 @@
 
 import { faArrowRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useQuery } from "convex/react";
 
+import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
 
 import Icon from "@/components/Icon";
+
 import { useLeaveModal } from "@/hooks/use-leave-event-modal";
 
 interface FutureEventProps {
@@ -15,11 +18,22 @@ interface FutureEventProps {
 export const FutureEvent = ({ event }: FutureEventProps) => {
   const modal = useLeaveModal();
 
+  const organiser = useQuery(api.users.getUserById, { id: `${event.organiser}` });
+
   const getTime = () => {
     const timeAsDate = new Date(event.date);
 
     return `${timeAsDate.getHours()}:${timeAsDate.getMinutes().toString().padStart(2, "0")}`;
   };
+
+  if (!organiser) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-full">
+        <div className="text-4xl">Oops!</div>
+        There was an error loading this event. Try refreshing the page.
+      </div>
+    );
+  }
 
   return (
     <div className="border-4 border-gray-500 flex rounded-lg
@@ -37,10 +51,10 @@ export const FutureEvent = ({ event }: FutureEventProps) => {
       </div>
       <div className="flex w-1/2 xs:flex-col items-end justify-center xs:space-y-2 md:space-y-0">
         <div className="flex flex-row items-center text-left">
-          <div className="text-md dark:text-white">Organised by { event.organiser.name }</div>
+          <div className="text-md dark:text-white">Organised by { organiser.name }</div>
           <Icon
             icon={faUser}
-            link={`/users/${event.organiser.username}`}
+            link={`/users/${organiser.username}`}
             className="mr-0 ml-4"
           />
         </div>

@@ -132,10 +132,10 @@ export const PrivacyPolicyModal = () => {
                     a location;
                   </li>
                   <li>
-                    the Organiser&apos;s email, username, and name from their User account;
+                    the Organiser&apos;s information, as provided from their user account;
                   </li>
                   <li>
-                    any Participant&apos;s email, username, and name from their User account.
+                    any Participant&apos;s information, as provided from their user account.
                   </li>
                 </ul>
               </AccordionContent>

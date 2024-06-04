@@ -1,14 +1,9 @@
-import Link from "next/link";
-import { User } from "lucide-react";
+"use client";
 
-interface Participant {
-  name: string,
-  email: string,
-  username: string,
-}
+import { Participant } from "./Participant";
 
 interface ParticipantsListProps {
-  participants?: Array<Participant>
+  participants?: Array<string>
 }
 
 export const ParticipantsList = ({
@@ -25,15 +20,8 @@ export const ParticipantsList = ({
   return (
     <div className="flex flex-col">
       {
-        participants.map((participant: Participant, index: number) => (
-          <Link
-            key={index}
-            className="text-xs flex flex-row text-left items-center"
-            href={`/users/${participant.username}`}
-          >
-            <User />
-            {participant.name}
-          </Link>
+        participants.map((participant: string, index: number) => (
+          <Participant participant={participant} key={index} />
         ))
       }
     </div>
