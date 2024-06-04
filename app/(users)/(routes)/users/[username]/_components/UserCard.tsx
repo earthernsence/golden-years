@@ -1,73 +1,148 @@
-import Image from "next/image";
+"use client";
 
+import Image from "next/image";
+import { Pencil } from "lucide-react";
+import { useMutation } from "convex/react";
+import { useState } from "react";
+import { z } from "zod";
+
+import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
 import { Doc } from "@/convex/_generated/dataModel";
-import { Skeleton } from "@/components/ui/Skeleton";
 
+import { Button } from "@/components/ui/Button";
+import { Skeleton } from "@/components/ui/Skeleton";
+import { useToast } from "@/components/ui/use-toast";
+
+import { EditProfileForm, formSchema } from "./EditProfileForm";
 import { PastEvents } from "./PastEvents";
 import { TimeSpan } from "./formatter/TimeSpan";
 
+
 interface UserCardProps {
-  user: Doc<"users">
+  user: Doc<"users">,
+  isUser: boolean
 }
 
-export const UserCard = ({ user }: UserCardProps) => (
-  <div className="flex p-4 gap-x-2 bg-muted-foreground/10 rounded-md border
-                  xs:flex-col md:flex-row xs:w-full md:w-auto h-auto
-                dark:border-white"
-  >
-    <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 items-center justify-center">
-      <div className="flex xs:flex-row md:flex-col items-center xs:gap-x-2 md:gap-y-2">
-        <Image
-          src={user.image || "/no_image.png"}
-          alt="User image"
-          className="xs:w-24 md:w-36 xs:h-24 md:h-36 rounded-full border dark:border-gray-500"
-          width={1024}
-          height={1024}
-        />
-        <div className="flex flex-col">
-          <div className={cn("font-bold", user.admin && "text-red-500")}>
-            {user.name}
+export const UserCard = ({ user, isUser }: UserCardProps) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const { toast } = useToast();
+
+  const update = useMutation(api.users.update);
+
+  const confirmEdits = async(values: z.infer<typeof formSchema>) => {
+    toast({
+      title: "Your edits have been saved!",
+      description: "It may take time for these edits to show across Golden Years."
+    });
+    setIsEditing(false);
+
+    await update({
+      userId: user._id,
+      ...values
+    });
+  };
+
+  if (isEditing) return (
+    <div className="flex p-4 xs:gap-y-2 md:gap-y-0 md:gap-x-8 bg-muted-foreground/10 rounded-md border
+                    xs:flex-col md:flex-row xs:w-full md:w-auto h-auto
+                  dark:border-white"
+    >
+      <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 md:min-w-[144px] items-center justify-center">
+        <div className="flex xs:flex-row md:flex-col items-center xs:gap-x-2 md:gap-y-2">
+          <Image
+            src={user.image || "/no_image.png"}
+            alt="User image"
+            className="xs:w-24 md:w-36 xs:h-24 md:h-36 rounded-full border dark:border-gray-500"
+            width={1024}
+            height={1024}
+          />
+          <div className="flex flex-col">
+            <div className={cn("font-bold", user.admin && "text-red-500")}>
+              {user.name}
+            </div>
+            <div className="text-xs opacity-50">{user.username}</div>
           </div>
-          <div className="text-xs opacity-50">{user.username}</div>
+          {isUser && (
+            <div className="flex md:flex-col justify-center">
+              <Button variant={"ghost"} onClick={() => setIsEditing(false)}>
+                Cancel
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="flex items-center justify-center place-self-center">
+        <EditProfileForm onSubmit={confirmEdits} user={user} />
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="flex p-4 gap-x-2 bg-muted-foreground/10 rounded-md border
+                    xs:flex-col md:flex-row xs:w-full md:w-auto h-auto
+                  dark:border-white"
+    >
+      <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 items-center justify-center">
+        <div className="flex xs:flex-row md:flex-col items-center xs:gap-x-2 md:gap-y-2">
+          <Image
+            src={user.image || "/no_image.png"}
+            alt="User image"
+            className="xs:w-24 md:w-36 xs:h-24 md:h-36 rounded-full border dark:border-gray-500"
+            width={1024}
+            height={1024}
+          />
+          <div className="flex flex-col">
+            <div className={cn("font-bold", user.admin && "text-red-500")}>
+              {user.name}
+            </div>
+            <div className="text-xs opacity-50">{user.username}</div>
+          </div>
+          {isUser && (
+            <div className="flex justify-center">
+              <Button variant={"ghost"} onClick={() => setIsEditing(true)}>
+                <Pencil className="mr-2 h-4 w-4" /> Edit Profile
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="flex flex-col w-3/4">
+        <div className="h-1/6 text-left text-sm">
+          <div className="text-lg font-semibold">Account age</div>
+            This account was created {new TimeSpan(Date.now() - user.signupTime).toStringNoDecimals()} ago
+        </div>
+        <br />
+        <div className="h-1/6 text-left text-sm">
+          <div className="text-lg font-semibold">Biography</div>
+          {user.bio ?? "None provided..."}
+        </div>
+        <br />
+        <div className="h-1/6 text-left text-sm">
+          <div className="text-lg font-semibold">Location</div>
+          {user.location ?? "None provided..."}
+        </div>
+        <br />
+        {/* TODO: Group system */}
+        {/* <div className="h-1/6 text-left text-sm">
+          <div className="text-lg font-semibold">Groups</div>
+          {user.groups ?? "This user is not currently a member of any Groups."}
+          <GroupsList />
+        </div>
+        <br /> */}
+        <div className="h-1/3 text-left text-sm">
+          <div className="text-lg font-semibold">Past events</div>
+          <PastEvents events={user.events} />
         </div>
       </div>
     </div>
-    <div className="flex flex-col w-3/4">
-      <div className="h-1/6 text-left text-sm">
-        <div className="text-lg font-semibold">Account age</div>
-          This account was created {new TimeSpan(Date.now() - user.signupTime).toStringNoDecimals()} ago
-      </div>
-      <br />
-      <div className="h-1/6 text-left text-sm">
-        <div className="text-lg font-semibold">Biography</div>
-        {user.bio ?? "None provided..."}
-      </div>
-      <br />
-      <div className="h-1/6 text-left text-sm">
-        <div className="text-lg font-semibold">Location</div>
-        {user.location ?? "None provided..."}
-      </div>
-      <br />
-      {/* TODO: Group system */}
-      {/* <div className="h-1/6 text-left text-sm">
-        <div className="text-lg font-semibold">Groups</div>
-        {user.groups ?? "This user is not currently a member of any Groups."}
-        <GroupsList />
-      </div>
-      <br /> */}
-      <div className="h-1/3 text-left text-sm">
-        <div className="text-lg font-semibold">Past events</div>
-        <PastEvents events={user.events} />
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 UserCard.Skeleton = function UserCardSkeleton() {
   return (
-    <div className="flex p-4 bg-muted-foreground/10 rounded-md border
-                    xs:flex-col md:flex-row xs:w-full md:w-2/5 h-auto xs:gap-y-2 md:gap-x-2
+    <div className="flex p-4 gap-x-2 bg-muted-foreground/10 rounded-md border
+                    xs:flex-col md:flex-row xs:w-full md:w-auto h-auto
                   dark:border-white"
     >
       <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 items-center justify-center">

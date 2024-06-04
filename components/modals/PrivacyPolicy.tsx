@@ -1,6 +1,6 @@
 "use client";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/Accordion";
 import {
   Dialog,
   DialogContent,
@@ -44,7 +44,7 @@ export const PrivacyPolicyModal = () => {
           any part of these Policy, then you do not have permission to access the Services, and you must immediately
           cease accessing and/or using the Services.
           <br />
-          You can view our Terms of Service {" "}
+          You can view our Terms of Service{" "}
           <span onClick={openTerms} className="underline text-sky-500 cursor-pointer">here</span>.
         </div>
         <span className="border-b flex h-2 justify-items-center mt-1 mb-2" />

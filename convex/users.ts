@@ -43,6 +43,31 @@ export const create = mutation({
   }
 });
 
+export const update = mutation({
+  args: {
+    userId: v.id("users"),
+    name: v.string(),
+    email: v.string(),
+    bio: v.optional(v.string()),
+    location: v.optional(v.string())
+  },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated!");
+    }
+
+    const { userId, ...rest } = args;
+
+    const user = await ctx.db.patch(userId, {
+      ...rest
+    });
+
+    return user;
+  }
+});
+
 export const usernames = query({
   handler: async ctx => {
     const users = await ctx.db.query("users").collect();

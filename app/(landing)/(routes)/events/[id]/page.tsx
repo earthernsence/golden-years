@@ -4,7 +4,7 @@ import { faArrowRightToBracket, faUser } from "@fortawesome/free-solid-svg-icons
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useAuth, useUser } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 
 import Icon from "@/components/Icon";
@@ -26,8 +26,8 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
   const eventId = parseInt(params.id, 10);
   const event = useQuery(api.events.getSpecificEvent, { id: `${eventId}` });
 
-  const { isSignedIn } = useAuth();
-  const { user } = useUser();
+  const { isSignedIn, userId } = useAuth();
+  const user = useQuery(api.users.getUserById, { id: `${userId}` });
   const { toast } = useToast();
   const signup = useSignupModal();
 
@@ -59,7 +59,6 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
         title: "Cannot sign up for event",
         description: "You must be signed in in order to sign up for events."
       });
-
       return;
     }
 
@@ -72,7 +71,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
       return;
     }
 
-    if (event?.participants.map(participant => participant.username).includes(user?.publicMetadata.username || "")) {
+    if (user?.events?.includes(event.eventId)) {
       toast({
         title: "You are already signed up for this event!",
         description: "You can visit your profile to see your future events."

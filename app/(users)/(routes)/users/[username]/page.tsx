@@ -56,7 +56,7 @@ const UserPage = ({ params }: UserPageProps) => {
                           dark:bg-dark
                           md:justify-start"
       >
-        <UserCard user={dbUser} />
+        <UserCard user={dbUser} isUser={isUser} />
         {isUser && (<FutureEvents events={dbUser.events} />)}
       </section>
     </main>
