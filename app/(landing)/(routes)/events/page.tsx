@@ -13,14 +13,13 @@ import holly from "#/holly.jpg";
 import { useCreateEventModal } from "@/hooks/use-create-event-modal";
 
 const EventsPage = () => {
-  const events = useQuery(api.events.get);
-  const { userId } = useAuth();
-
-  const user = useQuery(api.users.getUserById, { id: `${userId}` });
-
-  const isAdmin = user?.admin || false;
-
   const createModal = useCreateEventModal();
+
+  const events = useQuery(api.events.get);
+
+  const { userId } = useAuth();
+  const user = useQuery(api.users.getUserById, { id: `${userId}` });
+  const isAdmin = user?.admin || false;
 
   if (events === null) {
     return (

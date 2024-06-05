@@ -31,8 +31,8 @@ export const CreateEventModal = () => {
 
   // We have to return some placeholder components here. These should never run as the modal can only be opened
   // if a user is a) signed in on the events page and b) is an admin. Type safety, however, demands that we do this.
-  if (!user) return (<div>This really shouldn&apos;t be possible.</div>);
-  if (!user.admin) return (<div>This REALLY shouldn&apos;t be possible.</div>);
+  if (!user) return (<div className="hidden">This really shouldn&apos;t be possible.</div>);
+  if (!user.admin) return (<div className="hidden">This REALLY shouldn&apos;t be possible.</div>);
 
   const uploadFile = async(uploadedFile?: File) => {
     if (uploadedFile) {

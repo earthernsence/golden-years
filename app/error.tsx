@@ -22,7 +22,7 @@ const Error = () => (
       className="hidden dark:block"
     />
     <div className="text-xl font-medium">
-        something went wrong!
+      something went wrong!
     </div>
     <Button asChild>
       <Link href="/">

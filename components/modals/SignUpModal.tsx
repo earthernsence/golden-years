@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery } from "convex/react";
-import { useUser } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 
 import {
   Dialog,
@@ -18,10 +18,10 @@ import { useSignupModal } from "@/hooks/use-signup-modal";
 
 export const SignUpModal = () => {
   const signup = useSignupModal();
-  const { user } = useUser();
+  const { userId } = useAuth();
   const { toast } = useToast();
 
-  const actualUser = useQuery(api.users.getUser, { username: user?.publicMetadata.username || "" });
+  const user = useQuery(api.users.getUserById, { id: `${userId}` });
   const updateUserEvents = useMutation(api.users.updateEvents);
   const actualEvent = useQuery(api.events.getSpecificEvent, { id: signup.event?.eventId || "" });
   const updateEventParticipants = useMutation(api.events.addParticipant);
@@ -59,13 +59,13 @@ export const SignUpModal = () => {
   };
 
   const confirmSignup = () => {
-    if (!actualUser) return;
+    if (!user) return;
     if (!signup.event) return;
     if (!actualEvent) return;
 
-    if (!actualUser.username || !actualUser.email) return;
+    if (!user.username || !user.email) return;
 
-    if (actualUser.events?.includes(signup.event.eventId)) {
+    if (user.events?.includes(signup.event.eventId)) {
       toast({
         title: "You're already signed up for this event, silly!",
         description: "You can view your future events from your profile."
@@ -73,10 +73,10 @@ export const SignUpModal = () => {
       return;
     }
 
-    const initialEvents = actualUser?.events || [];
+    const initialEvents = user?.events || [];
 
     updateUserEvents({
-      userId: actualUser._id,
+      userId: user._id,
       events: [...initialEvents, signup.event.eventId]
     });
 
@@ -84,7 +84,7 @@ export const SignUpModal = () => {
 
     updateEventParticipants({
       eventId: actualEvent._id,
-      participants: [...initialParticipants, actualUser.userId]
+      participants: [...initialParticipants, user.userId]
     });
 
     toast({

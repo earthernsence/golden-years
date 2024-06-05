@@ -1,3 +1,4 @@
+// Code from Antimatter Dimensions
 import { formatInt, ScientificNotation } from "./format";
 
 const Formatter = new ScientificNotation();

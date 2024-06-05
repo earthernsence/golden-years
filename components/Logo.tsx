@@ -9,6 +9,7 @@ enum LogoSizes {
   ExtraSmall = 100,
   Normal = 300,
 }
+
 interface LogoProps {
   size: keyof typeof LogoSizes
 }

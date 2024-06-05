@@ -18,7 +18,6 @@ import { EditProfileForm, formSchema } from "./EditProfileForm";
 import { PastEvents } from "./PastEvents";
 import { TimeSpan } from "./formatter/TimeSpan";
 
-
 interface UserCardProps {
   user: Doc<"users">,
   isUser: boolean

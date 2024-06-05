@@ -1,6 +1,9 @@
 import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 
+// We use middleware because we have a specific "onboarding" page that all users must use when they sign
+// up for an account. All this does is ensure that before they go to any other page on the site that they
+// have their account set up.
 export default authMiddleware({
   afterAuth: async(auth, req: NextRequest) => {
     const { userId, sessionClaims } = auth;
@@ -20,7 +23,7 @@ export default authMiddleware({
 
     if (auth.isPublicRoute) return NextResponse.next();
   },
-  publicRoutes: ["/", "/about_us", "/events"]
+  publicRoutes: ["/", "/about_us", "/events", "/users"]
 });
 
 export const config = {

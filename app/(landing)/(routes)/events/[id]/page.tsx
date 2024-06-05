@@ -23,14 +23,15 @@ interface SpecificEventPageProps {
 }
 
 const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
+  const { toast } = useToast();
+  const signup = useSignupModal();
+
   const eventId = parseInt(params.id, 10);
   const event = useQuery(api.events.getSpecificEvent, { id: `${eventId}` });
+  const organiser = useQuery(api.users.getUserById, { id: `${event?.organiser}` });
 
   const { isSignedIn, userId } = useAuth();
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
-  const organiser = useQuery(api.users.getUserById, { id: `${event?.organiser}` });
-  const { toast } = useToast();
-  const signup = useSignupModal();
 
   if (event === undefined) {
     return (

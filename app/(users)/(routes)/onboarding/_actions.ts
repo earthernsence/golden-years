@@ -4,6 +4,9 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import { formSchema } from "./OnboardingForm";
 import { z } from "zod";
 
+// We have to update some general metadata here when our users complete the onboarding process.
+// This way, all of the user's data is still associated with the account before the changes are made
+// in the actual database.
 export const completeOnboarding = async(values: z.infer<typeof formSchema>) => {
   const { userId } = auth();
 
