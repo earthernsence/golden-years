@@ -16,7 +16,8 @@ export const FutureEvents = ({ events }: FutureEventsProps) => {
   if (!events) {
     return (
       <div className="flex text-sm">
-        You have not participated in any events. Sign up for one <Link href={`/events`}>here</Link>!
+        You have not participated in any events. Sign up for one{" "}
+        <Link className="ml-1" href={`/events`}>here</Link>!
       </div>
     );
   }
@@ -28,7 +29,8 @@ export const FutureEvents = ({ events }: FutureEventsProps) => {
   if (participatedFutureEvents === undefined || participatedFutureEvents.length === 0) {
     return (
       <div className="flex text-sm">
-          You have not participated in any events. Sign up for one <Link href={`/events`}>here</Link>!
+        You have not participated in any events. Sign up for one{" "}
+        <Link className="ml-1" href={`/events`}>here</Link>!
       </div>
     );
   }

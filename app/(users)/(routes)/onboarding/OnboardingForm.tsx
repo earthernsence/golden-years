@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -44,7 +45,7 @@ export const formSchema = z.object({
   }).max(50, {
     message: "Location cannot be more than 50 characters."
   }).optional().or(z.literal("")),
-  terms: z.string()
+  terms: z.boolean()
 });
 
 interface OnboardingFormProps {
@@ -58,6 +59,8 @@ export function OnboardingForm({
   const terms = useTermsModal();
   const privacy = usePrivacyPolicyModal();
 
+  const [checked, setChecked] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,7 +69,7 @@ export function OnboardingForm({
       username: "",
       bio: "",
       location: "",
-      terms: "false",
+      terms: false,
     }
   });
 
@@ -164,18 +167,30 @@ export function OnboardingForm({
         <FormField
           control={form.control}
           name="terms"
-          render={({ field }) => (
+          // eslint-disable-next-line no-unused-vars
+          render={({ field: { value, onChange, ...fieldProps } }) => (
             <FormItem className="max-w-screen-xs">
               <FormLabel>Terms and Privacy Policy</FormLabel>
               <FormControl>
-                <Input type="checkbox" {...field} />
+                {/* eslint-disable-next-line no-unused-vars */}
+                <Input
+                  type="checkbox"
+                  className="h-4 w-4"
+                  checked={checked}
+                  onChange={e => {
+                    setChecked(e.target.checked);
+                    onChange(e.target.checked);
+                  }}
+                  {...fieldProps}
+                />
               </FormControl>
               <FormDescription>
                 Visit our{" "}
                 <span onClick={terms.onOpen} className="underline text-sky-500 cursor-pointer">Terms of Service</span>
-                and our{" "}
+                {" "}and our{" "}
                 <span onClick={privacy.onOpen} className="underline text-sky-500 cursor-pointer">Privacy Policy</span>.
               </FormDescription>
+              <FormMessage />
             </FormItem>
           )}
         />

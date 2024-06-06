@@ -9,3 +9,4 @@
 *.txt    eol=crlf
 *.json   eol=crlf
 *.svelte eol=crlf
+*.tsx    eol=crlf

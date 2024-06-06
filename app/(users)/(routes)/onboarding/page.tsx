@@ -24,7 +24,7 @@ export default function OnboardingPage() {
       return;
     }
 
-    if (!(/true/u).test(values.terms)) {
+    if (!values.terms) {
       setError("You must accept the Terms of Services and the Privacy Policy to register for an account.");
       return;
     }
@@ -56,10 +56,10 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center align-middle">
+    <div className="flex flex-col justify-center items-center align-middle h-auto">
       <div className="text-2xl text-center">one last thing...</div>
-      <OnboardingForm onSubmit={onSubmit} />
       <div className="text-red-500">{ error }</div>
+      <OnboardingForm onSubmit={onSubmit} />
     </div>
   );
 }

@@ -78,11 +78,11 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
   );
 
   return (
-    <div className="flex p-4 gap-x-2 bg-muted-foreground/10 rounded-md border
+    <div className="flex p-4 gap-x-8 bg-muted-foreground/10 rounded-md border
                     xs:flex-col md:flex-row xs:w-full md:w-auto h-auto
                   dark:border-white"
     >
-      <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 items-center justify-center">
+      <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 md:min-w-[144px] items-center justify-center">
         <div className="flex xs:flex-row md:flex-col items-center xs:gap-x-2 md:gap-y-2">
           <Image
             src={user.image || "/no_image.png"}
