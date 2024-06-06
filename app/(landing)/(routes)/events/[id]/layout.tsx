@@ -1,12 +1,5 @@
 "use client";
 
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Golden Years | Events",
-  description: "Connecting students to opportunities",
-};
-
 const SpecificEventPageLayout = ({
   children
 }: {
