@@ -1,6 +1,6 @@
 "use client";
 
-import { SignInButton, SignUpButton, useAuth, UserButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, useAuth, UserButton } from "@clerk/nextjs";
 import { useConvexAuth, useQuery } from "convex/react";
 import Link from "next/link";
 
@@ -17,7 +17,6 @@ import { Wordmark } from "./Wordmark";
 
 export const Navbar = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();
-  const { user } = useUser();
   const { userId } = useAuth();
 
   const dbUser = useQuery(api.users.getUserById, { id: `${userId}` });
