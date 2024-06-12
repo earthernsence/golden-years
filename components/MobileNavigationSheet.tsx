@@ -12,8 +12,12 @@ import {
 } from "@/components/ui/Sheet";
 
 import { Page, Pages } from "./pages";
+import Icon from "./Icon";
 import { Separator } from "./ui/Separator";
 import { Wordmark } from "./Wordmark";
+
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
 
 const MobileNavigationSheet = () => (
   <Sheet>
@@ -45,7 +49,18 @@ const MobileNavigationSheet = () => (
         }
       </div>
       <Separator className="mt-2 mb-2" />
-      <div>socials</div>
+      <div className="flex flex-row w-full">
+        <Icon
+          icon={faInstagram}
+          className="w-8 h-8"
+          link={"https://www.instagram.com/goldenyearsfhhs/"}
+        />
+        <Icon
+          icon={faMessage}
+          className="w-8 h-8"
+          link={"https://groupme.com/join_group/100192539/3CkxOnJA"}
+        />
+      </div>
     </SheetContent>
   </Sheet>
 );

@@ -15,14 +15,13 @@ export const Icon = ({ icon, link, className, onClick }: IconProps) => (
     target="_blank"
     className={`text-black dark:text-white opacity-50 mr-4 cursor-pointer
               transition-all duration-200 ease-in-out
-              hover:opacity-100 hover:scale-110
-              ${className}`}
+              hover:opacity-100 hover:scale-110 items-center flex`}
   >
     <FontAwesomeIcon
       icon={icon}
       width={50}
       height={50}
-      className="w-12 h-12"
+      className={`w-12 h-12 ${className}`}
     />
   </a>
 );

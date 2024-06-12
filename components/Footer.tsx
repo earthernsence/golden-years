@@ -1,6 +1,9 @@
 "use client";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@/components/ui/Button";
+import Icon from "./Icon";
 import { Wordmark } from "./Wordmark";
 
 import { usePrivacyPolicyModal } from "@/hooks/use-privacy-policy-modal";
@@ -17,6 +20,18 @@ export const Footer = () => {
       </div>
       <br />
       <div className="ml-auto justify-end flex items-center gap-x-2 text-muted-foreground">
+        <div className="flex flex-row w-full gap-x-2 items-center">
+          <Icon
+            icon={faInstagram}
+            className="h-8 w-8"
+            link={"https://www.instagram.com/goldenyearsfhhs/"}
+          />
+          <Icon
+            icon={faMessage}
+            className="h-8 w-8"
+            link={"https://groupme.com/join_group/100192539/3CkxOnJA"}
+          />
+        </div>
         <Button variant="ghost" size="sm" onClick={privacy.onOpen}>
         Privacy
         </Button>

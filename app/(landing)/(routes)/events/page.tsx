@@ -70,6 +70,7 @@ const EventsPage = () => {
             In the meantime, here is a picture of Holly.
             <Image
               src={holly}
+              priority
               className="w-64"
               alt="Carissa's cat, Holly."
               width={2268}
