@@ -17,7 +17,7 @@ export const FutureEvents = ({ events }: FutureEventsProps) => {
     return (
       <div className="flex text-sm">
         You have not participated in any events. Sign up for one{" "}
-        <Link className="ml-1" href={`/events`}>here</Link>!
+        <Link className="ml-1 underline text-sky-500 cursor-pointer" href={`/events`}>here</Link>!
       </div>
     );
   }
@@ -30,7 +30,7 @@ export const FutureEvents = ({ events }: FutureEventsProps) => {
     return (
       <div className="flex text-sm">
         You have not participated in any events. Sign up for one{" "}
-        <Link className="ml-1" href={`/events`}>here</Link>!
+        <Link className="ml-1 underline text-sky-500 cursor-pointer" href={`/events`}>here</Link>!
       </div>
     );
   }

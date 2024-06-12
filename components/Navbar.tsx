@@ -1,25 +1,26 @@
 "use client";
 
-import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, useAuth, UserButton, useUser } from "@clerk/nextjs";
+import { useConvexAuth, useQuery } from "convex/react";
 import Link from "next/link";
-import { useConvexAuth } from "convex/react";
-
-import { ThemeToggle } from "@/components/ThemeToggle";
-
-import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/ThemeToggle";
+
+import { api } from "@/convex/_generated/api";
+import { cn } from "@/lib/utils";
 
 import { Page, Pages } from "./pages";
-import { Wordmark } from "./Wordmark";
-
-import Spinner from "./Spinner";
-
 import MobileNavigationSheet from "./MobileNavigationSheet";
+import Spinner from "./Spinner";
+import { Wordmark } from "./Wordmark";
 
 export const Navbar = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const { user } = useUser();
+  const { userId } = useAuth();
+
+  const dbUser = useQuery(api.users.getUserById, { id: `${userId}` });
 
   return (
     <div className={cn(
@@ -73,10 +74,10 @@ export const Navbar = () => {
             </SignUpButton>
           </>
         )}
-        {isAuthenticated && !isLoading && (
+        {isAuthenticated && !isLoading && dbUser && (
           <>
             <UserButton afterSignOutUrl="/" />
-            <Link href={`/users/${user?.publicMetadata.username}`}>
+            <Link href={`/users/${dbUser.username}`}>
               <Button variant="outline" size="sm">
                 Go to profile
               </Button>
