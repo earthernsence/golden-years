@@ -149,7 +149,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-3/4 gap-y-2">
+        <div className="flex flex-col xs:w-full md:w-3/4 gap-y-2">
           <div className="text-left text-sm">
             <div className="text-xl font-semibold">{event.title}</div>
           </div>
