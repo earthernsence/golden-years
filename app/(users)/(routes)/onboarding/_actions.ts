@@ -18,13 +18,13 @@ export const completeOnboarding = async(values: z.infer<typeof formSchema>) => {
     const res = await clerkClient.users.updateUser(userId, {
       publicMetadata: {
         onboardingComplete: true,
-        name: values.name,
-        username: values.username,
-        email: values.email,
+        name: values.name.trim(),
+        username: values.username.trim(),
+        email: values.email.trim(),
         signupTime: Date.now(),
         admin: false,
-        bio: values.bio || "",
-        location: values.location || "",
+        bio: values.bio?.trim() || "",
+        location: values.location?.trim() || "",
       },
     });
     return { message: res.publicMetadata };
