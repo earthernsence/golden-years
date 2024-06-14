@@ -79,7 +79,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
 
   return (
     <div className="flex p-4 gap-x-8 bg-muted-foreground/10 rounded-md border
-                    xs:flex-col md:flex-row xs:w-full md:w-auto h-auto
+                    xs:flex-col md:flex-row xs:w-full md:w-auto md:max-w-[50%] h-auto
                   dark:border-white"
     >
       <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 md:min-w-[144px] items-center justify-center">
@@ -106,24 +106,24 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
           )}
         </div>
       </div>
-      <div className="flex flex-col w-3/4">
-        <div className="h-1/6 text-left text-sm">
+      <div className="flex flex-col xs:w-full md:w-3/4 gap-y-2">
+        <div className="min-h-1/6 h-auto text-left text-sm">
           <div className="text-lg font-semibold">Account age</div>
             This account was created {new TimeSpan(Date.now() - user.signupTime).toStringNoDecimals()} ago
         </div>
         <br />
-        <div className="h-1/6 text-left text-sm">
+        <div className="min-h-1/6 h-auto text-left text-sm">
           <div className="text-lg font-semibold">Biography</div>
           {user.bio ?? "None provided..."}
         </div>
         <br />
-        <div className="h-1/6 text-left text-sm">
+        <div className="min-h-1/6 h-auto text-left text-sm">
           <div className="text-lg font-semibold">Location</div>
           {user.location ?? "None provided..."}
         </div>
         <br />
         {/* TODO: Group system */}
-        {/* <div className="h-1/6 text-left text-sm">
+        {/* <div className="min-h-1/6 h-auto text-left text-sm">
           <div className="text-lg font-semibold">Groups</div>
           {user.groups ?? "This user is not currently a member of any Groups."}
           <GroupsList />

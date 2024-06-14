@@ -1,9 +1,9 @@
 "use client";
 
+import { useAuth, useUser } from "@clerk/nextjs";
 import { useMutation, useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useUser } from "@clerk/nextjs";
 import { z } from "zod";
 
 import { api } from "@/convex/_generated/api";
@@ -14,9 +14,12 @@ import { formSchema, OnboardingForm } from "./OnboardingForm";
 export default function OnboardingPage() {
   const [error, setError] = useState("");
   const { user } = useUser();
+  const { userId } = useAuth();
   const router = useRouter();
   const create = useMutation(api.users.create);
   const usernames = useQuery(api.users.usernames);
+
+  const dbUser = useQuery(api.users.getUserById, { id: `${userId}` });
 
   const onSubmit = async(values: z.infer<typeof formSchema>) => {
     if (usernames?.includes(values.username)) {
@@ -36,6 +39,8 @@ export default function OnboardingPage() {
       router.push("/");
 
       if (!user) return;
+
+      if (dbUser) return;
 
       create({
         userId: user.id,
