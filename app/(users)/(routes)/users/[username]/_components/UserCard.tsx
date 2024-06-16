@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Pencil } from "lucide-react";
+import { Pencil, Star } from "lucide-react";
 import { useMutation } from "convex/react";
 import { useState } from "react";
 import { z } from "zod";
@@ -91,10 +91,18 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
             width={1024}
             height={1024}
           />
-          <div className="flex flex-col">
-            <div className={cn("font-bold", user.admin && "text-red-500")}>
-              {user.name}
+          <div className="flex flex-col justify-center">
+            <div className={cn(
+              "font-bold inline-flex flex-row justify-center items-center gap-x-1",
+              user.admin && "text-red-500"
+            )}>
+              {user.exec && (<Star className="w-4 h-4" />)} {user.name}
             </div>
+            { user.exec && (
+              <div className="text-sm opacity-75">
+                {user.exec}
+              </div>
+            )}
             <div className="text-xs opacity-50">{user.username}</div>
           </div>
           {isUser && (

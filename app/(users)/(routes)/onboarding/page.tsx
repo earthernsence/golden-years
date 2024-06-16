@@ -49,6 +49,7 @@ export default function OnboardingPage() {
         username: user.publicMetadata.username,
         signupTime: Date.now(),
         admin: false,
+        exec: "",
         image: user.imageUrl,
         bio: user.publicMetadata.bio,
         location: user.publicMetadata.location

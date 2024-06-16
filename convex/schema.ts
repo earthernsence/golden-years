@@ -9,6 +9,7 @@ export default defineSchema({
     username: v.string(),
     signupTime: v.number(),
     admin: v.boolean(),
+    exec: v.optional(v.string()),
     bio: v.optional(v.string()),
     location: v.optional(v.string()),
     image: v.optional(v.string()),
