@@ -23,8 +23,8 @@ import { useTermsModal } from "@/hooks/use-terms-modal";
 
 function usernameTest(u: string) {
   const hasWhitespace = /\s/u.test(u);
-  const hasSpecial = /[*|\":<>.,[\]{}`\\()';@&$]/u.test(u);
-  const isAlphanumeric = /[a-zA-Z0-9]{2,}/u.test(u);
+  const hasSpecial = /[*|":<>.,[\]{}\\()';@&$]/u.test(u);
+  const isAlphanumeric = /^[a-zA-Z0-9]{2,}$/u.test(u);
 
   if (hasWhitespace || hasSpecial) return false;
   return isAlphanumeric;
