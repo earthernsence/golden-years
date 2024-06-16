@@ -30,8 +30,8 @@ export const formSchema = z.object({
   }),
   bio: z.string().min(2, {
     message: "Bio must be at least 2 characters."
-  }).max(200, {
-    message: "Bio cannot be more than 200 characters."
+  }).max(500, {
+    message: "Bio cannot be more than 500 characters."
   }).optional().or(z.literal("")),
   location: z.string().min(2, {
     message: "Location must be at least 2 characters."
