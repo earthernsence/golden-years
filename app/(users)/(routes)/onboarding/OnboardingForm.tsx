@@ -21,6 +21,15 @@ import { Textarea } from "@/components/ui/Textarea";
 import { usePrivacyPolicyModal } from "@/hooks/use-privacy-policy-modal";
 import { useTermsModal } from "@/hooks/use-terms-modal";
 
+function usernameTest(u: string) {
+  const hasWhitespace = /\s/u.test(u);
+  const hasSpecial = /[*|\":<>.,[\]{}`\\()';@&$]/u.test(u);
+  const isAlphanumeric = /[a-zA-Z0-9]{2,}/u.test(u);
+
+  if (hasWhitespace || hasSpecial) return false;
+  return isAlphanumeric;
+}
+
 export const formSchema = z.object({
   name: z.string().min(2, {
     message: "Display name must be at least 2 characters."
@@ -31,6 +40,8 @@ export const formSchema = z.object({
     message: "Username must be at least 2 characters."
   }).max(50, {
     message: "Username cannot be more than 50 characters."
+  }).refine(value => usernameTest(value), {
+    message: "No spaces or special characters in usernames. Only alphanumeric characters allowed."
   }),
   email: z.string().email({
     message: "Not a valid email address."
