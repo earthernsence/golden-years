@@ -34,7 +34,7 @@ export const PastEvents = ({ events }: PastEventsProps) => {
   }
 
   return (
-    <div className="flex">
+    <div className="flex flex-col">
       {
         participatedPastEvents.map((event, index) => (
           <Link

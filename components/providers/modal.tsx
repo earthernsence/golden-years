@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { AssignRoleModal } from "../modals/AssignRoleModal";
 import { CreateEventModal } from "../modals/CreateEventModal";
 import { LeaveEventModal } from "../modals/LeaveEventModal";
 import { PrivacyPolicyModal } from "../modals/PrivacyPolicy";
@@ -24,6 +25,7 @@ export const ModalProvider = () => {
       <SignUpModal />
       <CreateEventModal />
       <LeaveEventModal />
+      <AssignRoleModal />
     </>
   );
 };

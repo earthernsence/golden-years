@@ -15,5 +15,6 @@ declare global {
     admin: boolean,
     bio: string,
     location: string,
+    groups: Array<string>
   }
 }

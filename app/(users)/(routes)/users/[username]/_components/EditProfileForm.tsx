@@ -15,8 +15,10 @@ import {
 } from "@/components/ui/Form";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import MultipleSelector from "@/components/ui/MultiSelector";
 import { Textarea } from "@/components/ui/Textarea";
 
+import { FORM_OPTIONS, transformGroups } from "@/components/groups";
 import { Doc } from "@/convex/_generated/dataModel";
 
 export const formSchema = z.object({
@@ -38,6 +40,12 @@ export const formSchema = z.object({
   }).max(50, {
     message: "Location cannot be more than 50 characters."
   }).optional().or(z.literal("")),
+  groups: z.array(z.object({
+    label: z.string(),
+    value: z.string(),
+    group: z.string(),
+    fixed: z.boolean().optional()
+  })).min(1, { message: "You must select at least one group (try a \"Class of\" group!)" })
 });
 
 interface EditProfileFormProps {
@@ -56,7 +64,8 @@ export function EditProfileForm({
       name: user.name,
       email: user.email,
       bio: user.bio,
-      location: user.location
+      location: user.location,
+      groups: transformGroups(user.groups),
     }
   });
 
@@ -129,6 +138,37 @@ export function EditProfileForm({
               </FormControl>
               <FormDescription>
                 Use a city or the school that you attend. This is not required.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="groups"
+          render={({ field }) => (
+            <FormItem className="max-w-screen-xs text-left text-sm">
+              <FormLabel className="text-lg font-semibold">Groups</FormLabel>
+              <FormControl>
+                <MultipleSelector
+                  {...field}
+                  className="bg-white dark:bg-dark"
+                  badgeClassName="bg-white text-foreground border-muted-foreground
+                  dark:bg-dark dark:text-muted-foreground
+                  hover:bg-muted-foreground/50 dark:hover:bg-muted-foreground/25"
+                  defaultOptions={FORM_OPTIONS}
+                  placeholder="Select the groups you are a member of..."
+                  groupBy="group"
+                  emptyIndicator={
+                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                      No results found
+                    </p>
+                  }
+                />
+              </FormControl>
+              <FormDescription>
+                These groups will appear on your profile. If there is a group you are a member of that is
+                not in this list, contact the website developer.
               </FormDescription>
               <FormMessage />
             </FormItem>

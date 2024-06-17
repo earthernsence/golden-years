@@ -42,7 +42,7 @@ export default function OnboardingPage() {
 
       if (dbUser) return;
 
-      create({
+      await create({
         userId: user.id,
         name: user.publicMetadata.name,
         email: user.publicMetadata.email,
@@ -51,7 +51,8 @@ export default function OnboardingPage() {
         admin: false,
         image: user.imageUrl,
         bio: user.publicMetadata.bio,
-        location: user.publicMetadata.location
+        location: user.publicMetadata.location,
+        groups: user.publicMetadata.groups
       });
     }
 
