@@ -42,7 +42,7 @@ export default function OnboardingPage() {
 
       if (dbUser) return;
 
-      create({
+      await create({
         userId: user.id,
         name: user.publicMetadata.name,
         email: user.publicMetadata.email,

@@ -1,0 +1,1 @@
+export const GroupsList = () => <div>hi</div>;

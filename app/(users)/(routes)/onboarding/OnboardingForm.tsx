@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/Form";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import Spinner from "@/components/Spinner";
 import { Textarea } from "@/components/ui/Textarea";
 
 import { usePrivacyPolicyModal } from "@/hooks/use-privacy-policy-modal";
@@ -60,6 +61,7 @@ export function OnboardingForm({
   const privacy = usePrivacyPolicyModal();
 
   const [checked, setChecked] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -194,7 +196,15 @@ export function OnboardingForm({
             </FormItem>
           )}
         />
-        <Button className="max-w-lg flex place-self-center" type="submit">Submit</Button>
+        <Button
+          className="max-w-lg flex place-self-center flex-row"
+          type="submit"
+          onClick={() => setIsSubmitting(true)}
+          disabled={isSubmitting}
+        >
+          {isSubmitting && (<Spinner size={"icon"} />)}
+          {isSubmitting ? "Creating..." : "Submit"}
+        </Button>
       </form>
     </Form>
   );

@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { Pencil, Star } from "lucide-react";
+import Image from "next/image";
 import { useMutation } from "convex/react";
 import { useState } from "react";
 import { z } from "zod";
@@ -15,6 +15,7 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import { useToast } from "@/components/ui/use-toast";
 
 import { EditProfileForm, formSchema } from "./EditProfileForm";
+import { GroupsList } from "./GroupsList";
 import { PastEvents } from "./PastEvents";
 import { TimeSpan } from "./formatter/TimeSpan";
 
@@ -36,9 +37,12 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
     });
     setIsEditing(false);
 
+    const { groups, ...rest } = values;
+
     await update({
       userId: user._id,
-      ...values
+      groups: groups.map(group => group.value),
+      ...rest
     });
   };
 
@@ -56,10 +60,18 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
             width={1024}
             height={1024}
           />
-          <div className="flex flex-col">
-            <div className={cn("font-bold", user.admin && "text-red-500")}>
-              {user.name}
+          <div className="flex flex-col justify-center">
+            <div className={cn(
+              "font-bold inline-flex flex-row justify-center items-center gap-x-1",
+              user.admin && "text-red-500"
+            )}>
+              {user.exec && (<Star className="w-4 h-4" />)} {user.name}
             </div>
+            { user.exec && (
+              <div className="text-sm opacity-75">
+                {user.exec}
+              </div>
+            )}
             <div className="text-xs opacity-50">{user.username}</div>
           </div>
           {isUser && (
@@ -108,7 +120,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
           {isUser && (
             <div className="flex justify-center">
               <Button variant={"ghost"} onClick={() => setIsEditing(true)}>
-                <Pencil className="mr-2 h-4 w-4" /> Edit Profile
+                <Pencil className="mr-2 h-4 w-4" /> Edit
               </Button>
             </div>
           )}
@@ -130,13 +142,11 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
           {user.location ?? "None provided..."}
         </div>
         <br />
-        {/* TODO: Group system */}
-        {/* <div className="min-h-1/6 h-auto text-left text-sm">
+        <div className="min-h-1/6 h-auto text-left text-sm">
           <div className="text-lg font-semibold">Groups</div>
-          {user.groups ?? "This user is not currently a member of any Groups."}
           <GroupsList />
         </div>
-        <br /> */}
+        <br />
         <div className="h-1/3 text-left text-sm">
           <div className="text-lg font-semibold">Past events</div>
           <PastEvents events={user.events} />

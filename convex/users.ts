@@ -14,7 +14,6 @@ export const create = mutation({
     bio: v.optional(v.string()),
     location: v.optional(v.string()),
     image: v.optional(v.string()),
-    groups: v.optional(v.array(v.string()))
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -36,7 +35,7 @@ export const create = mutation({
       bio: args.bio,
       location: args.location,
       image: args.image,
-      groups: args.groups,
+      groups: [],
       events: []
     });
 
@@ -50,7 +49,8 @@ export const update = mutation({
     name: v.string(),
     email: v.string(),
     bio: v.optional(v.string()),
-    location: v.optional(v.string())
+    location: v.optional(v.string()),
+    groups: v.array(v.string())
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
