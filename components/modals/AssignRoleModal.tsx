@@ -34,7 +34,8 @@ export const AssignRoleModal = () => {
           </DialogHeader>
           <DialogDescription className="space-y-1">
             <div className="flex items-center text-xs">
-              Use this admin panel to assign members a role.
+              Use this admin panel to assign members a role. Assigning &quot;None&quot; will remove the
+              &quot;Executive Team 24-25&quot; group, and assigning any role will add it to the user.
             </div>
           </DialogDescription>
           <div className="text-lg text-justify w-full">
@@ -78,7 +79,8 @@ export const AssignRoleModal = () => {
         </DialogHeader>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
-            Use this admin panel to assign members a role.
+            Use this admin panel to assign members a role. Assigning &quot;None&quot; will remove the
+            &quot;Executive Team 24-25&quot; group, and assigning any role will add it to the user.
           </div>
         </DialogDescription>
         <div className="flex flex-col justify-center items-center align-middle">

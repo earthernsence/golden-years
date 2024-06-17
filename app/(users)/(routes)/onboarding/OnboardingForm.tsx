@@ -15,8 +15,9 @@ import {
   FormMessage,
 } from "@/components/ui/Form";
 import { Button } from "@/components/ui/Button";
+import { FORM_OPTIONS } from "@/components/groups";
 import { Input } from "@/components/ui/Input";
-import Spinner from "@/components/Spinner";
+import MultipleSelector from "@/components/ui/MultiSelector";
 import { Textarea } from "@/components/ui/Textarea";
 
 import { usePrivacyPolicyModal } from "@/hooks/use-privacy-policy-modal";
@@ -57,6 +58,12 @@ export const formSchema = z.object({
   }).max(50, {
     message: "Location cannot be more than 50 characters."
   }).optional().or(z.literal("")),
+  groups: z.array(z.object({
+    label: z.string(),
+    value: z.string(),
+    group: z.string(),
+    fixed: z.boolean().optional()
+  })).min(1, { message: "You must select at least one group (try a \"Class of\" group!)" }),
   terms: z.boolean()
 });
 
@@ -72,7 +79,6 @@ export function OnboardingForm({
   const privacy = usePrivacyPolicyModal();
 
   const [checked, setChecked] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -83,6 +89,7 @@ export function OnboardingForm({
       bio: "",
       location: "",
       terms: false,
+      groups: [],
     }
   });
 
@@ -179,6 +186,38 @@ export function OnboardingForm({
         />
         <FormField
           control={form.control}
+          name="groups"
+          render={({ field }) => (
+            <FormItem className="max-w-screen-xs text-left text-sm">
+              <FormLabel className="text-lg font-semibold">Groups</FormLabel>
+              <FormControl>
+                <MultipleSelector
+                  {...field}
+                  className="bg-transparent"
+                  badgeClassName="bg-white text-foreground border-muted-foreground
+                  dark:bg-dark dark:text-muted-foreground
+                  hover:bg-muted-foreground/50 dark:hover:bg-muted-foreground/25"
+                  defaultOptions={FORM_OPTIONS}
+                  placeholder="Select the groups you are a member of..."
+                  groupBy="group"
+                  emptyIndicator={
+                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                      No results found
+                    </p>
+                  }
+                />
+              </FormControl>
+              <FormDescription>
+                These groups will appear on your profile. If there is a group you are a member of that is
+                not in this list, contact the website developer. If you are a member of the executive team,
+                that group and your role can be added by a site Admin once you have completed onboarding.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="terms"
           // eslint-disable-next-line no-unused-vars
           render={({ field: { value, onChange, ...fieldProps } }) => (
@@ -210,11 +249,8 @@ export function OnboardingForm({
         <Button
           className="max-w-lg flex place-self-center flex-row"
           type="submit"
-          onClick={() => setIsSubmitting(true)}
-          disabled={isSubmitting}
         >
-          {isSubmitting && (<Spinner size={"icon"} />)}
-          {isSubmitting ? "Creating..." : "Submit"}
+          Submit
         </Button>
       </form>
     </Form>

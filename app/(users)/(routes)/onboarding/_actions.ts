@@ -25,6 +25,7 @@ export const completeOnboarding = async(values: z.infer<typeof formSchema>) => {
         admin: false,
         bio: values.bio?.trim() || "",
         location: values.location?.trim() || "",
+        groups: values.groups.map(group => group.value)
       },
     });
     return { message: res.publicMetadata };

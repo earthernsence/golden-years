@@ -17,7 +17,9 @@ import { Button } from "@/components/ui/Button";
 
 const ROLES = [
   "President",
+  "Co-President",
   "Vice President",
+  "Co-Vice President",
   "Fundraising Specialist",
   "Secretary",
   "Website Developer",
@@ -27,7 +29,9 @@ const ROLES = [
 export const formSchema = z.object({
   role: z.enum([
     "President",
+    "Co-President",
     "Vice President",
+    "Co-Vice President",
     "Fundraising Specialist",
     "Secretary",
     "Website Developer",
