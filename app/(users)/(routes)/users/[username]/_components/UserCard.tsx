@@ -1,14 +1,16 @@
 "use client";
 
-import { Pencil, Star } from "lucide-react";
+import { Cog, Pencil, Star } from "lucide-react";
+import { useMutation, useQuery } from "convex/react";
 import Image from "next/image";
-import { useMutation } from "convex/react";
+import { useAuth } from "@clerk/nextjs";
 import { useState } from "react";
 import { z } from "zod";
 
 import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
 import { Doc } from "@/convex/_generated/dataModel";
+import { useAssignRoleModal } from "@/hooks/use-assign-role-modal";
 
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -27,8 +29,13 @@ interface UserCardProps {
 export const UserCard = ({ user, isUser }: UserCardProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
+  const { userId } = useAuth();
+  const modal = useAssignRoleModal();
 
   const update = useMutation(api.users.update);
+  const visitor = useQuery(api.users.getUserById, { id: `${userId}` });
+
+  const isVisitorAdmin = visitor?.admin || false;
 
   const confirmEdits = async(values: z.infer<typeof formSchema>) => {
     toast({
@@ -118,13 +125,22 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
             )}
             <div className="text-xs opacity-50">{user.username}</div>
           </div>
-          {isUser && (
-            <div className="flex justify-center">
-              <Button variant={"ghost"} onClick={() => setIsEditing(true)}>
-                <Pencil className="mr-2 h-4 w-4" /> Edit
-              </Button>
-            </div>
-          )}
+          <div className="flex flex-col">
+            {isUser && (
+              <div className="flex justify-center">
+                <Button variant={"ghost"} onClick={() => setIsEditing(true)}>
+                  <Pencil className="mr-2 h-4 w-4" /> Edit
+                </Button>
+              </div>
+            )}
+            {isVisitorAdmin && (
+              <div className="flex justify-center">
+                <Button variant={"ghost"} onClick={() => modal.onOpen(user)}>
+                  <Cog className="mr-2 h-4 w-4" /> Admin
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className="flex flex-col xs:w-full md:w-3/4 gap-y-2">

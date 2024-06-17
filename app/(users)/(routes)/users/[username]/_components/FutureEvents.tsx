@@ -29,7 +29,7 @@ export const FutureEvents = ({ events }: FutureEventsProps) => {
   if (participatedFutureEvents === undefined || participatedFutureEvents.length === 0) {
     return (
       <div className="flex text-sm">
-        You have not participated in any events. Sign up for one{" "}
+        You have not signed up for any future events. Sign up for one{" "}
         <Link className="ml-1 underline text-sky-500 cursor-pointer" href={`/events`}>here</Link>!
       </div>
     );

@@ -69,6 +69,41 @@ export const update = mutation({
   }
 });
 
+export const updateRole = mutation({
+  args: {
+    userId: v.string(),
+    exec: v.string(),
+  },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated!");
+    }
+
+    const dbUser = await ctx.db
+      .query("users")
+      .withIndex("by_username_userid", q =>
+        q.eq("userId", args.userId || "")
+      ).collect();
+
+    const isRemovingRole = args.exec === "None";
+
+    const groups = dbUser[0].groups;
+
+    const newGroups = isRemovingRole
+      ? groups.filter(group => group !== "exec2425")
+      : groups.concat("exec2425");
+
+    const user = await ctx.db.patch(dbUser[0]._id, {
+      exec: isRemovingRole ? "" : args.exec,
+      groups: newGroups
+    });
+
+    return user;
+  }
+});
+
 export const usernames = query({
   handler: async ctx => {
     const users = await ctx.db.query("users").collect();

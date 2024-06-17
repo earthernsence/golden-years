@@ -13,6 +13,11 @@ export const GroupsList = ({
 
   return (
     <div className="flex flex-wrap gap-1">
+      {groups.length === 0 && (
+        <div className="text-sm">
+          This user is not a part of any groups.
+        </div>
+      )}
       {
         transformedGroups.map((group: Option, index: number) => (
           <Badge key={index} variant={group.value.startsWith("exec") ? "executive" : "gy"}>
