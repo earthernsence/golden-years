@@ -35,7 +35,6 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
       title: "Your edits have been saved!",
       description: "It may take time for these edits to show across Golden Years."
     });
-    setIsEditing(false);
 
     const { groups, ...rest } = values;
 
@@ -44,6 +43,8 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
       groups: groups.map(group => group.value),
       ...rest
     });
+
+    setIsEditing(false);
   };
 
   if (isEditing) return (
@@ -144,7 +145,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
         <br />
         <div className="min-h-1/6 h-auto text-left text-sm">
           <div className="text-lg font-semibold">Groups</div>
-          <GroupsList />
+          <GroupsList groups={user.groups} />
         </div>
         <br />
         <div className="h-1/3 text-left text-sm">
