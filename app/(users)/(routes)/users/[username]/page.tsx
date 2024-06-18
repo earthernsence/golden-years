@@ -51,7 +51,7 @@ const UserPage = ({ params }: UserPageProps) => {
   return (
     <main className="min-h-full h-full flex flex-col pt-40">
       <section className="flex flex-col items-center justify-center
-                          text-center gap-y-8 flex-1 px-6 pb-10
+                          text-center gap-y-8 flex-1 px-2 pb-10
                           h-full w-auto
                           dark:bg-dark
                           md:justify-start"

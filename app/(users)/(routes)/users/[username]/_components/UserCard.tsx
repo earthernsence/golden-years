@@ -70,17 +70,17 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
           />
           <div className="flex flex-col justify-center">
             <div className={cn(
-              "font-bold inline-flex flex-row justify-center items-center gap-x-1",
+              "font-bold inline-flex flex-row justify-center items-center gap-x-1 min-h-6",
               user.admin && "text-red-500"
             )}>
               {user.exec && (<Star className="w-4 h-4" />)} {user.name}
             </div>
             { user.exec && (
-              <div className="text-sm opacity-75">
+              <div className="flex text-sm opacity-75 min-h-6 justify-center items-center">
                 {user.exec}
               </div>
             )}
-            <div className="text-xs opacity-50">{user.username}</div>
+            <div className="flex text-xs opacity-50 min-h-6 justify-center items-center">{user.username}</div>
           </div>
           {isUser && (
             <div className="flex md:flex-col justify-center">
@@ -113,17 +113,17 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
           />
           <div className="flex flex-col justify-center">
             <div className={cn(
-              "font-bold inline-flex flex-row justify-center items-center gap-x-1",
+              "font-bold inline-flex flex-row justify-center items-center gap-x-1 min-h-6",
               user.admin && "text-red-500"
             )}>
               {user.exec && (<Star className="w-4 h-4" />)} {user.name}
             </div>
             { user.exec && (
-              <div className="text-sm opacity-75">
+              <div className="flex text-sm opacity-75 min-h-6 justify-center items-center">
                 {user.exec}
               </div>
             )}
-            <div className="text-xs opacity-50">{user.username}</div>
+            <div className="flex text-xs opacity-50 min-h-6 justify-center items-center">{user.username}</div>
           </div>
           <div className="flex flex-col">
             {isUser && (
