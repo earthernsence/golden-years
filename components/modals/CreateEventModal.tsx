@@ -74,7 +74,8 @@ export const CreateEventModal = () => {
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
             This information will be publicly available on the website once you complete this form.
-            Please ensure that all information is accurate to the best of your abilities.
+            Please ensure that all information is accurate to the best of your abilities. You can edit the event
+            from its event page after creation.
           </div>
         </DialogDescription>
         <div className="flex flex-col justify-center items-center align-middle">

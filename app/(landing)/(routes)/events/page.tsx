@@ -48,7 +48,7 @@ const EventsPage = () => {
           Events
         </div>
         { isAdmin && (
-          <Button size="sm" onClick={createModal.onOpen} className="xs:max-w-[40%] md:max-w-full">
+          <Button size="sm" onClick={createModal.onOpen} className="xs:max-w-auto md:max-w-full">
             <Plus className="mr-2 h-4 w-4" /> Create an Event
           </Button>
         )}

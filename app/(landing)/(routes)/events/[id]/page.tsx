@@ -1,12 +1,13 @@
 "use client";
 
+import { ArrowLeft, Pencil } from "lucide-react";
 import { faArrowRightToBracket, faUser } from "@fortawesome/free-solid-svg-icons";
-import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 
+import { Button } from "@/components/ui/Button";
 import Icon from "@/components/Icon";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useToast } from "@/components/ui/use-toast";
@@ -15,6 +16,7 @@ import { api } from "@/convex/_generated/api";
 import { useSignupModal } from "@/hooks/use-signup-modal";
 
 import { ParticipantsList } from "./_components/ParticipantsList";
+import { useEditEventModal } from "@/hooks/use-edit-event-modal";
 
 interface SpecificEventPageProps {
   params: {
@@ -25,6 +27,7 @@ interface SpecificEventPageProps {
 const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
   const { toast } = useToast();
   const signup = useSignupModal();
+  const edit = useEditEventModal();
 
   const eventId = parseInt(params.id, 10);
   const event = useQuery(api.events.getSpecificEvent, { id: `${eventId}` });
@@ -32,6 +35,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
 
   const { isSignedIn, userId } = useAuth();
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
+  const isUserAdmin = user?.admin || false;
 
   if (event === undefined) {
     return (
@@ -131,7 +135,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
               width={1024}
               height={1024}
             />
-            <div className="flex xs:flex-row xs:gap-x-2 md:flex-col text-sm">
+            <div className="flex xs:flex-row xs:gap-x-2 md:gap-y-2 md:flex-col text-sm">
               <div className="flex flex-row items-center text-left">
                 <Icon
                   icon={faUser}
@@ -146,6 +150,13 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
                 />
                 <div className="text-md dark:text-white">Sign up</div>
               </div>
+              {isUserAdmin && (
+                <div className="flex justify-center">
+                  <Button variant={"ghost"} onClick={() => edit.onOpen(event)}>
+                    <Pencil className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Edit</span>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>

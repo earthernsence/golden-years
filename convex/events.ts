@@ -81,3 +81,41 @@ export const create = mutation({
     return event;
   },
 });
+
+export const update = mutation({
+  args: {
+    eventId: v.string(),
+    title: v.string(),
+    date: v.number(),
+    description: v.string(),
+    location: v.string(),
+    slots: v.number()
+  },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated!");
+    }
+
+    const { eventId, ...rest } = args;
+
+    const event = await ctx.db
+      .query("events")
+      .withIndex("by_event_id", q =>
+        q.eq("eventId", eventId)
+      ).collect();
+
+    if (!event) return null;
+
+    const convexId = event.pop()?._id;
+
+    if (!convexId) return null;
+
+    const updatedEvent = await ctx.db.patch(convexId, {
+      ...rest
+    });
+
+    return updatedEvent;
+  },
+});

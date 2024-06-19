@@ -78,14 +78,14 @@ const EventCard = ({
   };
 
   return (
-    <div className="border-4 border-gray-500 flex rounded-lg
+    <div className="border-4 border-gray-500 flex rounded-lg md:space-x-2
     xs:flex-col md:flex-row w-full place-items-center p-4 mb-2 md:h-40">
       <div className="flex md:w-1/4">
         <Image
           className="border-gray-300 border-2 xs:mb-4 md:mr-4 md:mb-0 flex xs:w-48 xs:h-48 md:w-32 md:h-32"
           src={event.image || "/no_image.png"}
           alt={`Event image for ${event.title}`}
-          height={128} width={128}
+          height={512} width={512}
         />
       </div>
       <div className="flex flex-col relative xs:w-5/6 md:w-1/2 xs:mb-4 md:mb-0">
@@ -97,7 +97,7 @@ const EventCard = ({
           { event.location } on { new Date(event.date).toDateString() } at { getTime() }
         </div>
       </div>
-      <div className="flex xs:w-1/2 md:w-1/4 xs:flex-col justify-center xs:space-y-2 md:space-y-0">
+      <div className="flex xs:w-auto md:w-1/4 xs:flex-col justify-center xs:space-y-2 md:space-y-0">
         <div className="flex flex-row items-center text-left">
           <Icon
             icon={faUser}

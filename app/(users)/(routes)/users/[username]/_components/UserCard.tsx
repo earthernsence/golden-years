@@ -60,7 +60,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
                   dark:border-white"
     >
       <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 md:min-w-[144px] items-center justify-center">
-        <div className="flex xs:flex-row md:flex-col items-center xs:gap-x-2 md:gap-y-2">
+        <div className="flex xs:flex-row md:flex-col items-center xs:gap-x-2 md:gap-y-2 w-full xs:justify-between">
           <Image
             src={user.image || "/no_image.png"}
             alt="User image"
@@ -75,16 +75,14 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
             )}>
               {user.exec && (<Star className="w-4 h-4" />)} {user.name}
             </div>
-            { user.exec && (
-              <div className="flex text-sm opacity-75 min-h-6 justify-center items-center">
-                {user.exec}
-              </div>
-            )}
+            <div className="flex text-sm opacity-75 min-h-6 justify-center items-center">
+              {user.exec ?? "Member"}
+            </div>
             <div className="flex text-xs opacity-50 min-h-6 justify-center items-center">{user.username}</div>
           </div>
           {isUser && (
             <div className="flex md:flex-col justify-center">
-              <Button variant={"ghost"} onClick={() => setIsEditing(false)}>
+              <Button variant={"outline"} onClick={() => setIsEditing(false)}>
                 Cancel
               </Button>
             </div>
@@ -103,7 +101,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
                   dark:border-white"
     >
       <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 md:min-w-[144px] items-center justify-center">
-        <div className="flex xs:flex-row md:flex-col items-center xs:gap-x-2 md:gap-y-2">
+        <div className="flex xs:flex-row md:flex-col items-center xs:gap-x-1 md:gap-y-2 w-full xs:justify-between">
           <Image
             src={user.image || "/no_image.png"}
             alt="User image"
@@ -118,25 +116,23 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
             )}>
               {user.exec && (<Star className="w-4 h-4" />)} {user.name}
             </div>
-            { user.exec && (
-              <div className="flex text-sm opacity-75 min-h-6 justify-center items-center">
-                {user.exec}
-              </div>
-            )}
+            <div className="flex text-sm opacity-75 min-h-6 justify-center items-center">
+              {user.exec || "Member"}
+            </div>
             <div className="flex text-xs opacity-50 min-h-6 justify-center items-center">{user.username}</div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-y-2">
             {isUser && (
               <div className="flex justify-center">
-                <Button variant={"ghost"} onClick={() => setIsEditing(true)}>
-                  <Pencil className="mr-2 h-4 w-4" /> Edit
+                <Button variant={"outline"} onClick={() => setIsEditing(true)}>
+                  <Pencil className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Edit</span>
                 </Button>
               </div>
             )}
             {isVisitorAdmin && (
               <div className="flex justify-center">
-                <Button variant={"ghost"} onClick={() => modal.onOpen(user)}>
-                  <Cog className="mr-2 h-4 w-4" /> Admin
+                <Button variant={"outline"} onClick={() => modal.onOpen(user)}>
+                  <Cog className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Admin</span>
                 </Button>
               </div>
             )}
