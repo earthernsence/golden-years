@@ -82,7 +82,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
           </div>
           {isUser && (
             <div className="flex md:flex-col justify-center">
-              <Button variant={"ghost"} onClick={() => setIsEditing(false)}>
+              <Button variant={"outline"} onClick={() => setIsEditing(false)}>
                 Cancel
               </Button>
             </div>
@@ -121,17 +121,17 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
             </div>
             <div className="flex text-xs opacity-50 min-h-6 justify-center items-center">{user.username}</div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-y-2">
             {isUser && (
               <div className="flex justify-center">
-                <Button variant={"ghost"} onClick={() => setIsEditing(true)}>
+                <Button variant={"outline"} onClick={() => setIsEditing(true)}>
                   <Pencil className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Edit</span>
                 </Button>
               </div>
             )}
             {isVisitorAdmin && (
               <div className="flex justify-center">
-                <Button variant={"ghost"} onClick={() => modal.onOpen(user)}>
+                <Button variant={"outline"} onClick={() => modal.onOpen(user)}>
                   <Cog className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Admin</span>
                 </Button>
               </div>
