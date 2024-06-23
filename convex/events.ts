@@ -119,3 +119,40 @@ export const update = mutation({
     return updatedEvent;
   },
 });
+
+export const remove = mutation({
+  args: { id: v.id("events") },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated!");
+    }
+
+    const existingEvent = await ctx.db.get(args.id);
+
+    if (!existingEvent) throw new Error("Not found!");
+
+    const parts = existingEvent.participants;
+    const id = existingEvent.eventId;
+
+    if (parts.length !== 0) {
+      for (const part of parts) {
+        const user = await ctx.db.query("users")
+          .withIndex("by_user", q => (
+            q.eq("userId", part)
+          )).collect();
+
+        const events = user[0].events.filter(event => event !== id);
+
+        await ctx.db.patch(user[0]._id, {
+          events
+        });
+      }
+    }
+
+    const event = await ctx.db.delete(args.id);
+
+    return event;
+  }
+});
