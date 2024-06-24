@@ -125,7 +125,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
       });
     }
 
-    remove({
+    await remove({
       id: event._id
     });
 

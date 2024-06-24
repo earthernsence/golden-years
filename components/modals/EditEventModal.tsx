@@ -14,14 +14,19 @@ import { useToast } from "@/components/ui/use-toast";
 import { EditEventForm, formSchema } from "./EditEventForm";
 
 import { api } from "@/convex/_generated/api";
+import { useEdgeStore } from "@/lib/edgestore";
 import { useEditEventModal } from "@/hooks/use-edit-event-modal";
+import { useImage } from "@/hooks/use-image";
 
 export const EditEventModal = () => {
   const modal = useEditEventModal();
+  const image = useImage();
 
   const { toast } = useToast();
+  const { edgestore } = useEdgeStore();
 
   const update = useMutation(api.events.update);
+  const removeImage = useMutation(api.events.removeImage);
 
   if (!modal.event) {
     return (
@@ -46,6 +51,19 @@ export const EditEventModal = () => {
     );
   }
 
+  const uploadFile = async(uploadedFile?: File) => {
+    if (uploadedFile) {
+      const res = await edgestore.publicFiles.upload({
+        file: uploadedFile,
+        options: { replaceTargetUrl: modal.event?.image },
+      });
+
+      return res.url;
+    }
+
+    return undefined;
+  };
+
   const onSubmit = async(values: z.infer<typeof formSchema>) => {
     // In all reality, this code should never run. But because "modal.event" could technically be undefined
     // (though in our code it never should be, except for right at initialisation), we have to have this check here.
@@ -58,16 +76,40 @@ export const EditEventModal = () => {
       return;
     }
 
+    let eventImage = modal.event.image;
+
+    if (values.image && !values.removeImage) eventImage = await uploadFile(values.image);
+
+    if (values.removeImage) {
+      if (eventImage) {
+        await edgestore.publicFiles.delete({
+          url: eventImage
+        }).then(async() => {
+          await removeImage({ id: modal.event?.eventId });
+          eventImage = undefined;
+        }, () => {
+          toast({
+            title: "There was an issue confirming your edits.",
+            description: "Refresh the page and try again."
+          });
+        });
+      } else {
+        eventImage = undefined;
+      }
+    }
+
     await update({
       eventId: modal.event.eventId,
       title: values.title,
       date: values.date.getTime(),
       description: values.description,
+      image: eventImage,
       location: values.location,
       slots: parseInt(values.slots, 10)
     });
 
     modal.onClose();
+    image.onClose();
   };
 
   return (

@@ -89,7 +89,8 @@ export const update = mutation({
     date: v.number(),
     description: v.string(),
     location: v.string(),
-    slots: v.number()
+    slots: v.number(),
+    image: v.optional(v.string())
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -152,6 +153,35 @@ export const remove = mutation({
     }
 
     const event = await ctx.db.delete(args.id);
+
+    return event;
+  }
+});
+
+export const removeImage = mutation({
+  args: { id: v.optional(v.string()) },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("Unauthenticated");
+
+    if (!args.id) throw new Error("No ID provided in removeImage");
+
+    const existingEvent = await ctx.db
+      .query("events")
+      .withIndex("by_event_id", q =>
+        q.eq("eventId", `${args.id}`)
+      ).collect();
+
+    const convexId = existingEvent.pop()?._id;
+
+    if (!convexId) return null;
+
+    if (!existingEvent) throw new Error("Event not found.");
+
+    const event = await ctx.db.patch(convexId, {
+      image: undefined
+    });
 
     return event;
   }
