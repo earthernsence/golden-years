@@ -1,22 +1,25 @@
 "use client";
 
-import { ArrowLeft, Pencil } from "lucide-react";
+import { ArrowLeft, Pencil, X } from "lucide-react";
 import { faArrowRightToBracket, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useMutation, useQuery } from "convex/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/Button";
+import { DeleteEventConfirmModal } from "@/components/modals/DeleteEventConfirmModal";
 import Icon from "@/components/Icon";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useToast } from "@/components/ui/use-toast";
 
 import { api } from "@/convex/_generated/api";
+import { useEdgeStore } from "@/lib/edgestore";
+import { useEditEventModal } from "@/hooks/use-edit-event-modal";
 import { useSignupModal } from "@/hooks/use-signup-modal";
 
 import { ParticipantsList } from "./_components/ParticipantsList";
-import { useEditEventModal } from "@/hooks/use-edit-event-modal";
 
 interface SpecificEventPageProps {
   params: {
@@ -26,12 +29,15 @@ interface SpecificEventPageProps {
 
 const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
   const { toast } = useToast();
+  const router = useRouter();
+  const { edgestore } = useEdgeStore();
   const signup = useSignupModal();
   const edit = useEditEventModal();
 
   const eventId = parseInt(params.id, 10);
   const event = useQuery(api.events.getSpecificEvent, { id: `${eventId}` });
   const organiser = useQuery(api.users.getUserById, { id: `${event?.organiser}` });
+  const remove = useMutation(api.events.remove);
 
   const { isSignedIn, userId } = useAuth();
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
@@ -105,6 +111,29 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
     signup.onOpen(event);
   };
 
+  const onDelete = async() => {
+    if (!event) {
+      toast({
+        title: "Could not delete event",
+        description: "This event could not be found"
+      });
+    }
+
+    if (event.image) {
+      await edgestore.publicFiles.delete({
+        url: event.image
+      });
+    }
+
+    await remove({
+      id: event._id
+    });
+
+    if (params.id === event.eventId) {
+      router.push("/events");
+    }
+  };
+
   const formattedDate = () => {
     if (!event.date) return "No date.";
     const dateObject = new Date(event.date);
@@ -150,14 +179,20 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
                 />
                 <div className="text-md dark:text-white">Sign up</div>
               </div>
-              {isUserAdmin && (
-                <div className="flex justify-center">
-                  <Button variant={"ghost"} onClick={() => edit.onOpen(event)}>
-                    <Pencil className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Edit</span>
-                  </Button>
-                </div>
-              )}
             </div>
+            {isUserAdmin && (
+              <div className="flex justify-center flex-row">
+                <Button variant={"ghost"} onClick={() => edit.onOpen(event)}>
+                  <Pencil className="mr-2 h-4 w-4" /> Edit
+                </Button>
+                <DeleteEventConfirmModal onConfirm={onDelete}>
+                  <Button variant={"ghost"}>
+                    <X className="mr-2 h-4 w-4" /> Delete
+                  </Button>
+                </DeleteEventConfirmModal>
+              </div>
+            )}
+
           </div>
         </div>
         <div className="flex flex-col xs:w-full md:w-3/4 gap-y-2">

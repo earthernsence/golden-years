@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -30,6 +31,8 @@ export const formSchema = z.object({
   }).max(500, {
     message: "Description cannot be more than 500 characters."
   }),
+  image: z.instanceof(File).optional(),
+  removeImage: z.boolean().optional(),
   location: z.string().min(2, {
     message: "Location must be at least 2 characters."
   }).max(100, {
@@ -60,6 +63,8 @@ export function EditEventForm({
   onSubmit,
   event
 }: EditEventFormProps) {
+  const [checked, setChecked] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,7 +72,7 @@ export function EditEventForm({
       date: new Date(event.date),
       description: event.description,
       location: event.location,
-      slots: `${event.slots}`
+      slots: `${event.slots}`,
     }
   });
 
@@ -131,6 +136,57 @@ export function EditEventForm({
               </FormDescription>
               <br />
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="image"
+          // eslint-disable-next-line no-unused-vars
+          render={({ field: { value, onChange, ...fieldProps } }) => (
+            <FormItem className="max-w-screen-xs">
+              <FormLabel>Image</FormLabel>
+              <FormControl>
+                <Input
+                  {...fieldProps}
+                  type="file"
+                  accept="image/*"
+                  onChange={e => onChange(e.target.files && e.target.files[0])}
+                />
+              </FormControl>
+              <FormDescription className="text-xs">
+                Choose an image for this event. It will appear alongside the event on the sign-up page. If you have
+                already selected an image for this event, it will still appear if you do not upload one here.
+              </FormDescription>
+              <br />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="removeImage"
+          // eslint-disable-next-line no-unused-vars
+          render={({ field: { value, onChange, ...fieldProps } }) => (
+            <FormItem className="max-w-screen-xs">
+              <FormLabel>Remove image</FormLabel>
+              <FormControl>
+                <Input
+                  type="checkbox"
+                  className="h-4 w-4"
+                  checked={checked}
+                  onChange={e => {
+                    setChecked(e.target.checked);
+                    onChange(e.target.checked);
+                  }}
+                  {...fieldProps}
+                />
+              </FormControl>
+              <FormDescription className="text-xs">
+                There isn&apos;t really a nice way of doing this code-wise, so use this checkbox if you would like
+                to remove the image from the event. This takes precedent over any other previous options, so leave it
+                unchecked if you wish to keep the picture or change it to whatever you chose above.
+              </FormDescription>
             </FormItem>
           )}
         />

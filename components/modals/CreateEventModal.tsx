@@ -61,6 +61,7 @@ export const CreateEventModal = () => {
     });
 
     modal.onClose();
+    image.onClose();
   };
 
   return (
