@@ -32,6 +32,8 @@ export const FutureEvents = ({ events }: FutureEventsProps) => {
         You have not signed up for any future events.
         Sign up for one{" "}
         <Link className="underline text-sky-500 cursor-pointer inline-flex" href={`/events`}>here</Link>!
+        <br />
+        If you did, it would appear here for your reference.
       </div>
     );
   }

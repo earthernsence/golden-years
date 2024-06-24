@@ -117,6 +117,17 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
         title: "Could not delete event",
         description: "This event could not be found"
       });
+
+      return;
+    }
+
+    if (event.date < Date.now()) {
+      toast({
+        title: "You can't delete past events!",
+        description: "This event has already taken place, so you cannot delete it."
+      });
+
+      return;
     }
 
     if (event.image) {

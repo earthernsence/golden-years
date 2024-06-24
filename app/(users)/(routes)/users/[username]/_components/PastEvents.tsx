@@ -34,7 +34,7 @@ export const PastEvents = ({ events }: PastEventsProps) => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-y-1">
       {
         participatedPastEvents.map((event, index) => (
           <Link
@@ -42,7 +42,7 @@ export const PastEvents = ({ events }: PastEventsProps) => {
             className="text-xs flex flex-row text-left items-center"
             href={`/events/${event.eventId}`}
           >
-            <Calendar />
+            <Calendar className="mr-2" />
             {event.title}
           </Link>
         ))

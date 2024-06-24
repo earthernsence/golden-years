@@ -1,6 +1,6 @@
 "use client";
 
-import { Cog, Pencil, Star } from "lucide-react";
+import { Cog, Pencil, PlusCircle, Star } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import Image from "next/image";
 import { useAuth } from "@clerk/nextjs";
@@ -20,6 +20,7 @@ import { EditProfileForm, formSchema } from "./EditProfileForm";
 import { GroupsList } from "./GroupsList";
 import { PastEvents } from "./PastEvents";
 import { TimeSpan } from "./formatter/TimeSpan";
+import { useCreateGroupModal } from "@/hooks/use-create-group-modal";
 
 interface UserCardProps {
   user: Doc<"users">,
@@ -30,7 +31,8 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
   const { userId } = useAuth();
-  const modal = useAssignRoleModal();
+  const adminModal = useAssignRoleModal();
+  const groupModal = useCreateGroupModal();
 
   const update = useMutation(api.users.update);
   const visitor = useQuery(api.users.getUserById, { id: `${userId}` });
@@ -131,7 +133,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
             )}
             {isVisitorAdmin && (
               <div className="flex justify-center">
-                <Button variant={"outline"} onClick={() => modal.onOpen(user)}>
+                <Button variant={"outline"} onClick={() => adminModal.onOpen(user)}>
                   <Cog className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Admin</span>
                 </Button>
               </div>
@@ -156,7 +158,16 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
         </div>
         <br />
         <div className="min-h-1/6 h-auto text-left text-sm">
-          <div className="text-lg font-semibold">Groups</div>
+          <div className="text-lg font-semibold flex flex-row items-center">
+            Groups
+            {isVisitorAdmin && (
+              <PlusCircle
+                className="h-4 w-4 ml-2"
+                role="button"
+                onClick={groupModal.onOpen}
+              />
+            )}
+          </div>
           <GroupsList groups={user.groups} />
         </div>
         <br />

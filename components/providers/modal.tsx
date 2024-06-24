@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { AssignRoleModal } from "../modals/AssignRoleModal";
 import { CreateEventModal } from "../modals/CreateEventModal";
+import { CreateGroupModal } from "../modals/CreateGroupModal";
 import { EditEventModal } from "../modals/EditEventModal";
 import { LeaveEventModal } from "../modals/LeaveEventModal";
 import { PrivacyPolicyModal } from "../modals/PrivacyPolicy";
@@ -28,6 +29,7 @@ export const ModalProvider = () => {
       <EditEventModal />
       <LeaveEventModal />
       <AssignRoleModal />
+      <CreateGroupModal />
     </>
   );
 };
