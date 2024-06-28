@@ -45,3 +45,23 @@ export const create = mutation({
     return group;
   }
 });
+
+// In the database, groups are stored as these "values". We turn the values into the group option
+// here so that they appear in the form.
+export const transform = query({
+  args: {
+    groups: v.array(v.string())
+  },
+  handler: async(ctx, args) => {
+    const groups = await ctx.db.query("groups").collect();
+
+    const transformed = [];
+
+    for (const group of args.groups) {
+      const groupInfo = groups.find(g => g.value === group);
+      if (groupInfo) transformed.push(groupInfo);
+    }
+
+    return transformed;
+  }
+});

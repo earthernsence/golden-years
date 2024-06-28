@@ -24,7 +24,7 @@ import { useCreateGroupModal } from "@/hooks/use-create-group-modal";
 
 interface UserCardProps {
   user: Doc<"users">,
-  isUser: boolean
+  isUser: boolean,
 }
 
 export const UserCard = ({ user, isUser }: UserCardProps) => {
