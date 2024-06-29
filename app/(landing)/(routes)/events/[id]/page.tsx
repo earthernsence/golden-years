@@ -168,7 +168,10 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
         title: "Successfully copied participant emails to clipboard",
       });
     } catch (err) {
-      console.error("Emails could not be copied to clipboard");
+      toast({
+        title: "Emails could not be copied to clipboard",
+        description: `Refresh the page and try again. ${err}`
+      });
     }
   };
 
