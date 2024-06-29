@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, Pencil, X } from "lucide-react";
+import { ArrowLeft, Mail, Pencil, X } from "lucide-react";
 import { faArrowRightToBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useMutation, useQuery } from "convex/react";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 import { Button } from "@/components/ui/Button";
 import { DeleteEventConfirmModal } from "@/components/modals/DeleteEventConfirmModal";
 import Icon from "@/components/Icon";
@@ -36,6 +37,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
 
   const eventId = parseInt(params.id, 10);
   const event = useQuery(api.events.getSpecificEvent, { id: `${eventId}` });
+  const participantEmails = useQuery(api.events.getEmailAddresses, { id: event?._id });
   const organiser = useQuery(api.users.getUserById, { id: `${event?.organiser}` });
   const remove = useMutation(api.events.remove);
 
@@ -152,6 +154,24 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
     ${dateObject.getHours()}:${dateObject.getMinutes().toString().padStart(2, "0")}`;
   };
 
+  const copyContent = async() => {
+    try {
+      if (!participantEmails) {
+        toast({
+          title: "The emails could not be copied",
+          description: "Refresh the page and try again."
+        });
+        return;
+      }
+      await navigator.clipboard.writeText(participantEmails.join(", "));
+      toast({
+        title: "Successfully copied participant emails to clipboard",
+      });
+    } catch (err) {
+      console.error("Emails could not be copied to clipboard");
+    }
+  };
+
   return (
     <>
       <div className="flex md:w-1/2 xs:items-center md:items-start">
@@ -223,8 +243,24 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
             {event.location}
           </div>
           <div className="text-left text-sm">
-            <div className="text-lg font-semibold">
+            <div className="text-lg font-semibold flex flex-row items-center">
               Participants ({event.participants?.length}/{event.slots} slots filled)
+              {isUserAdmin && event?.participants.length >= 1 && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Mail
+                        className="ml-2 w-4 h-4"
+                        role="button"
+                        onClick={copyContent}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <div className="text-sm">Copy email list to clipboard</div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
             </div>
             <ParticipantsList participants={event.participants} />
           </div>

@@ -186,3 +186,34 @@ export const removeImage = mutation({
     return event;
   }
 });
+
+export const getEmailAddresses = query({
+  args: { id: v.optional(v.id("events")) },
+  handler: async(ctx, args) => {
+    const identity = ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("Unauthenticated");
+
+    if (!args.id) throw new Error("Event ID could not be found");
+
+    const event = await ctx.db.get(args.id);
+
+    if (!event) throw new Error("Event could not be found");
+
+    const parts = event.participants;
+
+    const emails: Array<string> = [];
+
+    for (const part of parts) {
+      const user = await ctx.db.query("users")
+        .withIndex("by_user", q => (q.eq("userId", part)))
+        .first();
+
+      if (!user) throw new Error("Issue fetching users");
+
+      emails.push(user.email);
+    }
+
+    return emails;
+  }
+});
