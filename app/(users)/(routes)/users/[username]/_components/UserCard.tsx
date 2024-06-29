@@ -10,7 +10,9 @@ import { z } from "zod";
 import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
 import { Doc } from "@/convex/_generated/dataModel";
+import { useAssignGroupModal } from "@/hooks/use-assign-group-modal";
 import { useAssignRoleModal } from "@/hooks/use-assign-role-modal";
+import { useCreateGroupModal } from "@/hooks/use-create-group-modal";
 
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -20,7 +22,7 @@ import { EditProfileForm, formSchema } from "./EditProfileForm";
 import { GroupsList } from "./GroupsList";
 import { PastEvents } from "./PastEvents";
 import { TimeSpan } from "./formatter/TimeSpan";
-import { useCreateGroupModal } from "@/hooks/use-create-group-modal";
+
 
 interface UserCardProps {
   user: Doc<"users">,
@@ -32,7 +34,8 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
   const { toast } = useToast();
   const { userId } = useAuth();
   const adminModal = useAssignRoleModal();
-  const groupModal = useCreateGroupModal();
+  const createGroupModal = useCreateGroupModal();
+  const assignGroupModal = useAssignGroupModal();
 
   const update = useMutation(api.users.update);
   const visitor = useQuery(api.users.getUserById, { id: `${userId}` });
@@ -164,7 +167,14 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
               <PlusCircle
                 className="h-4 w-4 ml-2"
                 role="button"
-                onClick={groupModal.onOpen}
+                onClick={createGroupModal.onOpen}
+              />
+            )}
+            {isVisitorAdmin && (
+              <Pencil
+                className="h-4 w-4 ml-2"
+                role="button"
+                onClick={() => assignGroupModal.onOpen(user)}
               />
             )}
           </div>

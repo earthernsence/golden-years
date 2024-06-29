@@ -50,7 +50,9 @@ export const create = mutation({
 // here so that they appear in the form.
 export const transform = query({
   args: {
-    groups: v.array(v.string())
+    groups: v.array(v.string()),
+    // Changes all options to have "fixed: false" for the sake of the AssignGroup modal
+    unfixOptions: v.optional(v.boolean())
   },
   handler: async(ctx, args) => {
     const groups = await ctx.db.query("groups").collect();
@@ -59,6 +61,9 @@ export const transform = query({
 
     for (const group of args.groups) {
       const groupInfo = groups.find(g => g.value === group);
+      if (groupInfo && args.unfixOptions) {
+        groupInfo.fixed = false;
+      }
       if (groupInfo) transformed.push(groupInfo);
     }
 

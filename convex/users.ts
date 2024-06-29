@@ -169,3 +169,23 @@ export const updateEvents = mutation({
     return user;
   }
 });
+
+export const updateGroups = mutation({
+  args: {
+    userId: v.id("users"),
+    groups: v.array(v.string())
+  },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated!");
+    }
+
+    const user = await ctx.db.patch(args.userId, {
+      groups: args.groups
+    });
+
+    return user;
+  }
+});
