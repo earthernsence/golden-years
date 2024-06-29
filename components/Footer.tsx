@@ -19,6 +19,11 @@ export const Footer = () => {
         <Wordmark />
       </div>
       <br />
+      {/* <div className="text-xs flex opacity-25 text-center items-center justify-end w-full mr-2">
+        Website made with &#10084; by
+        <Link className="underline" href={"https://github.com/earthernsence"}>Jace Royer</Link>
+      </div> */}
+      <br />
       <div className="ml-auto justify-end flex items-center gap-x-2 text-muted-foreground">
         <div className="flex flex-row w-full gap-x-2 items-center">
           <Icon

@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useQuery } from "convex/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -16,9 +17,11 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import MultipleSelector from "@/components/ui/MultiSelector";
+import { Option } from "@/components/groups";
+import Spinner from "@/components/Spinner";
 import { Textarea } from "@/components/ui/Textarea";
 
-import { FORM_OPTIONS, transformGroups } from "@/components/groups";
+import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
 
 export const formSchema = z.object({
@@ -51,13 +54,15 @@ export const formSchema = z.object({
 interface EditProfileFormProps {
   // eslint-disable-next-line no-unused-vars
   onSubmit: (values: z.infer<typeof formSchema>) => void,
-  user: Doc<"users">
+  user: Doc<"users">,
 }
 
 export function EditProfileForm({
   onSubmit,
-  user
+  user,
 }: EditProfileFormProps) {
+  const transformedGroups = useQuery(api.groups.transform, { groups: user.groups });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -65,9 +70,26 @@ export function EditProfileForm({
       email: user.email,
       bio: user.bio,
       location: user.location,
-      groups: transformGroups(user.groups),
+      groups: transformedGroups || [],
     }
   });
+
+  const formOptions = useQuery(api.groups.get, { type: "form" });
+
+  // We need the formOptions to exist in order to populate the groups field on the form.
+  // If it doesn't, we simply return a spinner while it loads.
+  if (formOptions === undefined) {
+    return <Spinner />;
+  }
+
+  // When retrieving things from Convex, they are given an _id and a creationTime field. Neither of these
+  // are permitted inside the Option type, so we go ahead and strip these from the data for each option.
+  const strippedOptions: Array<Option> = [];
+
+  for (const option of formOptions) {
+    if (!option) break;
+    strippedOptions.push({ value: option.value, fixed: option.fixed, label: option.label, group: option.group });
+  }
 
   return (
     <Form {...form}>
@@ -156,7 +178,7 @@ export function EditProfileForm({
                   badgeClassName="bg-white text-foreground border-muted-foreground
                   dark:bg-dark dark:text-muted-foreground
                   hover:bg-muted-foreground/50 dark:hover:bg-muted-foreground/25"
-                  defaultOptions={FORM_OPTIONS}
+                  defaultOptions={strippedOptions}
                   placeholder="Select the groups you are a member of..."
                   groupBy="group"
                   emptyIndicator={

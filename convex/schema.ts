@@ -31,5 +31,14 @@ export default defineSchema({
     organiser: v.string()
   })
     .index("by_event_id", ["eventId"])
-    .index("by_date", ["date"])
+    .index("by_date", ["date"]),
+  groups: defineTable({
+    value: v.string(),
+    label: v.string(),
+    disable: v.optional(v.boolean()),
+    fixed: v.optional(v.boolean()),
+    group: v.string(),
+  })
+    .index("by_value", ["value"])
+    .index("by_fixed", ["fixed"])
 });

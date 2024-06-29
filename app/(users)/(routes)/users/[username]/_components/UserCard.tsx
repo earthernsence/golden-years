@@ -1,6 +1,6 @@
 "use client";
 
-import { Cog, Pencil, Star } from "lucide-react";
+import { Cog, Pencil, PlusCircle, Star } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import Image from "next/image";
 import { useAuth } from "@clerk/nextjs";
@@ -10,7 +10,9 @@ import { z } from "zod";
 import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
 import { Doc } from "@/convex/_generated/dataModel";
+import { useAssignGroupModal } from "@/hooks/use-assign-group-modal";
 import { useAssignRoleModal } from "@/hooks/use-assign-role-modal";
+import { useCreateGroupModal } from "@/hooks/use-create-group-modal";
 
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -21,16 +23,19 @@ import { GroupsList } from "./GroupsList";
 import { PastEvents } from "./PastEvents";
 import { TimeSpan } from "./formatter/TimeSpan";
 
+
 interface UserCardProps {
   user: Doc<"users">,
-  isUser: boolean
+  isUser: boolean,
 }
 
 export const UserCard = ({ user, isUser }: UserCardProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
   const { userId } = useAuth();
-  const modal = useAssignRoleModal();
+  const adminModal = useAssignRoleModal();
+  const createGroupModal = useCreateGroupModal();
+  const assignGroupModal = useAssignGroupModal();
 
   const update = useMutation(api.users.update);
   const visitor = useQuery(api.users.getUserById, { id: `${userId}` });
@@ -131,7 +136,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
             )}
             {isVisitorAdmin && (
               <div className="flex justify-center">
-                <Button variant={"outline"} onClick={() => modal.onOpen(user)}>
+                <Button variant={"outline"} onClick={() => adminModal.onOpen(user)}>
                   <Cog className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Admin</span>
                 </Button>
               </div>
@@ -156,7 +161,23 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
         </div>
         <br />
         <div className="min-h-1/6 h-auto text-left text-sm">
-          <div className="text-lg font-semibold">Groups</div>
+          <div className="text-lg font-semibold flex flex-row items-center">
+            Groups
+            {isVisitorAdmin && (
+              <PlusCircle
+                className="h-4 w-4 ml-2"
+                role="button"
+                onClick={createGroupModal.onOpen}
+              />
+            )}
+            {isVisitorAdmin && (
+              <Pencil
+                className="h-4 w-4 ml-2"
+                role="button"
+                onClick={() => assignGroupModal.onOpen(user)}
+              />
+            )}
+          </div>
           <GroupsList groups={user.groups} />
         </div>
         <br />

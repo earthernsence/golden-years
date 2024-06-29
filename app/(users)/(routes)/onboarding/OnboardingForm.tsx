@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useQuery } from "convex/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -15,11 +15,14 @@ import {
   FormMessage,
 } from "@/components/ui/Form";
 import { Button } from "@/components/ui/Button";
-import { FORM_OPTIONS } from "@/components/groups";
 import { Input } from "@/components/ui/Input";
 import MultipleSelector from "@/components/ui/MultiSelector";
+import { Option } from "@/components/groups";
+import Spinner from "@/components/Spinner";
+import { Switch } from "@/components/ui/Switch";
 import { Textarea } from "@/components/ui/Textarea";
 
+import { api } from "@/convex/_generated/api";
 import { usePrivacyPolicyModal } from "@/hooks/use-privacy-policy-modal";
 import { useTermsModal } from "@/hooks/use-terms-modal";
 
@@ -78,8 +81,6 @@ export function OnboardingForm({
   const terms = useTermsModal();
   const privacy = usePrivacyPolicyModal();
 
-  const [checked, setChecked] = useState(false);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -92,6 +93,23 @@ export function OnboardingForm({
       groups: [],
     }
   });
+
+  const formOptions = useQuery(api.groups.get, { type: "form" });
+
+  // We need the formOptions to exist in order to populate the groups field on the form.
+  // If it doesn't, we simply return a spinner while it loads.
+  if (formOptions === undefined) {
+    return <Spinner />;
+  }
+
+  // When retrieving things from Convex, they are given an _id and a creationTime field. Neither of these
+  // are permitted inside the Option type, so we go ahead and strip these from the data for each option.
+  const strippedOptions: Array<Option> = [];
+
+  for (const option of formOptions) {
+    if (!option) break;
+    strippedOptions.push({ value: option.value, fixed: option.fixed, label: option.label, group: option.group });
+  }
 
   return (
     <Form {...form}>
@@ -197,7 +215,7 @@ export function OnboardingForm({
                   badgeClassName="bg-white text-foreground border-muted-foreground
                   dark:bg-dark dark:text-muted-foreground
                   hover:bg-muted-foreground/50 dark:hover:bg-muted-foreground/25"
-                  defaultOptions={FORM_OPTIONS}
+                  defaultOptions={strippedOptions}
                   placeholder="Select the groups you are a member of..."
                   groupBy="group"
                   emptyIndicator={
@@ -220,28 +238,31 @@ export function OnboardingForm({
           control={form.control}
           name="terms"
           // eslint-disable-next-line no-unused-vars
-          render={({ field: { value, onChange, ...fieldProps } }) => (
-            <FormItem className="max-w-screen-xs">
-              <FormLabel>Terms and Privacy Policy</FormLabel>
+          render={({ field }) => (
+            <FormItem
+              className="max-w-screen-xs flex flex-row items-center justify-between rounded-lg border p-4"
+            >
+              <div className="space-y-0.5">
+                <FormLabel>Terms and Privacy Policy</FormLabel>
+                <br />
+                <FormDescription>
+                Visit our{" "}
+                  <span onClick={terms.onOpen} className="underline text-sky-500 cursor-pointer">Terms of Service</span>
+                  {" "}and our{" "}
+                  <span
+                    onClick={privacy.onOpen}
+                    className="underline text-sky-500 cursor-pointer"
+                  >
+                    Privacy Policy
+                  </span>.
+                </FormDescription>
+              </div>
               <FormControl>
-                {/* eslint-disable-next-line no-unused-vars */}
-                <Input
-                  type="checkbox"
-                  className="h-4 w-4"
-                  checked={checked}
-                  onChange={e => {
-                    setChecked(e.target.checked);
-                    onChange(e.target.checked);
-                  }}
-                  {...fieldProps}
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
                 />
               </FormControl>
-              <FormDescription>
-                Visit our{" "}
-                <span onClick={terms.onOpen} className="underline text-sky-500 cursor-pointer">Terms of Service</span>
-                {" "}and our{" "}
-                <span onClick={privacy.onOpen} className="underline text-sky-500 cursor-pointer">Privacy Policy</span>.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
