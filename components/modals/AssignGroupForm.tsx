@@ -46,7 +46,19 @@ export function AssignGroupForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      groups: transformedGroups || []
+      groups: transformedGroups
+    },
+    // The value of transformedGroups is technically not asynchronous. What this values field does is
+    // it populates once the value is received. It uses some black magic that not even I know.
+    // Truth be told, this could be entirely awful code, but it *does* work, which is more than my three previous
+    // attempts can say.
+    values: {
+      groups: transformedGroups?.map(o => ({
+        value: o.value,
+        group: o.group,
+        label: o.label,
+        fixed: o.fixed
+      })) || []
     }
   });
 
@@ -68,18 +80,6 @@ export function AssignGroupForm({
     strippedOptions.push({ value: option.value, fixed: false, label: option.label, group: option.group });
   }
 
-  const strippedTransformedGroups: Array<Option> = [];
-
-  for (const option of transformedGroups) {
-    if (!option) break;
-    strippedTransformedGroups.push({ value: option.value, fixed: false, label: option.label, group: option.group });
-  }
-
-  // This is easily the worst way to force-create default values. Basically, the useForm hook *must* be before
-  // any conditionals, and as such, at runtime transformedGroups is undefined. So, by adding this setValue here,
-  // we force it to change to transformedGroups after becoming defined. Hacky, but it works.
-  form.setValue("groups", transformedGroups);
-
   return (
     <Form {...form}>
       <form
@@ -89,14 +89,12 @@ export function AssignGroupForm({
         <FormField
           control={form.control}
           name="groups"
-          // eslint-disable-next-line no-unused-vars
-          render={({ field: { value, ...fieldProps } }) => (
+          render={({ field }) => (
             <FormItem className="max-w-screen-xs text-left text-sm gap-y-2">
               <FormLabel className="text-lg font-semibold">Groups</FormLabel>
               <FormControl>
                 <MultipleSelector
-                  {...fieldProps}
-                  value={strippedTransformedGroups}
+                  {...field}
                   className="bg-white dark:bg-dark"
                   badgeClassName="bg-white text-foreground border-muted-foreground
                   dark:bg-dark dark:text-muted-foreground
