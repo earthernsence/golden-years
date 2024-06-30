@@ -42,6 +42,21 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
 
   const isVisitorAdmin = visitor?.admin || false;
 
+  const userTeam = user.team || "";
+  const team = useQuery(api.teams.getTeamFromId, { id: userTeam });
+  const isUserLead = user.userId === team?.lead;
+
+  const teamString = () => {
+    if (!team) return `This User is not a member of a Team.`;
+
+    return (
+      <div>
+        This user is a member of the {team.name} Team{" "}
+        {isUserLead && (<span className="text-gy-light dark:text-gy-dark">(Team Leader)</span>) }
+      </div>
+    );
+  };
+
   const confirmEdits = async(values: z.infer<typeof formSchema>) => {
     toast({
       title: "Your edits have been saved!",
@@ -158,6 +173,11 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
         <div className="min-h-1/6 h-auto text-left text-sm">
           <div className="text-lg font-semibold">Location</div>
           {user.location ?? "None provided..."}
+        </div>
+        <br />
+        <div className="min-h-1/6 h-auto text-left text-sm">
+          <div className="text-lg font-semibold">Team</div>
+          {teamString()}
         </div>
         <br />
         <div className="min-h-1/6 h-auto text-left text-sm">

@@ -13,6 +13,10 @@ export const Pages: Array<Page> = [
     route: "/events",
     text: "Events"
   },
+  {
+    route: "/teams",
+    text: "Teams"
+  }
   // {
   //   route: "/members",
   //   text: "Members"

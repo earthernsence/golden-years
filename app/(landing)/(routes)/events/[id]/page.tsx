@@ -37,7 +37,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
 
   const eventId = parseInt(params.id, 10);
   const event = useQuery(api.events.getSpecificEvent, { id: `${eventId}` });
-  const participantEmails = useQuery(api.events.getEmailAddresses, { id: event?._id });
+  const participantEmails = useQuery(api.events.getEmailAddresses, { id: `${eventId}` });
   const organiser = useQuery(api.users.getUserById, { id: `${event?.organiser}` });
   const remove = useMutation(api.events.remove);
 

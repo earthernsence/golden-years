@@ -36,7 +36,8 @@ export const create = mutation({
       location: args.location,
       image: args.image,
       groups: args.groups,
-      events: []
+      events: [],
+      team: ""
     });
 
     return user;
