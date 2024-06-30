@@ -62,6 +62,8 @@ export const get = query({
 export const getTeamFromId = query({
   args: { id: v.string() },
   handler: async(ctx, args) => {
+    if (args.id === "-1") return null;
+
     const team = await ctx.db.query("teams")
       .withIndex("by_team_id", q => q.eq("teamId", args.id))
       .first();
@@ -117,18 +119,37 @@ export const leave = mutation({
         q.eq("userId", args.user)
       ).first();
 
-    if (!team || !user) return null;
+    const events = await ctx.db.query("events").collect();
+
+    if (!team || !user || !events) return null;
 
     const left = await ctx.db.patch(args.id, {
       members: team.members.filter(member => member !== user.userId)
     });
 
-    await ctx.db.patch(user._id, {
+    const userEvents = events.filter(e => user.events.includes(e.eventId));
+
+    // We won't remove users from their past events, but any future events they signed up for that are exclusive
+    // to the team they're leaving we will remove them from.
+    const exclusiveEvents = userEvents.filter(e => e.date > Date.now())
+      .filter(e => e.team === team.teamId)
+      .filter(e => e.exclusive);
+
+    const newUser = await ctx.db.patch(user._id, {
       team: "",
+      events: userEvents.filter(e =>
+        !exclusiveEvents.map(event => event.eventId).includes(e.eventId)
+      ).map(e => e.eventId),
       groups: user.groups.filter(g => g !== team.groupValue)
     });
 
-    return left;
+    for (const event of exclusiveEvents) {
+      await ctx.db.patch(event._id, {
+        participants: event.participants.filter(u => u !== user.userId)
+      });
+    }
+
+    return { left, newUser };
   }
 });
 

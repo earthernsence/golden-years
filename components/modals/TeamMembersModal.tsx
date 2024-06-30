@@ -23,8 +23,12 @@ export const TeamMembersModal = () => {
 
   const { userId } = useAuth();
   const visitor = useQuery(api.users.getUserById, { id: `${userId}` });
-  const isVisitorAdmin = visitor?.admin || false;
   const memberEmails = useQuery(api.teams.memberEmails, { teamId: `${modal.team?.teamId}` });
+
+  const isTeamLead = visitor?.userId === modal.team?.lead;
+  const isVisitorAdmin = visitor?.admin || false;
+
+  const canCopyEmails = isTeamLead || isVisitorAdmin;
 
   if (modal.team?.members === undefined || modal.team.members.length === 0) {
     return (
@@ -85,7 +89,7 @@ export const TeamMembersModal = () => {
               <TeamMember member={member} key={index} />
             ))
           }
-          {isVisitorAdmin && modal.team.members.length >= 1 && (
+          {canCopyEmails && modal.team.members.length >= 1 && (
             <Button variant={"default"} onClick={copyContent}>
               <Mail className="mr-2 w-4 h-4" />
               Copy Email Addresses

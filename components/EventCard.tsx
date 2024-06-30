@@ -24,6 +24,11 @@ const EventCard = ({
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
   const organiser = useQuery(api.users.getUserById, { id: `${event.organiser}` });
 
+  const eventTeam = useQuery(api.teams.getTeamFromId, { id: event.team || "-1" });
+  const isEventExclusive = event.exclusive || false;
+
+  const isUserMember = eventTeam?.teamId === user?.team;
+
   if (!organiser) {
     return (
       <div className="flex flex-col items-center justify-center min-h-full">
@@ -39,7 +44,6 @@ const EventCard = ({
         title: "Cannot sign up for event",
         description: "You must be signed in in order to sign up for events."
       });
-
       return;
     }
 
@@ -68,6 +72,14 @@ const EventCard = ({
       return;
     }
 
+    if (isEventExclusive && !isUserMember) {
+      toast({
+        title: `Sorry, this event is a Team-Exclusive Event.`,
+        description: `Only members of the ${eventTeam?.name} Team can join this event.`
+      });
+      return;
+    }
+
     signup.onOpen(event);
   };
 
@@ -75,6 +87,19 @@ const EventCard = ({
     const timeAsDate = new Date(event.date);
 
     return `${timeAsDate.getHours()}:${timeAsDate.getMinutes().toString().padStart(2, "0")}`;
+  };
+
+  const teamString = () => {
+    if (eventTeam && !isEventExclusive) return <div>
+      This Event is a &quot;{eventTeam.name}&quot; Team Event, but anybody in Golden Years can join.
+    </div>;
+
+    if (eventTeam && isEventExclusive) return <div>
+      This Event is a &quot;{eventTeam.name}&quot; Team <span className="underline">exclusive</span> Event.
+      Only Members of this Team can join this Event.
+    </div>;
+
+    return "";
   };
 
   return (
@@ -92,7 +117,8 @@ const EventCard = ({
         <Link href={`/events/${event.eventId}`} className="text-2xl xs:text-center md:text-left dark:text-white">
           { event.title }
         </Link>
-        <div className="text-md light:text-gray-700 dark:text-gray-400 truncate">{ event.description }</div>
+        <div className="text-md light:text-gray-600 dark:text-gray-300 truncate">{ event.description }</div>
+        <div className="text-sm light:text-gray-700 dark:text-gray-400">{ teamString() }</div>
         <div className="text-xs light:text-gray-800 dark:text-gray-500">
           { event.location } on { new Date(event.date).toDateString() } at { getTime() }
         </div>

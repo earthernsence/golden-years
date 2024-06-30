@@ -98,6 +98,19 @@ export const EditEventModal = () => {
       }
     }
 
+    // Users can either choose not to select a team at all, or choose one and then decide
+    // to *not* have a team assigned to it. There exists a "none" option on the edit event form,
+    // and it is represented by the value "-1".
+    const eventTeam = (values.team === undefined || values.team === "-1")
+      ? ""
+      : values.team;
+
+    // We also need to make sure that an Event Organiser doesn't whisk away an event.
+    // We have to check that there actually is an eventTeam. If there is, then we can proceed
+    // and allow the exclusive field to be whatever the user decided. If there isn't,
+    // we force the event to be non-exclusive.
+    const isExclusive = eventTeam ? values.exclusive : false;
+
     await update({
       eventId: modal.event.eventId,
       title: values.title,
@@ -105,7 +118,9 @@ export const EditEventModal = () => {
       description: values.description,
       image: eventImage,
       location: values.location,
-      slots: parseInt(values.slots, 10)
+      slots: parseInt(values.slots, 10),
+      team: eventTeam,
+      exclusive: isExclusive
     });
 
     modal.onClose();

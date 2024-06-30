@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useQuery } from "convex/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -13,10 +14,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/Form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
 import { DateTimePicker } from "@/components/ui/DateTimePicker";
 import { Input } from "@/components/ui/Input";
+import Spinner from "@/components/Spinner";
+import { Switch } from "@/components/ui/Switch";
 import { Textarea } from "@/components/ui/Textarea";
+
+import { api } from "@/convex/_generated/api";
+import { Doc } from "@/convex/_generated/dataModel";
 
 export const formSchema = z.object({
   title: z.string().min(2, {
@@ -31,13 +38,14 @@ export const formSchema = z.object({
     message: "Description cannot be more than 500 characters."
   }),
   image: z.instanceof(File).optional(),
-  imageURL: z.any(),
   location: z.string().min(2, {
     message: "Location must be at least 2 characters."
   }).max(100, {
     message: "Location cannot be more than 100 characters."
   }),
   slots: z.string().refine(value => parseInt(value, 10)),
+  team: z.string().optional(),
+  exclusive: z.boolean(),
 });
 
 interface CreateEventFormProps {
@@ -58,6 +66,10 @@ export function CreateEventForm({
       slots: "2"
     }
   });
+
+  const availableTeams = useQuery(api.teams.get);
+
+  if (availableTeams === null) return <Spinner />;
 
   return (
     <Form {...form}>
@@ -97,7 +109,8 @@ export function CreateEventForm({
                 />
               </FormControl>
               <FormDescription className="text-xs">
-                Select a date for the event.
+                Select a date for this Event. In your description, feel free to specify the assumed length of
+                the Event.
               </FormDescription>
               <br />
               <FormMessage />
@@ -155,7 +168,8 @@ export function CreateEventForm({
                 <Input placeholder="Location of Event" {...field} />
               </FormControl>
               <FormDescription className="text-xs">
-                Give the location of the event.
+                Provide the location of this Event. A full address is preferred, including street, city, and ZIP
+                code.
               </FormDescription>
               <br />
               <FormMessage />
@@ -176,6 +190,63 @@ export function CreateEventForm({
               </FormDescription>
               <br />
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="team"
+          render={({ field }) => (
+            <FormItem className="max-w-screen-xs">
+              <FormLabel>Team</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a team (Optional)" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {availableTeams?.map((team: Doc<"teams">, index: number) => (
+                    <SelectItem
+                      value={team.teamId}
+                      key={index}
+                    >
+                      {team.name}
+                    </SelectItem>
+                  ))}
+                  <SelectItem value={"-1"}>No Team</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormDescription className="text-xs">
+                It is possible to assign certain Events to Teams. Events can either be Team-exclusive
+                or available to all members of Golden Years. This is to ensure that members of Teams have access
+                to as many Events at their preferred location as possible.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="exclusive"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
+                <FormLabel>
+                  Team Exclusive
+                </FormLabel>
+                <br />
+                <FormDescription className="text-xs">
+                  Determines whether or not only Members of the Team you selected above can join, or if all
+                  of Golden Years can join this event. This switch has no effect if you do not select a Team.
+                </FormDescription>
+              </div>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
             </FormItem>
           )}
         />

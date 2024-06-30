@@ -29,7 +29,9 @@ export default defineSchema({
     location: v.string(),
     slots: v.number(),
     participants: v.array(v.string()),
-    organiser: v.string()
+    organiser: v.string(),
+    team: v.optional(v.string()),
+    exclusive: v.optional(v.boolean())
   })
     .index("by_event_id", ["eventId"])
     .index("by_date", ["date"]),

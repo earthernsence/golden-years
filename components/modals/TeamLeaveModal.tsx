@@ -38,7 +38,8 @@ export const TeamLeaveModal = () => {
           <DialogDescription className="space-y-1">
             <div className="flex items-center text-xs">
               You will be removed from this Team. You will be able to rejoin any other team
-              from the Teams page.
+              from the Teams page. You will also be removed from any future Team-exclusive events
+              you may have joined while on this Team.
             </div>
           </DialogDescription>
           <div className="text-lg text-justify w-full">
@@ -89,18 +90,17 @@ export const TeamLeaveModal = () => {
       <DialogContent className="h-auto max-h-[50%] overflow-y-auto">
         <DialogHeader className="border-b pb-3">
           <div className="text-lg font-medium">
-            Join this Team
+            Leave this Team
           </div>
         </DialogHeader>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
-            Your information will appear on the Members modal, and other users
-            will be able to visit your account.
+            You will be removed from this Team. You will be able to rejoin any other team
+            from the Teams page.
           </div>
         </DialogDescription>
         <div className="text-sm text-justify w-full">
-          Are you sure you wish to join the {leaveModal.team.name} Team?
-          You can leave at any time from the Teams page.
+          Are you sure you wish to leave the {leaveModal.team.name} Team?
         </div>
         <DialogFooter className="flex flex-row justify-end gap-x-2">
           <Button type="button" onClick={() => leaveModal.onClose()}>Cancel</Button>

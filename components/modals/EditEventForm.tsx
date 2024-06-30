@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useQuery } from "convex/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -14,10 +14,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/Form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
 import { DateTimePicker } from "@/components/ui/DateTimePicker";
 import { Input } from "@/components/ui/Input";
+import Spinner from "@/components/Spinner";
+import { Switch } from "@/components/ui/Switch";
 import { Textarea } from "@/components/ui/Textarea";
+
+import { api } from "@/convex/_generated/api";
+import { Doc } from "@/convex/_generated/dataModel";
 
 export const formSchema = z.object({
   title: z.string().min(2, {
@@ -39,6 +45,8 @@ export const formSchema = z.object({
     message: "Location cannot be more than 100 characters."
   }),
   slots: z.string().refine(value => parseInt(value, 10)),
+  team: z.string().optional(),
+  exclusive: z.boolean(),
 });
 
 interface Event {
@@ -51,6 +59,8 @@ interface Event {
   slots: number,
   participants: Array<string>,
   organiser: string,
+  team?: string,
+  exclusive?: Boolean
 }
 
 interface EditEventFormProps {
@@ -63,8 +73,6 @@ export function EditEventForm({
   onSubmit,
   event
 }: EditEventFormProps) {
-  const [checked, setChecked] = useState(false);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -73,8 +81,14 @@ export function EditEventForm({
       description: event.description,
       location: event.location,
       slots: `${event.slots}`,
-    }
+      team: event.team,
+      exclusive: Boolean(event.exclusive)
+    },
   });
+
+  const availableTeams = useQuery(api.teams.get);
+
+  if (availableTeams === null) return <Spinner />;
 
   return (
     <Form {...form}>
@@ -114,7 +128,8 @@ export function EditEventForm({
                 />
               </FormControl>
               <FormDescription className="text-xs">
-                Select a date for the event.
+                Select a date for this Event. In your description, feel free to specify the assumed length of
+                the Event.
               </FormDescription>
               <br />
               <FormMessage />
@@ -168,25 +183,22 @@ export function EditEventForm({
           name="removeImage"
           // eslint-disable-next-line no-unused-vars
           render={({ field: { value, onChange, ...fieldProps } }) => (
-            <FormItem className="max-w-screen-xs">
-              <FormLabel>Remove image</FormLabel>
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
+                <FormLabel>Remove image</FormLabel>
+                <br />
+                <FormDescription className="text-xs">
+                  There isn&apos;t really a nice way of doing this code-wise, so use this checkbox if you would like
+                  to remove the image from the event. This takes precedent over any other previous options, so leave it
+                  unchecked if you wish to keep the picture or change it to whatever you chose above.
+                </FormDescription>
+              </div>
               <FormControl>
-                <Input
-                  type="checkbox"
-                  className="h-4 w-4"
-                  checked={checked}
-                  onChange={e => {
-                    setChecked(e.target.checked);
-                    onChange(e.target.checked);
-                  }}
-                  {...fieldProps}
+                <Switch
+                  checked={value}
+                  onCheckedChange={onChange}
                 />
               </FormControl>
-              <FormDescription className="text-xs">
-                There isn&apos;t really a nice way of doing this code-wise, so use this checkbox if you would like
-                to remove the image from the event. This takes precedent over any other previous options, so leave it
-                unchecked if you wish to keep the picture or change it to whatever you chose above.
-              </FormDescription>
             </FormItem>
           )}
         />
@@ -200,7 +212,8 @@ export function EditEventForm({
                 <Input placeholder="Location of Event" {...field} />
               </FormControl>
               <FormDescription className="text-xs">
-                Give the location of the event.
+                Provide the location of this Event. A full address is preferred, including street, city, and ZIP
+                code.
               </FormDescription>
               <br />
               <FormMessage />
@@ -221,6 +234,63 @@ export function EditEventForm({
               </FormDescription>
               <br />
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="team"
+          render={({ field }) => (
+            <FormItem className="max-w-screen-xs">
+              <FormLabel>Team</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a team (Optional)" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {availableTeams?.map((team: Doc<"teams">, index: number) => (
+                    <SelectItem
+                      value={team.teamId}
+                      key={index}
+                    >
+                      {team.name}
+                    </SelectItem>
+                  ))}
+                  <SelectItem value={"-1"}>No Team</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormDescription className="text-xs">
+                It is possible to assign certain Events to Teams. Events can either be Team-exclusive
+                or available to all members of Golden Years. This is to ensure that members of Teams have access
+                to as many Events at their preferred location as possible.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="exclusive"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
+                <FormLabel>
+                  Team Exclusive
+                </FormLabel>
+                <br />
+                <FormDescription className="text-xs">
+                  Determines whether or not only Members of the Team you selected above can join, or if all
+                  of Golden Years can join this event. This switch has no effect if you do not select a Team.
+                </FormDescription>
+              </div>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
             </FormItem>
           )}
         />

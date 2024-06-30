@@ -56,6 +56,8 @@ export const create = mutation({
     location: v.string(),
     slots: v.number(),
     organiser: v.string(),
+    team: v.string(),
+    exclusive: v.boolean()
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -75,7 +77,9 @@ export const create = mutation({
       location: args.location,
       slots: args.slots,
       participants: [],
-      organiser: args.organiser
+      organiser: args.organiser,
+      team: args.team,
+      exclusive: args.exclusive
     });
 
     return event;
@@ -90,7 +94,9 @@ export const update = mutation({
     description: v.string(),
     location: v.string(),
     slots: v.number(),
-    image: v.optional(v.string())
+    image: v.optional(v.string()),
+    team: v.string(),
+    exclusive: v.boolean()
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
