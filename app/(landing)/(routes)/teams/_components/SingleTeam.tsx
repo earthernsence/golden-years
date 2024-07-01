@@ -3,6 +3,7 @@
 import { faStar, faUsers } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Link from "next/link";
+import { Pencil } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 
@@ -12,6 +13,7 @@ import Spinner from "@/components/Spinner";
 
 import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
+import { useTeamEditModal } from "@/hooks/use-team-edit-modal";
 import { useTeamJoinModal } from "@/hooks/use-team-join-modal";
 import { useTeamLeaveModal } from "@/hooks/use-team-leave-modal";
 import { useTeamMembersModal } from "@/hooks/use-team-members-modal";
@@ -25,6 +27,7 @@ export const SingleTeam = ({
 }: SingleTeamProps) => {
   const joinModal = useTeamJoinModal();
   const leaveModal = useTeamLeaveModal();
+  const editModal = useTeamEditModal();
 
   const { userId } = useAuth();
 
@@ -33,6 +36,7 @@ export const SingleTeam = ({
 
   const visitor = useQuery(api.users.getUserById, { id: `${userId}` });
   const visitorTeam = visitor?.team || "";
+  const isVisitorAdmin = visitor?.admin || false;
 
   const isMember = visitorTeam === team.teamId;
 
@@ -49,7 +53,16 @@ export const SingleTeam = ({
         width={640}
         alt={`Team image for ${team.name}`}
       />
-      <b>{ team.name }</b>
+      <div className="font-bold text-lg inline-flex flex-row items-center">
+        { team.name }
+        {isVisitorAdmin && (
+          <Pencil
+            className="h-4 w-4 ml-2"
+            role="button"
+            onClick={() => editModal.onOpen(team)}
+          />
+        )}
+      </div>
       <i>{ team.location }</i>
       <i>
         <Link

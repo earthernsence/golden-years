@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useQuery } from "convex/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -17,6 +18,9 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 
+import { api } from "@/convex/_generated/api";
+import { Doc } from "@/convex/_generated/dataModel";
+
 // Does not check for whitespace
 function isCleanString(u: string) {
   const hasSpecial = /[*|":<>.,[\]{}\\()';@&$]/u.test(u);
@@ -24,16 +28,6 @@ function isCleanString(u: string) {
 
   if (hasSpecial) return false;
   return isAlphanumericWithSpaces;
-}
-
-// Checks for whitespace
-function isStrictCleanString(u: string) {
-  const hasWhitespace = /\s/u.test(u);
-  const hasSpecial = /[*|":<>.,[\]{}\\()';@&$]/u.test(u);
-  const isAlphanumeric = /^[a-zA-Z0-9-_]{2,}$/u.test(u);
-
-  if (hasWhitespace || hasSpecial) return false;
-  return isAlphanumeric;
 }
 
 const urlRegex =
@@ -62,13 +56,6 @@ export const formSchema = z.object({
   }).max(50, {
     message: "Leader Username cannot be more than 50 characters"
   }),
-  groupValue: z.string().min(2, {
-    message: "Value must be at least 2 characters."
-  }).max(50, {
-    message: "Value cannot be more than 50 characters."
-  }).refine(value => isStrictCleanString(value), {
-    message: "Only alphanumeric characters allowed."
-  }),
   link: z.string().min(2, {
     message: "Link must be at least 2 characters",
   }).max(50, {
@@ -76,27 +63,30 @@ export const formSchema = z.object({
   }).refine(value => urlRegex.test(value), {
     message: "Link must be a URL"
   }),
-  image: z.instanceof(File)
+  image: z.instanceof(File).optional()
 });
 
-interface TeamCreateFormProps {
+interface TeamEditFormProps {
   // eslint-disable-next-line no-unused-vars
   onSubmit: (values: z.infer<typeof formSchema>) => void;
+  team: Doc<"teams">
 }
 
-export function TeamCreateForm({
-  onSubmit
-}: TeamCreateFormProps) {
+export function TeamEditForm({
+  onSubmit,
+  team
+}: TeamEditFormProps) {
+  const teamLead = useQuery(api.users.getUserById, { id: team.lead });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "New Team",
-      description: "",
-      location: "",
-      groupValue: "",
-      lead: "",
-      link: ""
-    }
+      name: team.name,
+      description: team.description,
+      location: team.location,
+      lead: teamLead?.username || "",
+      link: team.link,
+    },
   });
 
   return (
@@ -161,24 +151,6 @@ export function TeamCreateForm({
         />
         <FormField
           control={form.control}
-          name="groupValue"
-          render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
-              <FormLabel>Group Value</FormLabel>
-              <FormControl>
-                <Input placeholder="Group value of Team" {...field} />
-              </FormControl>
-              <FormDescription className="text-xs">
-                This is a backend code value that is stored on user data. It is only used for retreival.
-                These must be alphanumeric.
-              </FormDescription>
-              <br />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="lead"
           render={({ field }) => (
             <FormItem className="max-w-screen-xs">
@@ -230,7 +202,8 @@ export function TeamCreateForm({
                 />
               </FormControl>
               <FormDescription className="text-xs">
-                Choose an image for this Team. It will appear alongside the Team on the Teams page.
+                Choose an image for this Team. It will appear alongside the Team on the Teams page. If you do not
+                select an image while editing, it will not change.
               </FormDescription>
               <br />
               <FormMessage />

@@ -11,6 +11,7 @@ import { LeaveEventModal } from "../modals/LeaveEventModal";
 import { PrivacyPolicyModal } from "../modals/PrivacyPolicy";
 import { SignUpModal } from "../modals/SignUpModal";
 import { TeamCreateModal } from "../modals/TeamCreateModal";
+import { TeamEditModal } from "../modals/TeamEditModal";
 import { TeamInfoModal } from "../modals/TeamInfoModal";
 import { TeamJoinModal } from "../modals/TeamJoinModal";
 import { TeamLeaveModal } from "../modals/TeamLeaveModal";
@@ -42,6 +43,7 @@ export const ModalProvider = () => {
       <TeamJoinModal />
       <TeamLeaveModal />
       <TeamCreateModal />
+      <TeamEditModal />
     </>
   );
 };

@@ -51,6 +51,65 @@ export const create = mutation({
   }
 });
 
+export const update = mutation({
+  args: {
+    teamId: v.string(),
+    name: v.string(),
+    image: v.optional(v.string()),
+    description: v.string(),
+    location: v.string(),
+    lead: v.string(),
+    groupValue: v.string(),
+    link: v.string()
+  },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated!");
+    }
+
+    const { teamId, lead, ...rest } = args;
+
+    const team = await ctx.db
+      .query("teams")
+      .withIndex("by_team_id", q => q.eq("teamId", teamId))
+      .first();
+
+    const group = await ctx.db
+      .query("groups")
+      .withIndex("by_value", q => q.eq("value", args.groupValue))
+      .first();
+
+    const leader = await ctx.db
+      .query("users")
+      .withIndex("by_username", q => q.eq("username", lead))
+      .first();
+
+    if (!team || !group || !leader) return null;
+
+    const members = new Set(team.members);
+
+    members.add(leader.userId);
+
+    const updatedTeam = await ctx.db.patch(team._id, {
+      ...rest,
+      lead: leader.userId,
+      members: [...members],
+    });
+
+    const updatedGroup = await ctx.db.patch(group._id, {
+      label: args.name
+    });
+
+    const updatedLeader = await ctx.db.patch(leader._id, {
+      team: team.teamId
+    });
+
+    return { updatedTeam, updatedGroup, updatedLeader };
+  }
+});
+
 export const get = query({
   handler: async ctx => {
     const teams = await ctx.db.query("teams").collect();
@@ -167,5 +226,29 @@ export const memberEmails = query({
     const members = allUsers.filter(user => user.team === args.teamId);
 
     return members.map(member => member.email);
+  }
+});
+
+export const removeImage = mutation({
+  args: { id: v.optional(v.string()) },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("Unauthenticated");
+
+    if (!args.id) throw new Error("No ID provided in removeImage");
+
+    const existingTeam = await ctx.db
+      .query("teams")
+      .withIndex("by_team_id", q => q.eq("teamId", `${args.id}`))
+      .first();
+
+    if (!existingTeam) return null;
+
+    const team = await ctx.db.patch(existingTeam._id, {
+      image: undefined
+    });
+
+    return team;
   }
 });
