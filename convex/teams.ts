@@ -39,7 +39,8 @@ export const create = mutation({
       value: args.groupValue,
       label: args.name,
       fixed: true,
-      group: "Teams"
+      group: "Teams",
+      isTeamGroup: true,
     });
 
     await ctx.db.patch(leader._id, {

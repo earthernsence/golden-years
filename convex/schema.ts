@@ -41,6 +41,7 @@ export default defineSchema({
     disable: v.optional(v.boolean()),
     fixed: v.optional(v.boolean()),
     group: v.string(),
+    isTeamGroup: v.optional(v.boolean()),
   })
     .index("by_value", ["value"])
     .index("by_fixed", ["fixed"]),
