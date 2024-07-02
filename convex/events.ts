@@ -56,6 +56,8 @@ export const create = mutation({
     location: v.string(),
     slots: v.number(),
     organiser: v.string(),
+    team: v.string(),
+    exclusive: v.boolean()
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -75,7 +77,9 @@ export const create = mutation({
       location: args.location,
       slots: args.slots,
       participants: [],
-      organiser: args.organiser
+      organiser: args.organiser,
+      team: args.team,
+      exclusive: args.exclusive
     });
 
     return event;
@@ -90,7 +94,9 @@ export const update = mutation({
     description: v.string(),
     location: v.string(),
     slots: v.number(),
-    image: v.optional(v.string())
+    image: v.optional(v.string()),
+    team: v.string(),
+    exclusive: v.boolean()
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -188,32 +194,18 @@ export const removeImage = mutation({
 });
 
 export const getEmailAddresses = query({
-  args: { id: v.optional(v.id("events")) },
+  args: { id: v.optional(v.string()) },
   handler: async(ctx, args) => {
     const identity = ctx.auth.getUserIdentity();
 
     if (!identity) throw new Error("Unauthenticated");
 
-    if (!args.id) throw new Error("Event ID could not be found");
+    if (!args.id || args.id === undefined) throw new Error("Event ID could not be found");
 
-    const event = await ctx.db.get(args.id);
+    const allUsers = await ctx.db.query("users").collect();
 
-    if (!event) throw new Error("Event could not be found");
+    const participants = allUsers.filter(user => user.events.includes(`${args.id}`));
 
-    const parts = event.participants;
-
-    const emails: Array<string> = [];
-
-    for (const part of parts) {
-      const user = await ctx.db.query("users")
-        .withIndex("by_user", q => (q.eq("userId", part)))
-        .first();
-
-      if (!user) throw new Error("Issue fetching users");
-
-      emails.push(user.email);
-    }
-
-    return emails;
+    return participants.map(user => user.email);
   }
 });

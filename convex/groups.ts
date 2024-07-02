@@ -31,7 +31,8 @@ export const create = mutation({
     label: v.string(),
     disable: v.optional(v.boolean()),
     fixed: v.optional(v.boolean()),
-    group: v.string()
+    group: v.string(),
+    isTeamGroup: v.optional(v.boolean())
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();

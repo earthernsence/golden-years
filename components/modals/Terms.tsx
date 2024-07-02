@@ -24,7 +24,7 @@ export const TermsModal = () => {
       <DialogContent className="h-full max-h-[50%] overflow-y-auto">
         <DialogHeader className="border-b pb-3">
           <div className="text-lg font-medium">
-          Terms & Conditions
+            Terms & Conditions
           </div>
         </DialogHeader>
         <DialogDescription className="space-y-1">

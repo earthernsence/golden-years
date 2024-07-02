@@ -21,7 +21,11 @@ const badgeVariants = cva(
                   hover:bg-muted-foreground/50 dark:hover:bg-muted-foreground/25`,
         executive: 
           `bg-transparent text-gy-light border-gy-light
-                  dark:text-gy-dark
+                  dark:text-gy-dark dark:border-gy-dark
+                  hover:bg-muted-foreground/50 dark:hover:bg-muted-foreground/25`,
+        team: 
+          `bg-transparent text-sky-500 border-sky-500
+                  dark:text-sky-600 dark:border-sky-600
                   hover:bg-muted-foreground/50 dark:hover:bg-muted-foreground/25`
       },
     },

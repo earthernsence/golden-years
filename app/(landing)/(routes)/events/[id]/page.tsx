@@ -37,13 +37,18 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
 
   const eventId = parseInt(params.id, 10);
   const event = useQuery(api.events.getSpecificEvent, { id: `${eventId}` });
-  const participantEmails = useQuery(api.events.getEmailAddresses, { id: event?._id });
+  const participantEmails = useQuery(api.events.getEmailAddresses, { id: `${eventId}` });
   const organiser = useQuery(api.users.getUserById, { id: `${event?.organiser}` });
   const remove = useMutation(api.events.remove);
 
   const { isSignedIn, userId } = useAuth();
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
   const isUserAdmin = user?.admin || false;
+
+  const eventTeam = useQuery(api.teams.getTeamFromId, { id: event?.team || "-1" });
+  const isEventExclusive = event?.exclusive || false;
+
+  const isUserMember = eventTeam?.teamId === user?.team;
 
   if (event === undefined) {
     return (
@@ -106,6 +111,14 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
       toast({
         title: "Sorry, this event is full.",
         description: "Try signing up for one of our other events!"
+      });
+      return;
+    }
+
+    if (isEventExclusive && !isUserMember) {
+      toast({
+        title: `Sorry, this event is a Team-Exclusive Event.`,
+        description: `Only members of the ${eventTeam?.name} Team can join this event.`
       });
       return;
     }
@@ -175,6 +188,19 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
     }
   };
 
+  const teamString = () => {
+    if (eventTeam && !isEventExclusive) return <div>
+      This Event is a &quot;{eventTeam.name}&quot; Team Event, but anybody in Golden Years can join.
+    </div>;
+
+    if (eventTeam && isEventExclusive) return <div>
+      This Event is a &quot;{eventTeam.name}&quot; Team <span className="underline">exclusive</span> Event.
+      Only Members of this Team can join this Event.
+    </div>;
+
+    return "";
+  };
+
   return (
     <>
       <div className="flex md:w-1/2 xs:items-center md:items-start">
@@ -241,6 +267,12 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
             <div className="text-lg font-semibold">Description</div>
             {event.description}
           </div>
+          {eventTeam && (
+            <div className="text-left text-sm">
+              <div className="text-lg font-semibold">Team</div>
+              {teamString()}
+            </div>
+          )}
           <div className="text-left text-sm">
             <div className="text-lg font-semibold">Location</div>
             {event.location}

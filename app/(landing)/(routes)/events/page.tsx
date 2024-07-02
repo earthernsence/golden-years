@@ -5,21 +5,28 @@ import Image from "next/image";
 import { Plus } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
+import { useState } from "react";
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
 import EventCard from "@/components/EventCard";
 
 import holly from "#/holly.jpg";
+
 import { useCreateEventModal } from "@/hooks/use-create-event-modal";
 
 const EventsPage = () => {
   const createModal = useCreateEventModal();
+
+  const [view, setView] = useState<"all" | "team">("all");
 
   const events = useQuery(api.events.get);
 
   const { userId } = useAuth();
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
   const isAdmin = user?.admin || false;
+
+  const team = user?.team || "";
 
   if (events === null) {
     return (
@@ -39,6 +46,7 @@ const EventsPage = () => {
   }
 
   const futureEvents = events.filter(event => event.date > Date.now());
+  const teamEvents = futureEvents.filter(event => event.team === team);
 
   return (
     <div className="place-self-center max-w-full h-full md:w-2/3 xs:w-11/12 pt-0 pb-12 md:pl-16 md:pr-16
@@ -53,11 +61,29 @@ const EventsPage = () => {
           </Button>
         )}
       </div>
-      {
-        futureEvents?.map(event => (
-          <EventCard key={event.eventId} event={event} />
-        ))
-      }
+      <div className="flex xs:justify-center md:justify-normal">
+        {team !== "" && (
+          <Select
+            defaultValue={"all"}
+            onValueChange={value => setView(value as "all" | "team")}
+          >
+            <SelectTrigger className="w-56">
+              <SelectValue placeholder="Events view" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Viewing all Events</SelectItem>
+              <SelectItem value="team">Viewing Team Events</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+      </div>
+      <br />
+      {view === "all" && futureEvents?.map(event => (
+        <EventCard key={event.eventId} event={event} />
+      ))}
+      {view === "team" && teamEvents?.map(event => (
+        <EventCard key={event.eventId} event={event} />
+      ))}
       {futureEvents.length === 0 && (
         <>
           <div className="flex text-4xl justify-center xs:text-center md:text-left pb-2">

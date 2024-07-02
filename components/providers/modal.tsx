@@ -10,6 +10,12 @@ import { EditEventModal } from "../modals/EditEventModal";
 import { LeaveEventModal } from "../modals/LeaveEventModal";
 import { PrivacyPolicyModal } from "../modals/PrivacyPolicy";
 import { SignUpModal } from "../modals/SignUpModal";
+import { TeamCreateModal } from "../modals/TeamCreateModal";
+import { TeamEditModal } from "../modals/TeamEditModal";
+import { TeamInfoModal } from "../modals/TeamInfoModal";
+import { TeamJoinModal } from "../modals/TeamJoinModal";
+import { TeamLeaveModal } from "../modals/TeamLeaveModal";
+import { TeamMembersModal } from "../modals/TeamMembersModal";
 import { TermsModal } from "../modals/Terms";
 
 export const ModalProvider = () => {
@@ -32,6 +38,12 @@ export const ModalProvider = () => {
       <AssignRoleModal />
       <CreateGroupModal />
       <AssignGroupModal />
+      <TeamInfoModal />
+      <TeamMembersModal />
+      <TeamJoinModal />
+      <TeamLeaveModal />
+      <TeamCreateModal />
+      <TeamEditModal />
     </>
   );
 };
