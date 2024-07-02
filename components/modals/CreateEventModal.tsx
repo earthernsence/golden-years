@@ -61,7 +61,7 @@ export const CreateEventModal = () => {
     // We have to check that there actually is an eventTeam. If there is, then we can proceed
     // and allow the exclusive field to be whatever the user decided. If there isn't,
     // we force the event to be non-exclusive.
-    const isExclusive = eventTeam ? values.exclusive : false;
+    const isExclusive = eventTeam ? Boolean(values.exclusive) : false;
 
     create({
       title: values.title,

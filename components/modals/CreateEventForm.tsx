@@ -45,7 +45,7 @@ export const formSchema = z.object({
   }),
   slots: z.string().refine(value => parseInt(value, 10)),
   team: z.string().optional(),
-  exclusive: z.boolean(),
+  exclusive: z.boolean().optional(),
 });
 
 interface CreateEventFormProps {
@@ -247,6 +247,7 @@ export function CreateEventForm({
                   onCheckedChange={field.onChange}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
