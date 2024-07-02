@@ -1,7 +1,7 @@
 "use client";
 
-import { useQuery } from "convex/react";
 import { Star, Users } from "lucide-react";
+import { useQuery } from "convex/react";
 
 import { Badge } from "@/components/ui/Badge";
 
