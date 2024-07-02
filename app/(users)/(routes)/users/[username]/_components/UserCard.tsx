@@ -198,7 +198,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
               />
             )}
           </div>
-          <GroupsList groups={user.groups} />
+          <GroupsList groups={user.groups} isUserLead={isUserLead} />
         </div>
         <br />
         <div className="h-1/3 text-left text-sm">

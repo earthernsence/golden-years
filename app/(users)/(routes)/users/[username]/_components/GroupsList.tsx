@@ -1,18 +1,20 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import { Users } from "lucide-react";
+import { Star, Users } from "lucide-react";
 
 import { Badge } from "@/components/ui/Badge";
 
 import { api } from "@/convex/_generated/api";
 
 interface GroupsListProps {
-  groups: Array<string>
+  groups: Array<string>,
+  isUserLead: boolean,
 }
 
 export const GroupsList = ({
-  groups
+  groups,
+  isUserLead
 }: GroupsListProps) => {
   const transformedGroups = useQuery(api.groups.transform, { groups });
 
@@ -44,7 +46,11 @@ export const GroupsList = ({
       {
         stripped.map((group: { value: string, label: string, isTeamGroup: boolean }, index: number) => (
           <Badge key={index} variant={variant(group.value, group.isTeamGroup)}>
-            <Users className="w-4 h-4 mr-1" />
+            {
+              isUserLead && group.isTeamGroup
+                ? <Star className="w-4 h-4 mr-1" />
+                : <Users className="w-4 h-4 mr-1" />
+            }
             {group.label}
           </Badge>
         ))
