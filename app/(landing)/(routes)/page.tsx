@@ -1,4 +1,4 @@
-import LandingCarousel from "./_components/Carousel";
+import LandingCarousel from "./_components/LandingCarousel";
 
 import { Header } from "./_components/Header";
 

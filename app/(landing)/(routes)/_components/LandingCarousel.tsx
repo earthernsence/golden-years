@@ -1,3 +1,7 @@
+"use client";
+
+import Autoplay from "embla-carousel-autoplay";
+
 import { Card, CardContent } from "@/components/ui/Card";
 import {
   Carousel,
@@ -22,26 +26,39 @@ interface CarouselItems {
 const items: CarouselItems = {
   1: {
     image: carouselImage1,
-    text: "Mariber"
+    text: `On July 7th, some of the members from Golden Years were able to come to the
+          Villages of St. Peter's to paint with the residents.`
   },
   2: {
     image: carouselImage2,
-    text: "puget Sound"
+    text: `Vinay K and Jonathan N painting with the residents in Aubrey's Place at the Villages of St. Peter's`
   },
   3: {
     image: carouselImage3,
-    text: "sunset"
+    text: "A resident finished with her otter painting with watercolor."
   },
   4: {
     image: carouselImage4,
-    text: "Lorem ipsum dolor sit amet"
+    text: "A resident finished with her watercolor flowers."
   }
 };
 
 import Image from "next/image";
 
 const LandingCarousel = () => (
-  <Carousel orientation="horizontal" className="w-full max-w-xs md:max-w-2xl bg-transparent items-center">
+  <Carousel
+    orientation="horizontal"
+    className="w-full max-w-xs md:max-w-lg bg-transparent items-center"
+    opts={{
+      align: "start",
+      loop: true,
+    }}
+    plugins={[
+      Autoplay({
+        delay: 5000
+      })
+    ]}
+  >
     <CarouselContent>
       {Array.from({ length: 4 }).map((_, index) => (
         <CarouselItem key={index}>
