@@ -4,13 +4,22 @@ import { SignInButton, SignUpButton, useAuth, UserButton } from "@clerk/nextjs";
 import { useConvexAuth, useQuery } from "convex/react";
 import Link from "next/link";
 
+import { NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle
+} from "@/components/ui/NavigationMenu";
 import { Button } from "@/components/ui/Button";
+import { ListItem } from "@/components/ui/ListItem";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
 
-import { Page, Pages } from "./pages";
+import { Leaf, Page, Pages } from "./pages";
 import MobileNavigationSheet from "./MobileNavigationSheet";
 import Spinner from "./Spinner";
 import { Wordmark } from "./Wordmark";
@@ -35,17 +44,39 @@ export const Navbar = () => {
       </div>
       <br />
       <div className="flex-row text-sm w-full justify-start flex-wrap list-none items-center gap-x-6 xs:hidden md:flex">
-        {
-          Pages.filter(page => page.text !== "Home").map((page: Page, index: number) => (
-            <Link
-              className="text-black dark:text-white dark:opacity-60 hover:underline hover:opacity-100"
-              href={page.route}
-              key={index}
-            >
-              { page.text }
-            </Link>
-          ))
-        }
+        <NavigationMenu>
+          <NavigationMenuList>
+            {
+              Pages.filter(page => page.text !== "Home" && !page.leaves).map((page: Page, index: number) => (
+                <Link href={page.route} legacyBehavior passHref key={index}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "dark:bg-dark")}>
+                    {page.text}
+                  </NavigationMenuLink>
+                </Link>
+              ))
+            }
+            {
+              Pages.filter(page => page.leaves).map((page: Page, index: number) => (
+                <NavigationMenuItem key={index}>
+                  <NavigationMenuTrigger className="dark:bg-dark">{page.text}</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      {page.leaves && page.leaves.map((leaf: Leaf, i: number) => (
+                        <ListItem
+                          key={i}
+                          title={leaf.text}
+                          href={leaf.route}
+                        >
+                          {leaf.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              ))
+            }
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
       <div className="flex items-center gap-x-2 ml-auto justify-end">
         {isLoading && (

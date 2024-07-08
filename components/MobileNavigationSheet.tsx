@@ -11,13 +11,22 @@ import {
   SheetTrigger,
 } from "@/components/ui/Sheet";
 
-import { Page, Pages } from "./pages";
+import { Leaf, Page, Pages } from "./pages";
+import { NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationSheetMenuTriggerStyle
+} from "@/components/ui/NavigationMenu";
 import Icon from "./Icon";
-import { Separator } from "./ui/Separator";
+import { Separator } from "@/components/ui/Separator";
 import { Wordmark } from "./Wordmark";
 
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
+import { ListItem } from "./ui/ListItem";
 
 const MobileNavigationSheet = () => (
   <Sheet>
@@ -36,17 +45,41 @@ const MobileNavigationSheet = () => (
       <div
         className="flex text-left flex-col text-md w-full justify-start flex-wrap list-none gap-y-4"
       >
-        {
-          Pages.filter(page => page.text !== "Home").map((page: Page, index: number) => (
-            <Link
-              className="text-black dark:text-white dark:opacity-60 hover:underline hover:opacity-100"
-              href={page.route}
-              key={index}
-            >
-              { page.text }
-            </Link>
-          ))
-        }
+        <NavigationMenu>
+          <NavigationMenuList
+            className="flex text-left flex-col text-md w-full justify-start items-start flex-wrap list-none gap-y-2"
+          >
+            {
+              Pages.filter(page => page.text !== "Home" && !page.leaves).map((page: Page, index: number) => (
+                <Link href={page.route} legacyBehavior passHref key={index}>
+                  <NavigationMenuLink className={navigationSheetMenuTriggerStyle()}>
+                    {page.text}
+                  </NavigationMenuLink>
+                </Link>
+              ))
+            }
+            {
+              Pages.filter(page => page.leaves).map((page: Page, index: number) => (
+                <NavigationMenuItem key={index}>
+                  <NavigationMenuTrigger>{page.text}</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      {page.leaves && page.leaves.map((leaf: Leaf, i: number) => (
+                        <ListItem
+                          key={i}
+                          title={leaf.text}
+                          href={leaf.route}
+                        >
+                          {leaf.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              ))
+            }
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
       <Separator className="mt-2 mb-2" />
       <div className="flex flex-row w-full">
