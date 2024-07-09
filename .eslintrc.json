@@ -12,7 +12,7 @@
     "no-console": "warn",
     "no-template-curly-in-string": "warn",
     "array-callback-return": "error",
-    "complexity": "warn",
+    "complexity": ["warn", 25],
     "consistent-return": "error",
     "dot-location": ["error", "property"],
     "dot-notation": "error",
