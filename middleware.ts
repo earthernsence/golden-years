@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from "next/server";
 // up for an account. All this does is ensure that before they go to any other page on the site that they
 // have their account set up.
 export default authMiddleware({
+  secretKey: process.env.CLERK_SECRET_KEY!,
+  publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!,
   afterAuth: async(auth, req: NextRequest) => {
     const { userId, sessionClaims } = auth;
 
