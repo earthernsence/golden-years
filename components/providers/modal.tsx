@@ -17,6 +17,7 @@ import { TeamJoinModal } from "../modals/TeamJoinModal";
 import { TeamLeaveModal } from "../modals/TeamLeaveModal";
 import { TeamMembersModal } from "../modals/TeamMembersModal";
 import { TermsModal } from "../modals/Terms";
+import { UploadProfilePictureModal } from "../modals/UploadProfilePictureModal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -44,6 +45,7 @@ export const ModalProvider = () => {
       <TeamLeaveModal />
       <TeamCreateModal />
       <TeamEditModal />
+      <UploadProfilePictureModal />
     </>
   );
 };
