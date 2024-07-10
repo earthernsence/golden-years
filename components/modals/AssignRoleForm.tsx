@@ -19,9 +19,9 @@ const ROLES = [
   "President",
   "Co-President",
   "Vice President",
-  "Co-Vice President",
   "Fundraising Specialist",
   "Secretary",
+  "Vice Secretary",
   "Website Developer",
   "None"
 ];
@@ -31,9 +31,9 @@ export const formSchema = z.object({
     "President",
     "Co-President",
     "Vice President",
-    "Co-Vice President",
     "Fundraising Specialist",
     "Secretary",
+    "Vice Secretary",
     "Website Developer",
     "None"
   ], {
