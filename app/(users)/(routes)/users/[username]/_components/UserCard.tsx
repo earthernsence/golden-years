@@ -104,7 +104,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
               {user.exec && (<Star className="w-4 h-4" />)} {user.name}
             </div>
             <div className="flex text-sm opacity-75 min-h-6 justify-center items-center">
-              {user.exec ?? "Member"}
+              {user.exec || "Member"}
             </div>
             <div className="flex text-xs opacity-50 min-h-6 justify-center items-center">{user.username}</div>
           </div>
@@ -133,6 +133,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
           <div
             className="relative group"
             onClick={editProfilePicture}
+            role="button"
           >
             <Image
               src={user.image || "/no_image.png"}

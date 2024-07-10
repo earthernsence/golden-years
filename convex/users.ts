@@ -140,6 +140,14 @@ export const usernames = query({
   }
 });
 
+export const get = query({
+  handler: async ctx => {
+    const users = await ctx.db.query("users").collect();
+
+    return users;
+  }
+});
+
 export const getUser = query({
   args: {
     username: v.string()
