@@ -35,11 +35,11 @@ const items: CarouselItems = {
   },
   3: {
     image: carouselImage3,
-    text: "A resident finished with her otter painting with watercolor."
+    text: "A resident finished with her watercolor flowers."
   },
   4: {
     image: carouselImage4,
-    text: "A resident finished with her watercolor flowers."
+    text: "A resident finished with her otter painting with watercolor."
   }
 };
 
@@ -67,10 +67,10 @@ const LandingCarousel = () => (
               <CardContent className="flex aspect-video items-center justify-center p-6">
                 <Image
                   src={items[index + 1].image}
-                  alt="Some volunteers"
+                  alt={items[index + 1].text}
                   className="w-full border-gray-700 border-2"
                   width={1600}
-                  height={900}
+                  height={1600}
                 />
               </CardContent>
             </Card>

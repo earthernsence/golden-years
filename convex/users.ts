@@ -70,6 +70,33 @@ export const update = mutation({
   }
 });
 
+export const updateProfilePicture = mutation({
+  args: {
+    username: v.string(),
+    image: v.string()
+  },
+  handler: async(ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated!");
+    }
+
+    const dbUser = await ctx.db
+      .query("users")
+      .withIndex("by_username", q => q.eq("username", args.username))
+      .first();
+
+    if (!dbUser) return null;
+
+    const user = await ctx.db.patch(dbUser._id, {
+      image: args.image
+    });
+
+    return user;
+  }
+});
+
 export const updateRole = mutation({
   args: {
     userId: v.string(),

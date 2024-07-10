@@ -13,6 +13,7 @@ import { Doc } from "@/convex/_generated/dataModel";
 import { useAssignGroupModal } from "@/hooks/use-assign-group-modal";
 import { useAssignRoleModal } from "@/hooks/use-assign-role-modal";
 import { useCreateGroupModal } from "@/hooks/use-create-group-modal";
+import { useUploadProfilePictureModal } from "@/hooks/use-upload-profile-picture-modal";
 
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -36,6 +37,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
   const adminModal = useAssignRoleModal();
   const createGroupModal = useCreateGroupModal();
   const assignGroupModal = useAssignGroupModal();
+  const uploadPictureModal = useUploadProfilePictureModal();
 
   const update = useMutation(api.users.update);
   const visitor = useQuery(api.users.getUserById, { id: `${userId}` });
@@ -72,6 +74,12 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
     });
 
     setIsEditing(false);
+  };
+
+  const editProfilePicture = () => {
+    if (!isUser) return;
+
+    uploadPictureModal.onOpen();
   };
 
   if (isEditing) return (
@@ -122,13 +130,28 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
     >
       <div className="flex xs:flex-row md:flex-col xs:w-full md:w-1/4 md:min-w-[144px] items-center justify-center">
         <div className="flex xs:flex-row md:flex-col items-center xs:gap-x-1 md:gap-y-2 w-full xs:justify-between">
-          <Image
-            src={user.image || "/no_image.png"}
-            alt="User image"
-            className="xs:w-24 md:w-36 xs:h-24 md:h-36 rounded-full border dark:border-gray-500"
-            width={1024}
-            height={1024}
-          />
+          <div
+            className="relative group"
+            onClick={editProfilePicture}
+          >
+            <Image
+              src={user.image || "/no_image.png"}
+              alt="User image"
+              className={cn(
+                "xs:w-24 md:w-36 xs:h-24 md:h-36 rounded-full border dark:border-gray-500 object-cover",
+                isUser && "group-hover:opacity-50 group-hover:cursor-pointer"
+              )}
+              width={1024}
+              height={1024}
+            />
+            {isUser && (
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden
+                              group-hover:block group-hover:cursor-pointer"
+              >
+                <Pencil className="h-12 w-12" />
+              </div>
+            )}
+          </div>
           <div className="flex flex-col justify-center">
             <div className={cn(
               "font-bold inline-flex flex-row justify-center items-center gap-x-1 min-h-6",
