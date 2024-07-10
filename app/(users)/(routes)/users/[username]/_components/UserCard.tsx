@@ -92,7 +92,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
           <Image
             src={user.image || "/no_image.png"}
             alt="User image"
-            className="xs:w-24 md:w-36 xs:h-24 md:h-36 rounded-full border dark:border-gray-500"
+            className="xs:w-24 md:w-36 xs:h-24 md:h-36 rounded-full border dark:border-gray-500 object-cover"
             width={1024}
             height={1024}
           />
