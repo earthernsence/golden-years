@@ -29,6 +29,8 @@ const EventCard = ({
 
   const isUserMember = eventTeam?.teamId === user?.team;
 
+  const isPastEvent = event.date < Date.now();
+
   if (!organiser) {
     return (
       <div className="flex flex-col items-center justify-center min-h-full">
@@ -47,7 +49,8 @@ const EventCard = ({
       return;
     }
 
-    if (event.date < Date.now()) {
+    // Realistically, this shouldn't run since that button will be hidden if the event already happened.
+    if (isPastEvent) {
       toast({
         title: "This event has already taken place!",
         description: `This event took place on ${new Date(event.date).toDateString()}.
@@ -131,13 +134,15 @@ const EventCard = ({
           />
           <div className="text-md dark:text-white">Organised by { organiser.name }</div>
         </div>
-        <div className="flex flex-row items-center text-left">
-          <Icon
-            icon={faArrowRightToBracket}
-            onClick={signUp}
-          />
-          <div className="text-md dark:text-white">Sign up</div>
-        </div>
+        {!isPastEvent && (
+          <div className="flex flex-row items-center text-left">
+            <Icon
+              icon={faArrowRightToBracket}
+              onClick={signUp}
+            />
+            <div className="text-md dark:text-white">Sign up</div>
+          </div>
+        )}
       </div>
     </div>
   );
