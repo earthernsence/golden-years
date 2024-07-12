@@ -76,6 +76,15 @@ export const EditEventModal = () => {
       return;
     }
 
+    if (values.date.getTime() < Date.now()) {
+      toast({
+        title: "You can't edit an event into the past, silly!",
+        description: "Check your edits and try again."
+      });
+
+      return;
+    }
+
     let eventImage = modal.event.image;
 
     if (values.image && !values.removeImage) eventImage = await uploadFile(values.image);
