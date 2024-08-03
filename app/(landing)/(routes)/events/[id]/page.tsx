@@ -16,6 +16,7 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import { useToast } from "@/components/ui/use-toast";
 
 import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 import { useEdgeStore } from "@/lib/edgestore";
 import { useEditEventModal } from "@/hooks/use-edit-event-modal";
 import { useSignupModal } from "@/hooks/use-signup-modal";
@@ -24,7 +25,7 @@ import { ParticipantsList } from "./_components/ParticipantsList";
 
 interface SpecificEventPageProps {
   params: {
-    id: string
+    id: Id<"events">
   }
 }
 
@@ -35,9 +36,8 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
   const signup = useSignupModal();
   const edit = useEditEventModal();
 
-  const eventId = parseInt(params.id, 10);
-  const event = useQuery(api.events.getSpecificEvent, { id: `${eventId}` });
-  const participantEmails = useQuery(api.events.getEmailAddresses, { id: `${eventId}` });
+  const event = useQuery(api.events.getEventByUUID, { id: params.id });
+  const participantEmails = useQuery(api.events.getEmailAddresses, { id: params.id });
   const organiser = useQuery(api.users.getUserById, { id: `${event?.organiser}` });
   const remove = useMutation(api.events.remove);
 
@@ -63,7 +63,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
     );
   }
 
-  if (isNaN(eventId) || event === null) {
+  if (!params.id || event === null) {
     return (
       <div className="flex flex-col items-center justify-center min-h-full">
         <div className="text-4xl">Oops!</div>

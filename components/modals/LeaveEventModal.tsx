@@ -66,7 +66,7 @@ export const LeaveEventModal = () => {
 
     updateUserEvents({
       userId: user._id,
-      events: initialEvents.filter(e => e !== modal.event?.eventId)
+      events: initialEvents.filter(e => e !== event._id)
     });
 
     const initialParticipants = modal.event.participants || [];

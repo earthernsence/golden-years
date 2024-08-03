@@ -77,7 +77,7 @@ export const SignUpModal = () => {
 
     updateUserEvents({
       userId: user._id,
-      events: [...initialEvents, signup.event.eventId]
+      events: [...initialEvents, actualEvent._id]
     });
 
     const initialParticipants = actualEvent?.participants || [];

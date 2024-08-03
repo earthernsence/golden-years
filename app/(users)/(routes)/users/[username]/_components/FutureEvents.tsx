@@ -24,7 +24,7 @@ export const FutureEvents = ({ events }: FutureEventsProps) => {
 
   const participatedFutureEvents = allEvents
     ?.filter(event => event.date > Date.now())
-    .filter(event => events.includes(event.eventId));
+    .filter(event => events.includes(event._id));
 
   if (participatedFutureEvents === undefined || participatedFutureEvents.length === 0) {
     return (

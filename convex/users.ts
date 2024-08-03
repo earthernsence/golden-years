@@ -189,7 +189,7 @@ export const getUserById = query({
 export const updateEvents = mutation({
   args: {
     userId: v.id("users"),
-    events: v.array(v.string())
+    events: v.array(v.union(v.string(), v.id("events")))
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();

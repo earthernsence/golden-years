@@ -23,7 +23,7 @@ export const PastEvents = ({ events }: PastEventsProps) => {
 
   const participatedPastEvents = allEvents
     ?.filter(event => event.date < Date.now())
-    .filter(event => events.includes(event.eventId));
+    .filter(event => events.includes(event._id));
 
   if (participatedPastEvents === undefined || participatedPastEvents.length === 0) {
     return (
@@ -40,7 +40,7 @@ export const PastEvents = ({ events }: PastEventsProps) => {
           <Link
             key={index}
             className="text-xs flex flex-row text-left items-center"
-            href={`/events/${event.eventId}`}
+            href={`/events/${event._id}`}
           >
             <Calendar className="mr-2" />
             {event.title}

@@ -27,6 +27,19 @@ export const getSpecificEvent = query({
   }
 });
 
+export const getEventByUUID = query({
+  args: {
+    id: v.id("events")
+  },
+  handler: async(ctx, args) => {
+    const event = await ctx.db.get(args.id);
+
+    if (!event) return null;
+
+    return event;
+  }
+});
+
 export const addParticipant = mutation({
   args: {
     eventId: v.id("events"),
@@ -194,7 +207,7 @@ export const removeImage = mutation({
 });
 
 export const getEmailAddresses = query({
-  args: { id: v.optional(v.string()) },
+  args: { id: v.id("events") },
   handler: async(ctx, args) => {
     const identity = ctx.auth.getUserIdentity();
 
@@ -204,7 +217,7 @@ export const getEmailAddresses = query({
 
     const allUsers = await ctx.db.query("users").collect();
 
-    const participants = allUsers.filter(user => user.events.includes(`${args.id}`));
+    const participants = allUsers.filter(user => user.events.includes(args.id));
 
     return participants.map(user => user.email);
   }

@@ -39,7 +39,7 @@ export const FutureEvent = ({ event }: FutureEventProps) => {
     <div className="border-4 border-gray-500 flex rounded-lg
     xs:flex-col md:flex-row xs:w-full md:w-3/4 place-items-center p-4 mb-2 md:h-40">
       <div className="flex flex-col relative xs:w-5/6 md:w-1/2 xs:mb-4 md:mb-0">
-        <Link href={`/events/${event.eventId}`} className="text-2xl xs:text-center md:text-left dark:text-white">
+        <Link href={`/events/${event._id}`} className="text-2xl xs:text-center md:text-left dark:text-white">
           { event.title }
         </Link>
         <div className="text-md xs:text-center md:text-left light:text-gray-700 dark:text-gray-400 truncate">
