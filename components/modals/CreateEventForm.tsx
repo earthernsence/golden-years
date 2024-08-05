@@ -32,6 +32,7 @@ export const formSchema = z.object({
     message: "Title cannot be more than 50 characters."
   }),
   date: z.date(),
+  endDate: z.date(),
   description: z.string().min(2, {
     message: "Description must be at least 2 characters."
   }).max(500, {
@@ -61,6 +62,7 @@ export function CreateEventForm({
     defaultValues: {
       title: "New Event",
       date: new Date(),
+      endDate: new Date(),
       description: "",
       location: "",
       slots: "2"
@@ -100,7 +102,7 @@ export function CreateEventForm({
           name="date"
           render={({ field }) => (
             <FormItem className="max-w-screen-xs flex flex-col">
-              <FormLabel>Date and Time (U.S. Central Time GMT-5)</FormLabel>
+              <FormLabel>Start Date and Time (U.S. Central Time GMT-5)</FormLabel>
               <FormControl>
                 <DateTimePicker
                   granularity="minute"
@@ -109,8 +111,30 @@ export function CreateEventForm({
                 />
               </FormControl>
               <FormDescription className="text-xs">
-                Select a date for this Event. In your description, feel free to specify the assumed length of
-                the Event.
+                Select a start time for this Event. Hours will be calculated based on this value and your
+                provided end time below.
+              </FormDescription>
+              <br />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="endDate"
+          render={({ field }) => (
+            <FormItem className="max-w-screen-xs flex flex-col">
+              <FormLabel>End Date and Time (U.S. Central Time GMT-5)</FormLabel>
+              <FormControl>
+                <DateTimePicker
+                  granularity="minute"
+                  jsDate={field.value}
+                  onJsDateChange={field.onChange}
+                />
+              </FormControl>
+              <FormDescription className="text-xs">
+                Select an end time for this Event. Hours will be calculated based on this value and your
+                provided start time above.
               </FormDescription>
               <br />
               <FormMessage />

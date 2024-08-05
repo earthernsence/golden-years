@@ -85,6 +85,15 @@ export const EditEventModal = () => {
       return;
     }
 
+    if (values.endDate < values.date) {
+      toast({
+        title: "The event can't end before it starts, silly!",
+        description: "Move the end date to after the start date."
+      });
+
+      return;
+    }
+
     let eventImage = modal.event.image;
 
     if (values.image && !values.removeImage) eventImage = await uploadFile(values.image);

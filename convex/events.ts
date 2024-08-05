@@ -64,6 +64,7 @@ export const create = mutation({
   args: {
     title: v.string(),
     date: v.number(),
+    endDate: v.number(),
     description: v.string(),
     image: v.optional(v.string()),
     location: v.string(),
@@ -85,6 +86,7 @@ export const create = mutation({
       eventId: `${events.length}`,
       title: args.title,
       date: args.date,
+      endDate: args.endDate,
       description: args.description,
       image: args.image || "",
       location: args.location,

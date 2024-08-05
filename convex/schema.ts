@@ -27,6 +27,7 @@ export default defineSchema({
     eventId: v.string(),
     title: v.string(),
     date: v.number(),
+    endDate: v.optional(v.number()),
     description: v.string(),
     image: v.optional(v.string()),
     location: v.string(),

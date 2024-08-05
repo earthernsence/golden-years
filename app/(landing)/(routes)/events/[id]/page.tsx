@@ -22,6 +22,7 @@ import { useEditEventModal } from "@/hooks/use-edit-event-modal";
 import { useSignupModal } from "@/hooks/use-signup-modal";
 
 import { ParticipantsList } from "./_components/ParticipantsList";
+import { pluralise } from "@/lib/utils";
 
 interface SpecificEventPageProps {
   params: {
@@ -161,10 +162,14 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
   };
 
   const formattedDate = () => {
-    if (!event.date) return "No date.";
+    if (!event.date || !event.endDate) return "No date.";
     const dateObject = new Date(event.date);
-    return `${dateObject.toDateString()} at 
-    ${dateObject.getHours()}:${dateObject.getMinutes().toString().padStart(2, "0")}`;
+    const endDateObject = new Date(event.endDate);
+    const distance = (endDateObject.getTime() - dateObject.getTime()) / 3600000;
+    return `${dateObject.toDateString()} from 
+    ${dateObject.getHours()}:${dateObject.getMinutes().toString().padStart(2, "0")} to
+    ${endDateObject.getHours()}:${endDateObject.getMinutes().toString().padStart(2, "0")}
+    (${distance.toFixed(1)} ${pluralise("hour", distance)})`;
   };
 
   const copyContent = async() => {
