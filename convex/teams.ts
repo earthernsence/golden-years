@@ -30,7 +30,7 @@ export const create = mutation({
     const team = await ctx.db.insert("teams", {
       ...rest,
       members: [leader.userId],
-      teamId: `${teams.length}`,
+      teamId: `${teams.length + 1}`,
       lead: leader.userId
     });
 
@@ -45,7 +45,7 @@ export const create = mutation({
 
     await ctx.db.patch(leader._id, {
       groups: [...leader.groups, args.groupValue],
-      team: `${teams.length}`
+      team: `${teams.length + 1}`
     });
 
     return { team, group };
