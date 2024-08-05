@@ -115,14 +115,14 @@ const EventsPage = () => {
         </Select>
       </div>
       <br />
-      {view === "all" && futureEvents?.map(event => (
-        <EventCard key={event.eventId} event={event} />
+      {view === "all" && futureEvents?.map((event, index: number) => (
+        <EventCard key={index} event={event} />
       ))}
-      {view === "team" && teamEvents?.map(event => (
-        <EventCard key={event.eventId} event={event} />
+      {view === "team" && teamEvents?.map((event, index: number) => (
+        <EventCard key={index} event={event} />
       ))}
-      {view === "past" && pastEvents?.map(event => (
-        <EventCard key={event.eventId} event={event} />
+      {view === "past" && pastEvents?.map((event, index: number) => (
+        <EventCard key={index} event={event} />
       ))}
     </div>
   );

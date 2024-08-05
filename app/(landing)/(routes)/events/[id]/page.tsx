@@ -99,7 +99,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
       return;
     }
 
-    if (user?.events?.includes(event.eventId)) {
+    if (user?.events?.includes(event._id)) {
       toast({
         title: "You are already signed up for this event!",
         description: "You can visit your profile to see your future events."
@@ -155,7 +155,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
       id: event._id
     });
 
-    if (params.id === event.eventId) {
+    if (params.id === event._id) {
       router.push("/events");
     }
   };

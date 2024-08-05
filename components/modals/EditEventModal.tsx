@@ -94,7 +94,7 @@ export const EditEventModal = () => {
         await edgestore.publicFiles.delete({
           url: eventImage
         }).then(async() => {
-          await removeImage({ id: modal.event?.eventId });
+          await removeImage({ id: modal.event?._id });
           eventImage = undefined;
         }, () => {
           toast({
@@ -121,7 +121,7 @@ export const EditEventModal = () => {
     const isExclusive = eventTeam ? values.exclusive : false;
 
     await update({
-      eventId: modal.event.eventId,
+      id: modal.event._id,
       title: values.title,
       date: values.date.getTime(),
       description: values.description,

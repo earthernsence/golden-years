@@ -101,7 +101,7 @@ export const create = mutation({
 
 export const update = mutation({
   args: {
-    eventId: v.string(),
+    id: v.id("events"),
     title: v.string(),
     date: v.number(),
     description: v.string(),
@@ -118,21 +118,13 @@ export const update = mutation({
       throw new Error("Not authenticated!");
     }
 
-    const { eventId, ...rest } = args;
+    const { id, ...rest } = args;
 
-    const event = await ctx.db
-      .query("events")
-      .withIndex("by_event_id", q =>
-        q.eq("eventId", eventId)
-      ).collect();
+    const event = await ctx.db.get(id);
 
     if (!event) return null;
 
-    const convexId = event.pop()?._id;
-
-    if (!convexId) return null;
-
-    const updatedEvent = await ctx.db.patch(convexId, {
+    const updatedEvent = await ctx.db.patch(id, {
       ...rest
     });
 
@@ -178,7 +170,7 @@ export const remove = mutation({
 });
 
 export const removeImage = mutation({
-  args: { id: v.optional(v.string()) },
+  args: { id: v.optional(v.id("events")) },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
 
@@ -186,19 +178,11 @@ export const removeImage = mutation({
 
     if (!args.id) throw new Error("No ID provided in removeImage");
 
-    const existingEvent = await ctx.db
-      .query("events")
-      .withIndex("by_event_id", q =>
-        q.eq("eventId", `${args.id}`)
-      ).collect();
-
-    const convexId = existingEvent.pop()?._id;
-
-    if (!convexId) return null;
+    const existingEvent = await ctx.db.get(args.id);
 
     if (!existingEvent) throw new Error("Event not found.");
 
-    const event = await ctx.db.patch(convexId, {
+    const event = await ctx.db.patch(existingEvent._id, {
       image: undefined
     });
 
