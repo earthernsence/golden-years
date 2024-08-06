@@ -49,24 +49,6 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
     setIsEditing(false);
   };
 
-  if (isEditing) return (
-    <div className="flex p-4 gap-x-8 bg-muted-foreground/10 rounded-md border
-                    xs:flex-col md:flex-row xs:w-full md:w-auto md:max-w-[50%] h-auto
-                  dark:border-white"
-    >
-      <Sidebar
-        user={user}
-        isEditing={isEditing}
-        isUser={isUser}
-        isVisitorAdmin={isVisitorAdmin}
-        setIsEditing={setIsEditing}
-      />
-      <div className="flex items-center justify-center place-self-center">
-        <EditProfileForm onSubmit={confirmEdits} user={user} />
-      </div>
-    </div>
-  );
-
   return (
     <div className="flex p-4 gap-x-8 bg-muted-foreground/10 rounded-md border
                     xs:flex-col md:flex-row xs:w-full md:w-auto md:max-w-[50%] h-auto
@@ -79,12 +61,21 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
         isVisitorAdmin={isVisitorAdmin}
         setIsEditing={setIsEditing}
       />
-      <UserInformation
-        user={user}
-        isUser={isUser}
-        team={team || undefined}
-        isVisitorAdmin={isVisitorAdmin}
-      />
+      {isEditing
+        ? (
+          <div className="flex items-center justify-center place-self-center">
+            <EditProfileForm onSubmit={confirmEdits} user={user} />
+          </div>
+        )
+        : (
+          <UserInformation
+            user={user}
+            isUser={isUser}
+            team={team || undefined}
+            isVisitorAdmin={isVisitorAdmin}
+          />
+        )
+      }
     </div>
   );
 };
