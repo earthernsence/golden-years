@@ -52,7 +52,6 @@ EventsInformation.Skeleton = function EventsInformationSkeleton() {
         <Skeleton className="w-24 h-[28px] rounded-sm" />
         <Skeleton className="w-32 h-[14px] rounded-sm" />
         <Skeleton className="w-16 h-[14px] rounded-sm" />
-        <Skeleton className="w-24 h-[14px] rounded-sm" />
         <Skeleton className="w-36 h-[14px] rounded-sm" />
         <Skeleton className="w-12 h-[14px] rounded-sm" />
       </div>

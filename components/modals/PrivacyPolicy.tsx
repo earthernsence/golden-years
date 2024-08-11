@@ -35,7 +35,7 @@ export const PrivacyPolicyModal = () => {
             in nursing and assisted living homes, created by Carissa Choi and Sydney Lewis.
           </div>
           <div className="flex items-center text-xs">
-            Updated June 3, 2024
+            Updated August 9, 2024
           </div>
         </DialogDescription>
         <div className="text-xs text-justify w-full">
@@ -98,6 +98,7 @@ export const PrivacyPolicyModal = () => {
                   </li>
                   <li>
                     a profile image (from your Google or Apple account, whichever was used to sign in to Golden Years).
+                    This can be changed from a User&apos;s profile, and old profile pictures are not stored anywhere.
                   </li>
                 </ul>
                 <br />
