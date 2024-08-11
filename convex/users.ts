@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 
+import { Doc, Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
 
 export const create = mutation({
@@ -189,7 +190,7 @@ export const getUserById = query({
 export const updateEvents = mutation({
   args: {
     userId: v.id("users"),
-    events: v.array(v.union(v.string(), v.id("events")))
+    events: v.array(v.id("events"))
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -223,5 +224,62 @@ export const updateGroups = mutation({
     });
 
     return user;
+  }
+});
+
+export const getUserStatistics = query({
+  handler: async ctx => {
+    const users = await ctx.db.query("users").collect();
+
+    const statistics: Array<{
+      _id: Id<"users">,
+      name: string,
+      username: string,
+      events: number,
+      hours: number
+    }> = [];
+
+    for (const user of users) {
+      if (user.events.length === 0) {
+        statistics.push({
+          _id: user._id,
+          name: user.name,
+          username: user.username,
+          events: 0,
+          hours: 0
+        });
+        continue;
+      }
+
+      const events: Doc<"events">[] = [];
+
+      for (const event of user.events) {
+        const e = await ctx.db.get(event);
+        if (e) events.push(e);
+      }
+
+      const datedEvents = events.map(event => ({
+        endDate: new Date(event.endDate || new Date()).getTime(),
+        date: new Date(event.date).getTime()
+      }));
+
+      const eventsToHours = datedEvents.map(event => (event.endDate - event.date) / 3600000);
+
+      statistics.push({
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+        events: events.length,
+        hours: eventsToHours.reduce((prev, curr) => prev + curr)
+      });
+    }
+
+    return {
+      statistics,
+      overall: {
+        uniqueParticipants: 0,
+        manhours: 100
+      }
+    };
   }
 });

@@ -187,7 +187,7 @@ export const leave = mutation({
       members: team.members.filter(member => member !== user.userId)
     });
 
-    const userEvents = events.filter(e => user.events.includes(e.eventId));
+    const userEvents = events.filter(e => user.events.includes(e._id));
 
     // We won't remove users from their past events, but any future events they signed up for that are exclusive
     // to the team they're leaving we will remove them from.
@@ -198,8 +198,8 @@ export const leave = mutation({
     const newUser = await ctx.db.patch(user._id, {
       team: "",
       events: userEvents.filter(e =>
-        !exclusiveEvents.map(event => event.eventId).includes(e.eventId)
-      ).map(e => e.eventId),
+        !exclusiveEvents.map(event => event._id).includes(e._id)
+      ).map(e => e._id),
       groups: user.groups.filter(g => g !== team.groupValue)
     });
 

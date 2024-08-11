@@ -1,8 +1,7 @@
 "use client";
 
-import { api } from "@/convex/_generated/api";
+import { BarChart3, Plus } from "lucide-react";
 import Image from "next/image";
-import { Plus } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { useState } from "react";
@@ -13,14 +12,18 @@ import EventCard from "@/components/EventCard";
 
 import holly from "#/holly.jpg";
 
+import { api } from "@/convex/_generated/api";
 import { useCreateEventModal } from "@/hooks/use-create-event-modal";
+import { UserStatisticsTable } from "./_components/tracker/UserStatisticsTable";
 
 type EventsPageViewState = "all" | "team" | "past";
+type EventsPagePageState = "events" | "statistics";
 
 const EventsPage = () => {
   const createModal = useCreateEventModal();
 
   const [view, setView] = useState<EventsPageViewState>("all");
+  const [page, setPage] = useState<EventsPagePageState>("events");
 
   const events = useQuery(api.events.get);
 
@@ -51,6 +54,28 @@ const EventsPage = () => {
   const teamEvents = futureEvents.filter(event => event.team === team);
   const pastEvents = events.filter(event => event.date < Date.now());
 
+  if (page === "statistics") return (
+    <div className="place-self-center max-w-full h-full md:w-2/3 xs:w-11/12 pt-0 pb-12 md:pl-16 md:pr-16
+    dark:bg-dark xs:text-left md:text-justify">
+      <div className="flex xs:flex-col md:flex-row md:justify-between xs:items-center pb-4">
+        <div className="text-4xl xs:pb-2 md:pb-0 xs:text-center md:text-left">
+            Events
+        </div>
+        { isAdmin && (
+          <div className="flex flex-row gap-x-2">
+            <Button size="sm" onClick={() => setPage("events")} className="xs:max-w-auto md:max-w-full">
+              <BarChart3 className="mr-2 h-4 w-4" /> Statistics
+            </Button>
+            <Button size="sm" onClick={createModal.onOpen} className="xs:max-w-auto md:max-w-full">
+              <Plus className="mr-2 h-4 w-4" /> Create an Event
+            </Button>
+          </div>
+        )}
+      </div>
+      <UserStatisticsTable />
+    </div>
+  );
+
   if (futureEvents.length === 0) return (
     <>
       <div className="place-self-center max-w-full h-full md:w-2/3 xs:w-11/12 pt-0 pb-12 md:pl-16 md:pr-16
@@ -60,9 +85,14 @@ const EventsPage = () => {
             Events
           </div>
           { isAdmin && (
-            <Button size="sm" onClick={createModal.onOpen} className="xs:max-w-auto md:max-w-full">
-              <Plus className="mr-2 h-4 w-4" /> Create an Event
-            </Button>
+            <div className="flex flex-row gap-x-2">
+              <Button size="sm" onClick={() => setPage("statistics")} className="xs:max-w-auto md:max-w-full">
+                <BarChart3 className="mr-2 h-4 w-4" /> Statistics
+              </Button>
+              <Button size="sm" onClick={createModal.onOpen} className="xs:max-w-auto md:max-w-full">
+                <Plus className="mr-2 h-4 w-4" /> Create an Event
+              </Button>
+            </div>
           )}
         </div>
         <div className="flex text-4xl justify-center xs:text-center md:text-left pb-2">
@@ -94,9 +124,14 @@ const EventsPage = () => {
           Events
         </div>
         { isAdmin && (
-          <Button size="sm" onClick={createModal.onOpen} className="xs:max-w-auto md:max-w-full">
-            <Plus className="mr-2 h-4 w-4" /> Create an Event
-          </Button>
+          <div className="flex flex-row gap-x-2">
+            <Button size="sm" onClick={() => setPage("statistics")} className="xs:max-w-auto md:max-w-full">
+              <BarChart3 className="mr-2 h-4 w-4" /> Statistics
+            </Button>
+            <Button size="sm" onClick={createModal.onOpen} className="xs:max-w-auto md:max-w-full">
+              <Plus className="mr-2 h-4 w-4" /> Create an Event
+            </Button>
+          </div>
         )}
       </div>
       <div className="flex xs:justify-center md:justify-normal">
