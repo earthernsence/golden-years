@@ -230,6 +230,7 @@ export const updateGroups = mutation({
 export const getUserStatistics = query({
   handler: async ctx => {
     const users = await ctx.db.query("users").collect();
+    const allEvents = await ctx.db.query("events").collect();
 
     const statistics: Array<{
       _id: Id<"users">,
@@ -277,8 +278,9 @@ export const getUserStatistics = query({
     return {
       statistics,
       overall: {
-        uniqueParticipants: 0,
-        manhours: 100
+        uniqueParticipants: statistics.filter(user => user.hours > 0).length,
+        manhours: statistics.map(user => user.hours).reduce((prev, curr) => prev + curr),
+        totalEvents: allEvents.filter(event => event.participants.length > 0).length
       }
     };
   }
