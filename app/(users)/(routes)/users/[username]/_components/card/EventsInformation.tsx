@@ -19,9 +19,13 @@ export const EventsInformation = ({ user }: EventsInformationProps) => {
     <>
       <div className="text-lg font-semibold flex flex-row items-center">
         Past events
-        <span className="text-xs font-light opacity-50 flex ml-2">
-          ({totalHours?.toFixed(2)} total hours)
-        </span>
+        {
+          user.events.length > 0 && (
+            <span className="text-xs font-light opacity-50 flex ml-2">
+              ({totalHours?.toFixed(2)} total hours)
+            </span>
+          )
+        }
       </div>
       <PastEvents events={user.events} />
     </>
