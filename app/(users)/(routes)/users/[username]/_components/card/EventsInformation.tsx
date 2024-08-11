@@ -1,46 +1,29 @@
 "use client";
 
-import { List, Table } from "lucide-react";
-import { useState } from "react";
+import { useQuery } from "convex/react";
 
+import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
 
 import { PastEvents } from "../PastEvents";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { ViewUserEventInformationTable } from "../tracker/ViewUserEventInformationTable";
 
 interface EventsInformationProps {
-  isUser: boolean,
-  isVisitorAdmin: boolean,
   user: Doc<"users">
 }
 
-type EventsViewOptionType = "table" | "list";
-
-export const EventsInformation = ({ isUser, isVisitorAdmin, user }: EventsInformationProps) => {
-  const [eventsView, setEventsView] = useState<EventsViewOptionType>("list");
+export const EventsInformation = ({ user }: EventsInformationProps) => {
+  const totalHours = useQuery(api.events.getTotalHours, { events: user.events });
 
   return (
     <>
       <div className="text-lg font-semibold flex flex-row items-center">
-            Past events
-        {(isUser || isVisitorAdmin) && eventsView === "list" && (
-          <Table
-            className="h-4 w-4 ml-2"
-            role="button"
-            onClick={() => setEventsView("table")}
-          />
-        )}
-        {(isUser || isVisitorAdmin) && eventsView === "table" && (
-          <List
-            className="h-4 w-4 ml-2"
-            role="button"
-            onClick={() => setEventsView("list")}
-          />
-        )}
+        Past events
+        <span className="text-xs font-light opacity-50 flex ml-2">
+          ({totalHours?.toFixed(2)} total hours)
+        </span>
       </div>
-      {eventsView === "list" && <PastEvents events={user.events} />}
-      {eventsView === "table" && <ViewUserEventInformationTable user={user.userId} />}
+      <PastEvents events={user.events} />
     </>
   );
 };

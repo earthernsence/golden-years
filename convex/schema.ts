@@ -17,7 +17,7 @@ export default defineSchema({
     location: v.optional(v.string()),
     image: v.optional(v.string()),
     groups: v.array(v.string()),
-    events: v.array(v.union(v.string(), v.id("events"))),
+    events: v.array(v.id("events")),
     team: v.optional(v.string()),
   })
     .index("by_user", ["userId"])

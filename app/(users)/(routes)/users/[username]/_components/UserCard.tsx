@@ -70,7 +70,6 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
         : (
           <UserInformation
             user={user}
-            isUser={isUser}
             team={team || undefined}
             isVisitorAdmin={isVisitorAdmin}
           />

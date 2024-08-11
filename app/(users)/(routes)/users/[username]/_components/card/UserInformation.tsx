@@ -10,12 +10,11 @@ import { Skeleton } from "@/components/ui/Skeleton";
 
 interface UserInformationProps {
   user: Doc<"users">,
-  isUser: boolean,
   team?: Doc<"teams">,
   isVisitorAdmin: boolean,
 }
 
-export const UserInformation = ({ user, isUser, team, isVisitorAdmin }: UserInformationProps) => {
+export const UserInformation = ({ user, team, isVisitorAdmin }: UserInformationProps) => {
   const isUserLead = user.userId === team?.lead;
 
   const teamString = () => {
@@ -60,11 +59,7 @@ export const UserInformation = ({ user, isUser, team, isVisitorAdmin }: UserInfo
       </div>
       <br />
       <div className="h-1/3 text-left text-sm">
-        <EventsInformation
-          user={user}
-          isUser={isUser}
-          isVisitorAdmin={isVisitorAdmin}
-        />
+        <EventsInformation user={user} />
       </div>
     </div>
   );
