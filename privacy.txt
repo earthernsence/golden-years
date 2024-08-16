@@ -31,7 +31,7 @@ All of this is provided by the User when they register for an Account:
 - a username
 - a location, such as a city or school (not required)
 - a biography (not requiured)
-- a profile image (from your Google or Apple account, whichever was used to sign in to Golden Years).
+- a profile image (from your Google or Apple account, whichever was used to sign in to Golden Years). This can be changed from a User's profile, and old profile pictures are not stored anywhere.
 
 This information is collected in order to fulfill your requests for services and information,
 improve our Site's functionality, improve our Services, and for other business purposes.

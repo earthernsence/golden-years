@@ -55,7 +55,7 @@ export const LeaveEventModal = () => {
     if (!modal.event) return;
     if (!event) return;
 
-    if (!user.events?.includes(modal.event.eventId)) {
+    if (!user.events?.includes(modal.event._id)) {
       toast({
         title: "You can't un-sign-up for an event you aren't signed up for, silly!",
         description: "You can sign up for this event from the Events page."

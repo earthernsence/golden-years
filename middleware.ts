@@ -25,7 +25,7 @@ export default authMiddleware({
 
     if (auth.isPublicRoute) return NextResponse.next();
   },
-  publicRoutes: ["/", "/about_us", "/events", "/users"]
+  publicRoutes: ["/", "/about_us", "/events", "/users", "/teams"]
 });
 
 export const config = {

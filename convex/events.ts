@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 
 import { mutation, query } from "./_generated/server";
+import { Doc } from "./_generated/dataModel";
 
 export const get = query({
   handler: async ctx => {
@@ -64,6 +65,7 @@ export const create = mutation({
   args: {
     title: v.string(),
     date: v.number(),
+    endDate: v.number(),
     description: v.string(),
     image: v.optional(v.string()),
     location: v.string(),
@@ -85,6 +87,7 @@ export const create = mutation({
       eventId: `${events.length}`,
       title: args.title,
       date: args.date,
+      endDate: args.endDate,
       description: args.description,
       image: args.image || "",
       location: args.location,
@@ -101,7 +104,7 @@ export const create = mutation({
 
 export const update = mutation({
   args: {
-    eventId: v.string(),
+    id: v.id("events"),
     title: v.string(),
     date: v.number(),
     description: v.string(),
@@ -118,21 +121,13 @@ export const update = mutation({
       throw new Error("Not authenticated!");
     }
 
-    const { eventId, ...rest } = args;
+    const { id, ...rest } = args;
 
-    const event = await ctx.db
-      .query("events")
-      .withIndex("by_event_id", q =>
-        q.eq("eventId", eventId)
-      ).collect();
+    const event = await ctx.db.get(id);
 
     if (!event) return null;
 
-    const convexId = event.pop()?._id;
-
-    if (!convexId) return null;
-
-    const updatedEvent = await ctx.db.patch(convexId, {
+    const updatedEvent = await ctx.db.patch(id, {
       ...rest
     });
 
@@ -178,7 +173,7 @@ export const remove = mutation({
 });
 
 export const removeImage = mutation({
-  args: { id: v.optional(v.string()) },
+  args: { id: v.optional(v.id("events")) },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
 
@@ -186,19 +181,11 @@ export const removeImage = mutation({
 
     if (!args.id) throw new Error("No ID provided in removeImage");
 
-    const existingEvent = await ctx.db
-      .query("events")
-      .withIndex("by_event_id", q =>
-        q.eq("eventId", `${args.id}`)
-      ).collect();
-
-    const convexId = existingEvent.pop()?._id;
-
-    if (!convexId) return null;
+    const existingEvent = await ctx.db.get(args.id);
 
     if (!existingEvent) throw new Error("Event not found.");
 
-    const event = await ctx.db.patch(convexId, {
+    const event = await ctx.db.patch(existingEvent._id, {
       image: undefined
     });
 
@@ -220,5 +207,53 @@ export const getEmailAddresses = query({
     const participants = allUsers.filter(user => user.events.includes(args.id));
 
     return participants.map(user => user.email);
+  }
+});
+
+export const getSingleHours = query({
+  args: { event: v.id("events") },
+  handler: async(ctx, args) => {
+    const identity = ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("Unauthenticated");
+
+    const event = await ctx.db.get(args.event);
+
+    if (!event) return 0;
+
+    return (
+      ((new Date(event.endDate || new Date())).getTime() -
+      (new Date(event.date).getTime())) / 3600000
+    );
+  }
+});
+
+export const getTotalHours = query({
+  args: { events: v.array(v.id("events")) },
+  handler: async(ctx, args) => {
+    const identity = ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("Unauthenticated");
+
+    if (args.events.length === 0) return 0;
+
+    const events: Doc<"events">[] = [];
+
+    for (const event of args.events) {
+      const e = await ctx.db.get(event);
+
+      if (e) events.push(e);
+    }
+
+    if (events.length === 0) return 0;
+
+    const datedEvents = events.map(event => ({
+      endDate: new Date(event.endDate || new Date()).getTime(),
+      date: new Date(event.date).getTime()
+    }));
+
+    const eventsToHours = datedEvents.map(event => (event.endDate - event.date) / 3600000);
+
+    return eventsToHours.reduce((prev, curr) => prev + curr);
   }
 });

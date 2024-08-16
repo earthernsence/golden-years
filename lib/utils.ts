@@ -43,3 +43,8 @@ function generatePlural(word: string) {
   }
   return word;
 };
+
+export function quantify(word: string, amount: number): string {
+  const pluralised = pluralise(word, amount);
+  return `${amount.toFixed(2)} ${pluralised}`;
+}

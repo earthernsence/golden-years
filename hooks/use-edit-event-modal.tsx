@@ -1,15 +1,19 @@
 import { create } from "zustand";
 
+import { Id } from "@/convex/_generated/dataModel";
+
 interface Event {
   eventId: string,
   title: string,
   date: number,
+  endDate?: number,
   description: string,
   image?: string,
   location: string,
   slots: number,
   participants: Array<string>,
   organiser: string,
+  _id: Id<"events">
 }
 
 type EditEventModalStore = {

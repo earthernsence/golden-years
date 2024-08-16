@@ -15,6 +15,7 @@ import {
   DialogDescription,
   DialogHeader
 } from "@/components/ui/Dialog";
+import { useToast } from "@/components/ui/use-toast";
 
 import { useEdgeStore } from "@/lib/edgestore";
 import { useImage } from "@/hooks/use-image";
@@ -22,6 +23,7 @@ import { useImage } from "@/hooks/use-image";
 export const CreateEventModal = () => {
   const modal = useCreateEventModal();
   const { userId } = useAuth();
+  const { toast } = useToast();
 
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
   const create = useMutation(api.events.create);
@@ -48,6 +50,24 @@ export const CreateEventModal = () => {
   };
 
   const onSubmit = async(values: z.infer<typeof formSchema>) => {
+    if (values.endDate < values.date) {
+      toast({
+        title: "The event can't end before it starts, silly!",
+        description: "Move the end date to after the start date."
+      });
+
+      return;
+    }
+
+    if (values.date.getTime() < new Date().getTime()) {
+      toast({
+        title: "You can't place an event into the past, silly!",
+        description: "Edit the start date for this event."
+      });
+
+      return;
+    }
+
     const imageURL = await uploadFile(values.image);
 
     // Users can either choose not to select a team at all, or choose one and then decide
@@ -66,6 +86,7 @@ export const CreateEventModal = () => {
     create({
       title: values.title,
       date: values.date.getTime(),
+      endDate: values.endDate.getTime(),
       description: values.description,
       image: imageURL,
       location: values.location,

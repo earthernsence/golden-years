@@ -85,6 +85,15 @@ export const EditEventModal = () => {
       return;
     }
 
+    if (values.endDate < values.date) {
+      toast({
+        title: "The event can't end before it starts, silly!",
+        description: "Move the end date to after the start date."
+      });
+
+      return;
+    }
+
     let eventImage = modal.event.image;
 
     if (values.image && !values.removeImage) eventImage = await uploadFile(values.image);
@@ -94,7 +103,7 @@ export const EditEventModal = () => {
         await edgestore.publicFiles.delete({
           url: eventImage
         }).then(async() => {
-          await removeImage({ id: modal.event?.eventId });
+          await removeImage({ id: modal.event?._id });
           eventImage = undefined;
         }, () => {
           toast({
@@ -121,7 +130,7 @@ export const EditEventModal = () => {
     const isExclusive = eventTeam ? values.exclusive : false;
 
     await update({
-      eventId: modal.event.eventId,
+      id: modal.event._id,
       title: values.title,
       date: values.date.getTime(),
       description: values.description,
