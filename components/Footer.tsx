@@ -1,30 +1,59 @@
 "use client";
+
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import useSWR from "swr";
 
 import { Button } from "@/components/ui/Button";
 import Icon from "./Icon";
+import Spinner from "./Spinner";
 import { Wordmark } from "./Wordmark";
 
 import { usePrivacyPolicyModal } from "@/hooks/use-privacy-policy-modal";
 import { useTermsModal } from "@/hooks/use-terms-modal";
 
+const fetcher = (url: string) => fetch(url).then(res => res.json());
+
 export const Footer = () => {
   const terms = useTermsModal();
   const privacy = usePrivacyPolicyModal();
 
+  const { data, error, isLoading } = useSWR(
+    "https://api.github.com/repos/earthernsence/golden-years/commits?per_page=1",
+    fetcher
+  );
+
+  if (error) throw new Error("Commit not found");
+  if (isLoading) return <Spinner />;
+
+  const commit: { sha: string, html_url: string } = data[0];
+
   return (
-    <div className="flex flex-row items-center w-full p-6 bg-background z-50 dark:bg-dark">
-      <div className="font-semibold flex text-center mr-4 md:w-1/12">
+    <div className="flex xs:flex-col md:flex-row md:items-center w-full p-6 bg-background z-50 dark:bg-dark">
+      <div className="font-semibold flex text-center mr-4 md:w-3/12 flex-col">
         <Wordmark />
+        <div className="text-xs font-medium text-center text-dark dark:text-muted-foreground/75
+        flex items-center justify-start w-full mr-2 flex-row space-x-1">
+          <span>website made with &#10084; by</span>
+          <Link
+            className="hover:underline"
+            href={"https://github.com/earthernsence"}
+            target="_blank"
+          >
+            Jace Royer
+          </Link>
+          <Link
+            className="hover:underline dark:text-muted-foreground/50"
+            href={commit.html_url}
+            target="_blank"
+          >
+            ({commit.sha.slice(0, 7)})
+          </Link>
+        </div>
       </div>
       <br />
-      {/* <div className="text-xs flex opacity-25 text-center items-center justify-end w-full mr-2">
-        Website made with &#10084; by
-        <Link className="underline" href={"https://github.com/earthernsence"}>Jace Royer</Link>
-      </div> */}
-      <br />
-      <div className="ml-auto justify-end flex items-center gap-x-2 text-muted-foreground">
+      <div className="md:ml-auto md:justify-end flex items-center gap-x-2 text-muted-foreground">
         <div className="flex flex-row w-full gap-x-2 items-center">
           <Icon
             icon={faInstagram}
