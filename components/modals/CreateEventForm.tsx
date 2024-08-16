@@ -44,7 +44,7 @@ export const formSchema = z.object({
   }).max(100, {
     message: "Location cannot be more than 100 characters."
   }),
-  slots: z.string().refine(value => parseInt(value, 10)),
+  slots: z.string().refine(value => parseInt(value, 10)).refine(value => parseInt(value, 10) > 0),
   team: z.string().optional(),
   exclusive: z.boolean().optional(),
 });

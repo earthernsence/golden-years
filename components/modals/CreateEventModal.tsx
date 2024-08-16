@@ -59,6 +59,15 @@ export const CreateEventModal = () => {
       return;
     }
 
+    if (values.date.getTime() < new Date().getTime()) {
+      toast({
+        title: "You can't place an event into the past, silly!",
+        description: "Edit the start date for this event."
+      });
+
+      return;
+    }
+
     const imageURL = await uploadFile(values.image);
 
     // Users can either choose not to select a team at all, or choose one and then decide
