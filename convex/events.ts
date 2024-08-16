@@ -244,7 +244,7 @@ export const getTotalHours = query({
     for (const event of args.events) {
       const e = await ctx.db.get(event);
 
-      if (e) events.push(e);
+      if (e && e.date < new Date().getTime()) events.push(e);
     }
 
     if (events.length === 0) return 0;
