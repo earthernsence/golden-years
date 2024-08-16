@@ -7,6 +7,7 @@ import { Doc } from "@/convex/_generated/dataModel";
 
 import { PastEvents } from "../PastEvents";
 import { Skeleton } from "@/components/ui/Skeleton";
+import Spinner from "@/components/Spinner";
 
 interface EventsInformationProps {
   user: Doc<"users">
@@ -15,12 +16,14 @@ interface EventsInformationProps {
 export const EventsInformation = ({ user }: EventsInformationProps) => {
   const totalHours = useQuery(api.events.getTotalHours, { events: user.events });
 
+  if (!totalHours) return <Spinner />;
+
   return (
     <>
       <div className="text-lg font-semibold flex flex-row items-center">
         Past events
         {
-          user.events.length > 0 && (
+          user.events.length > 0 && totalHours > 0 && (
             <span className="text-xs font-light opacity-50 flex ml-2">
               ({totalHours?.toFixed(2)} total hours)
             </span>
