@@ -36,7 +36,7 @@ export const EditEventParticipantsModal = () => {
         <DialogContent className="h-full max-h-[50%] overflow-y-auto">
           <DialogHeader className="border-b pb-3">
             <div className="text-lg font-medium">
-              Edit event participants
+              Edit Event Participants
             </div>
           </DialogHeader>
           <DialogDescription className="space-y-1">
@@ -142,7 +142,7 @@ export const EditEventParticipantsModal = () => {
       <DialogContent className="h-auto max-h-[50%] overflow-y-auto">
         <DialogHeader className="border-b pb-3">
           <div className="text-lg font-medium">
-            Edit Event participants
+            Edit Event Participants
           </div>
         </DialogHeader>
         <DialogDescription className="space-y-1">
