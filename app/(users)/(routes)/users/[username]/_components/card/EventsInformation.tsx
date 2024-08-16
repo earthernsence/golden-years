@@ -16,7 +16,7 @@ interface EventsInformationProps {
 export const EventsInformation = ({ user }: EventsInformationProps) => {
   const totalHours = useQuery(api.events.getTotalHours, { events: user.events });
 
-  if (!totalHours) return <Spinner />;
+  if (totalHours === undefined) return <Spinner />;
 
   return (
     <>
