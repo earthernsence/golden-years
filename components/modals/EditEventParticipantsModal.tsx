@@ -150,10 +150,10 @@ export const EditEventParticipantsModal = () => {
             Add or remove participants from this event.
           </div>
         </DialogDescription>
-        <Tabs defaultValue="add" className="w-full">
-          <TabsList>
-            <TabsTrigger value="add">Add Participant</TabsTrigger>
-            <TabsTrigger value="remove">Remove Participant</TabsTrigger>
+        <Tabs defaultValue="add" className="space-y-4">
+          <TabsList className="w-full">
+            <TabsTrigger value="add" className="w-1/2">Add Participant</TabsTrigger>
+            <TabsTrigger value="remove" className="w-1/2">Remove Participant</TabsTrigger>
           </TabsList>
           <TabsContent value="add">
             <AddEventParticipantForm onSubmit={add} />
