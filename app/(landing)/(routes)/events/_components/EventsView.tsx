@@ -11,7 +11,7 @@ import EventCard from "@/components/EventCard";
 
 import { EventsNone } from "./EventsNone";
 
-type EventsPageViewState = "all" | "team" | "past";
+type EventsPageViewState = "all" | "team" | "past" | "nonexclusive";
 
 export const EventsView = () => {
   const [view, setView] = useState<EventsPageViewState>("all");
@@ -42,6 +42,7 @@ export const EventsView = () => {
   const futureEvents = events.filter(event => event.date > Date.now());
   const teamEvents = futureEvents.filter(event => event.team === team);
   const pastEvents = events.filter(event => event.date < Date.now());
+  const nonExclusiveEvents = futureEvents.filter(event => !event.exclusive);
 
   if (futureEvents.length === 0) return <EventsNone />;
 
@@ -59,6 +60,7 @@ export const EventsView = () => {
             <SelectItem value="all">Viewing all Events</SelectItem>
             {team && (<SelectItem value="team">Viewing Team Events</SelectItem>)}
             <SelectItem value="past">Viewing past Events</SelectItem>
+            <SelectItem value="nonexclusive">Viewing non- Team Exclusive Events</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -70,6 +72,9 @@ export const EventsView = () => {
         <EventCard key={index} event={event} />
       ))}
       {view === "past" && pastEvents?.map((event, index: number) => (
+        <EventCard key={index} event={event} />
+      ))}
+      {view === "nonexclusive" && nonExclusiveEvents.map((event, index: number) => (
         <EventCard key={index} event={event} />
       ))}
     </>

@@ -150,16 +150,18 @@ const EventCard = ({
 
 EventCard.Skeleton = function EventCardSkeleton() {
   return (
-    <div className="border-4 border-gray-500 flex rounded-lg flex-row w-full place-items-center p-4 mb-2 md:h-40">
+    <div className="border-4 border-gray-500 flex rounded-lg md:space-x-2
+                    xs:flex-col md:flex-row w-full place-items-center p-4 mb-2 md:h-40">
       <div className="flex w-1/4">
-        <Skeleton className="w-32 h-32 rounded-sm" />
+        <Skeleton className="xs:mb-4 md:mr-4 md:mb-0 flex xs:w-48 xs:h-48 md:w-32 md:h-32" />
       </div>
-      <div className="flex flex-col relative w-1/2 space-y-2">
-        <Skeleton className={`w-48 h-8`} />
-        <Skeleton className={`w-36 h-4`} />
-        <Skeleton className={`w-24 h-2`} />
+      <div className="flex flex-col relative xs:w-5/6 md:w-1/2 xs:mb-4 md:mb-0 md:space-y-2">
+        <Skeleton className="w-96 h-8" />
+        <Skeleton className="w-64 h-6" />
+        <Skeleton className="w-72 h-4" />
+        <Skeleton className="w-48 h-2" />
       </div>
-      <div className="flex xs:w-1/2 md:w-1/4 xs:flex-col justify-center xs:space-y-2 md:space-y-2">
+      <div className="flex xs:w-auto md:w-1/4 xs:flex-col justify-center space-y-2">
         <div className="flex flex-row items-center text-left space-x-2">
           <Skeleton className="w-16 h-16 rounded-sm" />
           <Skeleton className="h-4 w-48 rounded-sm" />
