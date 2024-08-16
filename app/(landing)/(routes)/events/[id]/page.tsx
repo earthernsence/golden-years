@@ -23,6 +23,7 @@ import { useSignupModal } from "@/hooks/use-signup-modal";
 
 import { ParticipantsList } from "./_components/ParticipantsList";
 import { pluralise } from "@/lib/utils";
+import { useEditEventParticipantsModal } from "@/hooks/use-edit-event-participants-modal";
 
 interface SpecificEventPageProps {
   params: {
@@ -36,6 +37,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
   const { edgestore } = useEdgeStore();
   const signup = useSignupModal();
   const edit = useEditEventModal();
+  const participants = useEditEventParticipantsModal();
 
   const event = useQuery(api.events.getEventByUUID, { id: params.id });
   const participantEmails = useQuery(api.events.getEmailAddresses, { id: params.id });
@@ -297,6 +299,22 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
                     </TooltipTrigger>
                     <TooltipContent>
                       <div className="text-sm">Copy email list to clipboard</div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+              {isUserAdmin && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Pencil
+                        className="ml-2 w-4 h-4"
+                        role="button"
+                        onClick={() => participants.onOpen(event)}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <div className="text-sm">Edit participants</div>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>

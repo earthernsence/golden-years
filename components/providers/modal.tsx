@@ -7,6 +7,7 @@ import { AssignRoleModal } from "../modals/AssignRoleModal";
 import { CreateEventModal } from "../modals/CreateEventModal";
 import { CreateGroupModal } from "../modals/CreateGroupModal";
 import { EditEventModal } from "../modals/EditEventModal";
+import { EditEventParticipantsModal } from "../modals/EditEventParticipantsModal";
 import { LeaveEventModal } from "../modals/LeaveEventModal";
 import { PrivacyPolicyModal } from "../modals/PrivacyPolicy";
 import { SignUpModal } from "../modals/SignUpModal";
@@ -46,6 +47,7 @@ export const ModalProvider = () => {
       <TeamCreateModal />
       <TeamEditModal />
       <UploadProfilePictureModal />
+      <EditEventParticipantsModal />
     </>
   );
 };
