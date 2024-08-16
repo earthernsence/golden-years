@@ -149,6 +149,23 @@ export const get = query({
   }
 });
 
+export const getUserByUsername = mutation({
+  args: {
+    username: v.string()
+  },
+  handler: async(ctx, args) => {
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_username", q =>
+        q.eq("username", args.username)
+      ).first();
+
+    if (!user) return null;
+
+    return user;
+  }
+});
+
 export const getUser = query({
   args: {
     username: v.string()
