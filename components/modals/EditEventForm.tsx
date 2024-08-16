@@ -54,7 +54,7 @@ interface Event {
   eventId: string,
   title: string,
   date: number,
-  endDate: number,
+  endDate?: number,
   description: string,
   image?: string,
   location: string,
