@@ -24,7 +24,7 @@ export const LeaveEventModal = () => {
   const { userId } = useAuth();
 
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
-  const event = useQuery(api.events.getSpecificEvent, { id: modal.event?.eventId || "" });
+  const event = useQuery(api.events.getEventByUUID, { id: modal.event?._id });
   const updateUserEvents = useMutation(api.users.updateEvents);
   const updateEventParticipants = useMutation(api.events.addParticipant);
 

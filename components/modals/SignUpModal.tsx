@@ -65,7 +65,7 @@ export const SignUpModal = () => {
 
     if (!user.username || !user.email) return;
 
-    if (user.events?.includes(signup.event.eventId)) {
+    if (user.events?.includes(signup.event._id)) {
       toast({
         title: "You're already signed up for this event, silly!",
         description: "You can view your future events from your profile."

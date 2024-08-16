@@ -1,6 +1,9 @@
 import { create } from "zustand";
 
+import { Id } from "@/convex/_generated/dataModel";
+
 interface Event {
+  _id: Id<"events">,
   eventId: string,
   title: string,
   date: number,

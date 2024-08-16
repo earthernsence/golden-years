@@ -30,9 +30,11 @@ export const getSpecificEvent = query({
 
 export const getEventByUUID = query({
   args: {
-    id: v.id("events")
+    id: v.optional(v.id("events"))
   },
   handler: async(ctx, args) => {
+    if (!args.id) throw new Error("No UUID provided for getEventByUUID");
+
     const event = await ctx.db.get(args.id);
 
     if (!event) return null;
