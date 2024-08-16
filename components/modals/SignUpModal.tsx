@@ -23,7 +23,7 @@ export const SignUpModal = () => {
 
   const user = useQuery(api.users.getUserById, { id: `${userId}` });
   const updateUserEvents = useMutation(api.users.updateEvents);
-  const actualEvent = useQuery(api.events.getSpecificEvent, { id: signup.event?.eventId || "" });
+  const actualEvent = useQuery(api.events.getEventByUUID, { id: signup.event?._id });
   const updateEventParticipants = useMutation(api.events.addParticipant);
 
   if (!signup.event) {
