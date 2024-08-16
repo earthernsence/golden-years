@@ -110,7 +110,7 @@ const EventCard = ({
     xs:flex-col md:flex-row w-full place-items-center p-4 mb-2 md:h-40">
       <div className="flex md:w-1/4">
         <Image
-          className="border-gray-300 border-2 xs:mb-4 md:mr-4 md:mb-0 flex xs:w-48 xs:h-48 md:w-32 md:h-32"
+          className="border-gray-300 border-2 xs:mb-4 md:mr-4 md:mb-0 flex xs:w-48 xs:h-48 md:w-32 md:h-32 object-cover"
           src={event.image || "/no_image.png"}
           alt={`Event image for ${event.title}`}
           height={512} width={512}
