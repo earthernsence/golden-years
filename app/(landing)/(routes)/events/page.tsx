@@ -27,12 +27,7 @@ const EventsPage = () => {
   }
 
   if (events === undefined) {
-    return (
-      <div className="place-self-center max-w-full h-full w-2/3 pt-0 pb-12 pl-16 pr-16
-      dark:bg-dark xs:text-left md:text-justify">
-        <EventCard.Skeleton />
-      </div>
-    );
+    return <EventCard.Skeleton />;
   }
 
   return (
