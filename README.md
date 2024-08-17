@@ -8,6 +8,8 @@ We are a school club founded by Carissa Choi and Sydney Lewis, dedicated to crea
 
 This website is developed by Jace Royer, whose GitHub can be found [here](https://github.com/earthernsence).
 
+You can follow along with development progress at our [Trello page](https://trello.com/b/rkHymHZE/golden-years-development).
+
 # Code
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). We use Typescript React and Convex as our database. 
