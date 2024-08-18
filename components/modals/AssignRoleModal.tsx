@@ -1,6 +1,7 @@
 "use client";
 
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
+import { useAuth } from "@clerk/nextjs";
 import { z } from "zod";
 
 import {
@@ -37,7 +38,10 @@ export const AssignRoleModal = () => {
   const assign = useAssignRoleModal();
   const { toast } = useToast();
 
+  const { userId } = useAuth();
+
   const update = useMutation(api.users.updateRole);
+  const user = useQuery(api.users.getUserById, { id: `${userId}` });
 
   if (!assign.user) {
     return (
@@ -63,6 +67,15 @@ export const AssignRoleModal = () => {
   }
 
   const onSubmit = async(values: z.infer<typeof formSchema>) => {
+    if (!user) {
+      toast({
+        title: "Issue assigning role to user",
+        description: "Please refresh the page and try again."
+      });
+
+      return;
+    }
+
     if (!assign.user) {
       toast({
         title: "Could not assign role",
@@ -72,10 +85,14 @@ export const AssignRoleModal = () => {
       return;
     }
 
+    // Prevent admins from removing their own admin status. Others will still be able to, but not themselves.
+    const isUser = assign.user.userId === user.userId;
+    const admin = isUser ? true : values.isAdmin;
+
     await update({
       userId: assign.user.userId,
       exec: values.role,
-      admin: values.isAdmin
+      admin
     });
 
     toast({
