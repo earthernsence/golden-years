@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation } from "convex/react";
+import { z } from "zod";
 
 import {
   Dialog,
@@ -9,13 +10,28 @@ import {
   DialogHeader
 } from "@/components/ui/Dialog";
 
+import { api } from "@/convex/_generated/api";
 import { useAssignRoleModal } from "@/hooks/use-assign-role-modal";
 
 import { useToast } from "@/components/ui/use-toast";
 
 import { AssignRoleForm, formSchema } from "./AssignRoleForm";
-import { api } from "@/convex/_generated/api";
-import { z } from "zod";
+
+import { ElementType } from "@/lib/utils";
+
+const ROLES = [
+  "President",
+  "Co-President",
+  "Vice President",
+  "Fundraising Specialist",
+  "Social Media Specialist",
+  "Secretary",
+  "Vice Secretary",
+  "Website Developer",
+  "None"
+] as const;
+
+type Role = ElementType<typeof ROLES>;
 
 export const AssignRoleModal = () => {
   const assign = useAssignRoleModal();
@@ -58,7 +74,8 @@ export const AssignRoleModal = () => {
 
     await update({
       userId: assign.user.userId,
-      exec: values.role
+      exec: values.role,
+      admin: values.isAdmin
     });
 
     toast({
@@ -84,7 +101,11 @@ export const AssignRoleModal = () => {
           </div>
         </DialogDescription>
         <div className="flex flex-col justify-center items-center align-middle">
-          <AssignRoleForm onSubmit={onSubmit} />
+          <AssignRoleForm
+            onSubmit={onSubmit}
+            isAdmin={assign.user.admin}
+            role={assign.user.exec as Role ?? "None"}
+          />
         </div>
       </DialogContent>
     </Dialog>

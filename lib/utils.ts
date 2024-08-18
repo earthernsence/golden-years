@@ -5,6 +5,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// eslint-disable-next-line no-shadow
+export type ElementType<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<infer ElementType>
+  ? ElementType
+  : never
+
 // Most code from Antimatter Dimensions
 
 const pluralDatabase = new Map<string, string>([]);
