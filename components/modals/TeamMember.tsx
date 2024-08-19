@@ -71,7 +71,7 @@ export const TeamMembers = ({
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col space-y-1">
       {
         members.map((member: string, index: number) => (
           <TeamMember member={member} remove={remove} canEditMembers={canEditMembers} key={index} />
