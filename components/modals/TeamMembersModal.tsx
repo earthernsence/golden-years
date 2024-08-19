@@ -20,6 +20,8 @@ import { useTeamMembersModal } from "@/hooks/use-team-members-modal";
 
 import { TeamMembers } from "./TeamMember";
 
+import { quantify } from "@/lib/utils";
+
 export const TeamMembersModal = () => {
   const modal = useTeamMembersModal();
 
@@ -93,7 +95,16 @@ export const TeamMembersModal = () => {
           </div>
         </DialogHeader>
         <DialogDescription className="space-y-1">
-          Use this modal to view the members of this Team. Teams do not have a member cap.
+          Use this modal to view the members of this Team.
+          {team.slots < Number.MAX_VALUE ? (
+            <span className="font-semibold">
+              This team has a Member cap of {quantify("Member", team.slots)}.
+            </span>
+          ) : (
+            <div>
+              This team does not have a Member cap.
+            </div>
+          )}
         </DialogDescription>
         <div className="flex flex-col text-md gap-y-2">
           <TeamMembers
