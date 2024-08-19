@@ -93,6 +93,15 @@ export const TeamEditModal = () => {
 
     if (values.hasSlotCap && values.slots) slots = parseInt(values.slots, 10);
 
+    if (team.members.length > slots) {
+      toast({
+        title: "You can't have less slots than members, silly!",
+        description: "Try removing a few Members, then setting a slot cap."
+      });
+
+      return;
+    }
+
     const newImage = values.image ? await uploadFile(values.image) : team.image;
 
     if (values.image) {
