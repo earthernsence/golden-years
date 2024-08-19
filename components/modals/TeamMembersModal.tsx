@@ -95,15 +95,15 @@ export const TeamMembersModal = () => {
           </div>
         </DialogHeader>
         <DialogDescription className="space-y-1">
-          Use this modal to view the members of this Team.
+          Use this modal to view the members of this Team.{" "}
           {team.slots < Number.MAX_VALUE ? (
             <span className="font-semibold">
-              This team has a Member cap of {quantify("Member", team.slots)}.
+              This team has a Member cap of {quantify("Member", team.slots, 0)}.
             </span>
           ) : (
-            <div>
+            <span>
               This team does not have a Member cap.
-            </div>
+            </span>
           )}
         </DialogDescription>
         <div className="flex flex-col text-md gap-y-2">
