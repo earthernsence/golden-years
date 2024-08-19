@@ -89,8 +89,8 @@ export function TeamEditForm({
       location: team.location,
       lead: teamLead?.username || "",
       link: team.link,
-      hasSlotCap: !(team.slots === undefined || team.slots === Number.MAX_VALUE),
-      slots: (team.slots === undefined || team.slots === Number.MAX_VALUE) ? "2" : `${team.slots}`
+      hasSlotCap: team.slots !== Number.MAX_VALUE,
+      slots: team.slots === Number.MAX_VALUE ? `${team.members.length}` : `${team.slots}`
     },
   });
 
