@@ -21,6 +21,7 @@ const renderOrder = ["President",
   "Co-President",
   "Vice President",
   "Fundraising Specialist",
+  "Social Media Specialist",
   "Secretary",
   "Vice Secretary",
   "Website Developer"

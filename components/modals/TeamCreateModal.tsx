@@ -62,6 +62,10 @@ export const TeamCreateModal = () => {
       return;
     }
 
+    let slots: number = Number.MAX_VALUE;
+
+    if (values.hasSlotCap && values.slots) slots = parseInt(values.slots, 10);
+
     const imageURL = await uploadFile(values.image);
 
     create({
@@ -71,7 +75,8 @@ export const TeamCreateModal = () => {
       lead: values.lead,
       link: values.link,
       image: imageURL,
-      groupValue: values.groupValue
+      groupValue: values.groupValue,
+      slots
     });
 
     modal.onClose();

@@ -58,7 +58,8 @@ export default defineSchema({
     lead: v.string(),
     groupValue: v.string(),
     link: v.string(),
-    members: v.array(v.string())
+    members: v.array(v.string()),
+    slots: v.optional(v.number())
   })
     .index("by_team_id", ["teamId"])
 });

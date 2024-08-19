@@ -52,7 +52,7 @@ export const update = mutation({
     email: v.string(),
     bio: v.optional(v.string()),
     location: v.optional(v.string()),
-    groups: v.array(v.string())
+    groups: v.array(v.string()),
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -102,6 +102,7 @@ export const updateRole = mutation({
   args: {
     userId: v.string(),
     exec: v.string(),
+    admin: v.optional(v.boolean()),
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -114,19 +115,22 @@ export const updateRole = mutation({
       .query("users")
       .withIndex("by_username_userid", q =>
         q.eq("userId", args.userId || "")
-      ).collect();
+      ).first();
+
+    if (!dbUser) return null;
 
     const isRemovingRole = args.exec === "None";
 
-    const groups = dbUser[0].groups;
+    const groups = dbUser.groups;
 
     const newGroups = isRemovingRole
       ? groups.filter(group => group !== "exec2425")
       : groups.concat("exec2425");
 
-    const user = await ctx.db.patch(dbUser[0]._id, {
+    const user = await ctx.db.patch(dbUser._id, {
       exec: isRemovingRole ? "" : args.exec,
-      groups: newGroups
+      groups: newGroups,
+      admin: args.admin
     });
 
     return user;
