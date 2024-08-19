@@ -50,7 +50,7 @@ export const TeamLeaveModal = () => {
     );
   }
 
-  const confirmJoin = async() => {
+  const confirmLeave = async() => {
     if (!user) return;
     if (!leaveModal.team) return;
 
@@ -104,7 +104,7 @@ export const TeamLeaveModal = () => {
         </div>
         <DialogFooter className="flex flex-row justify-end gap-x-2">
           <Button type="button" onClick={() => leaveModal.onClose()}>Cancel</Button>
-          <Button type="button" onClick={confirmJoin}>Confirm</Button>
+          <Button type="button" onClick={confirmLeave}>Confirm</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
