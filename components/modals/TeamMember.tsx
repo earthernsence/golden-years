@@ -14,13 +14,13 @@ interface TeamMemberProps {
   member: string,
   // eslint-disable-next-line no-unused-vars
   remove: (user: Doc<"users">) => void,
-  isVisitorAdmin: boolean,
+  canEditMembers: boolean,
 }
 
 const TeamMember = ({
   member,
   remove,
-  isVisitorAdmin,
+  canEditMembers,
 }: TeamMemberProps) => {
   const modal = useTeamMembersModal();
 
@@ -45,7 +45,7 @@ const TeamMember = ({
         <User className="mr-2" />
         {teamMember.name}
       </Link>
-      {isVisitorAdmin && (<X role="button" onClick={() => remove(teamMember)} />)}
+      {canEditMembers && (<X role="button" onClick={() => remove(teamMember)} />)}
     </div>
   );
 };
@@ -54,13 +54,13 @@ interface TeamMembersProps {
   members: Array<string>,
   // eslint-disable-next-line no-unused-vars
   remove: (user: Doc<"users">) => void,
-  isVisitorAdmin: boolean,
+  canEditMembers: boolean,
 }
 
 export const TeamMembers = ({
   members,
   remove,
-  isVisitorAdmin
+  canEditMembers
 }: TeamMembersProps) => {
   if (members === undefined || members.length === 0) {
     return (
@@ -74,7 +74,7 @@ export const TeamMembers = ({
     <div className="flex flex-col">
       {
         members.map((member: string, index: number) => (
-          <TeamMember member={member} remove={remove} isVisitorAdmin={isVisitorAdmin} key={index} />
+          <TeamMember member={member} remove={remove} canEditMembers={canEditMembers} key={index} />
         ))
       }
     </div>

@@ -99,7 +99,7 @@ export const TeamMembersModal = () => {
           <TeamMembers
             members={team.members}
             remove={remove}
-            isVisitorAdmin={isVisitorAdmin}
+            canEditMembers={canEditMembers}
           />
           {canEditMembers && team.members.length >= 1 && (
             <Button variant={"default"} onClick={copyContent}>
