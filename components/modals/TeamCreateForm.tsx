@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/Form";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Switch } from "@/components/ui/Switch";
 import { Textarea } from "@/components/ui/Textarea";
 
 // Does not check for whitespace
@@ -76,6 +77,8 @@ export const formSchema = z.object({
   }).refine(value => urlRegex.test(value), {
     message: "Link must be a URL"
   }),
+  hasSlotCap: z.boolean().optional(),
+  slots: z.string().refine(value => parseInt(value, 10)).refine(value => parseInt(value, 10) >= 2).optional(),
   image: z.instanceof(File)
 });
 
@@ -95,7 +98,9 @@ export function TeamCreateForm({
       location: "",
       groupValue: "",
       lead: "",
-      link: ""
+      link: "",
+      hasSlotCap: false,
+      slots: "2",
     }
   });
 
@@ -237,6 +242,49 @@ export function TeamCreateForm({
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="hasSlotCap"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
+                <FormLabel>
+                  Cap members?
+                </FormLabel>
+                <br />
+                <FormDescription className="text-xs">
+                  This determines whether or not there should be a limit on the number of members on this team.
+                  If this is selected, choose a number of slots in the following field.
+                </FormDescription>
+              </div>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        {form.getValues("hasSlotCap") && (
+          <FormField
+            control={form.control}
+            name="slots"
+            render={({ field }) => (
+              <FormItem className="max-w-screen-xs">
+                <FormLabel>Slots</FormLabel>
+                <FormControl>
+                  <Input type="number" placeholder="Number of Slots" {...field} />
+                </FormControl>
+                <FormDescription className="text-xs">
+                Choose the maximum number of people who can participate in this Team.
+                </FormDescription>
+                <br />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
         <Button className="max-w-lg flex place-self-center" type="submit">Submit</Button>
       </form>
     </Form>

@@ -28,7 +28,7 @@ export const TeamInfoModal = () => {
           The Team you are on will appear under the &quot;Groups&quot; section on your User Profile, as well
           as the &quot;Team&quot; header. We encourage all Members of Golden Years to join a team, as this is
           the easiest way to ensure that you gain volunteer hours while also helping the community.
-          Teams do not have a Member cap.
+          While some teams may have a member cap, there may also be some that do not.
           <br />
           <br />
           Some Events may be exclusively available for Members of specific teams. This is to ensure that

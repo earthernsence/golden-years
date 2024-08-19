@@ -89,6 +89,10 @@ export const TeamEditModal = () => {
       return;
     }
 
+    let slots: number = Number.MAX_VALUE;
+
+    if (values.hasSlotCap && values.slots) slots = parseInt(values.slots, 10);
+
     const newImage = values.image ? await uploadFile(values.image) : team.image;
 
     if (values.image) {
@@ -112,7 +116,8 @@ export const TeamEditModal = () => {
       location: values.location,
       lead: values.lead,
       groupValue: team.groupValue,
-      link: values.link
+      link: values.link,
+      slots
     });
 
     modal.onClose();

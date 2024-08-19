@@ -10,7 +10,8 @@ export const create = mutation({
     location: v.string(),
     lead: v.string(),
     groupValue: v.string(),
-    link: v.string()
+    link: v.string(),
+    slots: v.number(),
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -61,7 +62,8 @@ export const update = mutation({
     location: v.string(),
     lead: v.string(),
     groupValue: v.string(),
-    link: v.string()
+    link: v.string(),
+    slots: v.number(),
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();

@@ -40,6 +40,14 @@ export const SingleTeam = ({
 
   const isMember = visitorTeam === team.teamId;
 
+  const slotsString = () => {
+    if (team.slots === undefined || team.slots === Number.MAX_VALUE) return `(${team.members.length})`;
+    return `(${team.members.length}/${team.slots})`;
+  };
+
+  const canJoin = team.slots === Number.MAX_VALUE || team.slots === undefined ||
+    team.members.length + 1 <= team.slots;
+
   if (leader === null || visitor === null) return <Spinner />;
 
   return (
@@ -81,7 +89,7 @@ export const SingleTeam = ({
         {team.members && (
           <div className="flex flex-row items-center">
             <Icon icon={faUsers} onClick={() => membersModal.onOpen(team)} />
-            View Members
+            View Members {slotsString()}
           </div>
         )}
         {leader && (
@@ -92,9 +100,14 @@ export const SingleTeam = ({
             Team led by {leader.name}
           </div>
         )}
-        {!Boolean(visitorTeam) && (
+        {!Boolean(visitorTeam) && canJoin && (
           <Button variant={"default"} onClick={() => joinModal.onOpen(team)}>
             Join Team
+          </Button>
+        )}
+        {!Boolean(visitorTeam) && !canJoin && (
+          <Button variant={"outline"} disabled>
+            This Team is full!
           </Button>
         )}
         {Boolean(visitorTeam) && isMember && (
