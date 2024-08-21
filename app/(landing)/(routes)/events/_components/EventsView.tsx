@@ -5,13 +5,14 @@ import { useQuery } from "convex/react";
 import { useState } from "react";
 
 import { api } from "@/convex/_generated/api";
+import { Doc } from "@/convex/_generated/dataModel";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 import EventCard from "@/components/EventCard";
 
 import { EventsNone } from "./EventsNone";
 
-type EventsPageViewState = "all" | "team" | "past" | "nonexclusive";
+export type EventsPageViewState = "all" | "team" | "past" | "nonexclusive";
 
 export const EventsView = () => {
   const [view, setView] = useState<EventsPageViewState>("all");
@@ -34,12 +35,23 @@ export const EventsView = () => {
     return <EventCard.Skeleton />;
   }
 
-  const futureEvents = events.filter(event => event.date > Date.now());
+  const futureEvents = events
+    .filter(event => event.date > Date.now())
+    .toSorted((a, b) => a.date - b.date);
   const teamEvents = futureEvents.filter(event => event.team === team);
-  const pastEvents = events.filter(event => event.date < Date.now());
+  const pastEvents = events
+    .filter(event => event.date < Date.now())
+    .toSorted((a, b) => a.date - b.date);
   const nonExclusiveEvents = futureEvents.filter(event => !event.exclusive);
 
-  if (futureEvents.length === 0) return <EventsNone />;
+  const pairings: Map<EventsPageViewState, Array<Doc<"events">>> = new Map(
+    [
+      ["all", futureEvents],
+      ["team", teamEvents],
+      ["past", pastEvents],
+      ["nonexclusive", nonExclusiveEvents]
+    ],
+  );
 
   return (
     <>
@@ -72,6 +84,10 @@ export const EventsView = () => {
       {view === "nonexclusive" && nonExclusiveEvents.map((event, index: number) => (
         <EventCard key={index} event={event} />
       ))}
+      <EventsNone
+        pairings={pairings}
+        state={view}
+      />
     </>
   );
 };
