@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
@@ -30,15 +30,29 @@ export const columns: ColumnDef<TrackedUser>[] = [
   },
   {
     accessorKey: "hours",
-    header: ({ column }) => (
-      <Button
-        variant={"ghost"}
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Hours
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    header: ({ column }) => {
+      const sortingDirection = () => {
+        switch (column.getIsSorted()) {
+          case "asc":
+            return <ArrowUp className="ml-2 size-4" />;
+          case "desc":
+            return <ArrowDown className="ml-2 size-4" />;
+          case false:
+            return <ArrowUpDown className="ml-2 size-4" />;
+          default:
+            throw new Error(`Unknown sorting direction: ${column.getIsSorted()}`);
+        }
+      };
+
+      return (
+        <Button
+          variant={"ghost"}
+          onClick={() => column.toggleSorting()}
+        >
+          Hours {sortingDirection()}
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const formatted = new Intl.NumberFormat("en-US", {
         style: "decimal",

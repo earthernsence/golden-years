@@ -39,6 +39,7 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    enableSortingRemoval: true,
     state: {
       sorting,
     }
@@ -72,6 +73,8 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={index}
                   data-state={row.getIsSelected() && "selected"}
+                  className="even:bg-slate-300/25 even:hover:bg-slate-300/[.125]
+                  dark:even:bg-slate-500/25 dark:even:hover:bg-slate-500/[.125]"
                 >
                   {row.getVisibleCells().map(cell => (
                     <TableCell key={cell.id}>
