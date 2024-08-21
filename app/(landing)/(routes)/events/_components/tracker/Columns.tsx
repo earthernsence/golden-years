@@ -63,19 +63,27 @@ export const columns: ColumnDef<TrackedUser>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>
-              <Link
-                href={`/users/${user.username}`}
-                target={"_blank"}
+            <Link
+              href={`/users/${user.username}`}
+              target={"_blank"}
+            >
+              <DropdownMenuItem
+                role="button"
+                className="hover:cursor-pointer"
               >
                 Visit profile
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem
+              </DropdownMenuItem>
+            </Link>
+            <div
               onClick={() => navigator.clipboard.writeText(user.username)}
             >
-              Copy username
-            </DropdownMenuItem>
+              <DropdownMenuItem
+                role="button"
+                className="hover:cursor-pointer"
+              >
+                Copy username
+              </DropdownMenuItem>
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       );
