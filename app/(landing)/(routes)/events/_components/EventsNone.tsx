@@ -35,10 +35,10 @@ export const EventsNone = ({
         <Image
           src={holly}
           priority
-          className="w-64"
+          className="size-64"
           alt="Carissa's cat, Holly."
-          width={2268}
-          height={4032}
+          width={3023}
+          height={3023}
         />
       </div>
     </>

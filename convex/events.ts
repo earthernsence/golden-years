@@ -158,11 +158,13 @@ export const remove = mutation({
         const user = await ctx.db.query("users")
           .withIndex("by_user", q => (
             q.eq("userId", part)
-          )).collect();
+          )).first();
 
-        const events = user[0].events.filter(event => event !== id);
+        if (!user) continue;
 
-        await ctx.db.patch(user[0]._id, {
+        const events = user.events.filter(event => event !== id);
+
+        await ctx.db.patch(user._id, {
           events
         });
       }
