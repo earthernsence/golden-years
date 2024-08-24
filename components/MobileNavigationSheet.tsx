@@ -85,12 +85,12 @@ const MobileNavigationSheet = () => (
       <div className="flex flex-row w-full">
         <Icon
           icon={faInstagram}
-          className="w-8 h-8"
+          className="size-8"
           link={"https://www.instagram.com/goldenyearsfhhs/"}
         />
         <Icon
           icon={faMessage}
-          className="w-8 h-8"
+          className="size-8"
           link={"https://groupme.com/join_group/100192539/3CkxOnJA"}
         />
       </div>

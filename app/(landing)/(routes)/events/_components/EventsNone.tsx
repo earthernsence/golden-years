@@ -35,7 +35,7 @@ export const EventsNone = ({
         <Image
           src={holly}
           priority
-          className="size-64"
+          className="xs:size-64 md:size-96"
           alt="Carissa's cat, Holly."
           width={3023}
           height={3023}

@@ -30,10 +30,11 @@ export const Footer = () => {
   const commit: { sha: string, html_url: string } = data[0];
 
   return (
-    <div className="flex xs:flex-col md:flex-row md:items-center w-full p-6 bg-background z-50 dark:bg-dark">
+    <div className="flex xs:flex-col md:flex-row md:items-center
+     w-full p-6 bg-gy-bg-light z-50 border-t dark:bg-gy-bg-dark">
       <div className="font-semibold flex text-center mr-4 md:w-3/12 flex-col">
         <Wordmark />
-        <div className="text-xs font-medium text-center text-dark dark:text-muted-foreground/75
+        <div className="text-xs font-medium text-center text-dark/75 dark:text-muted-foreground/75
         flex items-center justify-start w-full mr-2 flex-row space-x-1">
           <span>website made with &#10084; by</span>
           <Link
@@ -57,20 +58,20 @@ export const Footer = () => {
         <div className="flex flex-row w-full gap-x-2 items-center">
           <Icon
             icon={faInstagram}
-            className="h-8 w-8"
+            className="size-8"
             link={"https://www.instagram.com/goldenyearsfhhs/"}
           />
           <Icon
             icon={faMessage}
-            className="h-8 w-8"
+            className="size-8"
             link={"https://groupme.com/join_group/100192539/3CkxOnJA"}
           />
         </div>
         <Button variant="ghost" size="sm" onClick={privacy.onOpen}>
-        Privacy
+          Privacy
         </Button>
         <Button variant="ghost" size="sm" onClick={terms.onOpen}>
-        Terms
+          Terms
         </Button>
       </div>
     </div>

@@ -163,12 +163,12 @@ EventCard.Skeleton = function EventCardSkeleton() {
       </div>
       <div className="flex xs:w-auto md:w-1/4 xs:flex-col justify-center space-y-2">
         <div className="flex flex-row items-center text-left space-x-2">
-          <Skeleton className="w-16 h-16 rounded-sm" />
-          <Skeleton className="h-4 w-48 rounded-sm" />
+          <Skeleton className="size-16 rounded-sm" />
+          <Skeleton className="size-48 rounded-sm" />
         </div>
         <div className="flex flex-row items-center text-left space-x-2">
-          <Skeleton className="w-16 h-16 rounded-sm" />
-          <Skeleton className="h-4 w-48 rounded-sm" />
+          <Skeleton className="size-16 rounded-sm" />
+          <Skeleton className="size-48 rounded-sm" />
         </div>
       </div>
     </div>

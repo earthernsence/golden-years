@@ -250,11 +250,11 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
             {isUserAdmin && (
               <div className="flex justify-center flex-row">
                 <Button variant={"ghost"} onClick={() => edit.onOpen(event)}>
-                  <Pencil className="mr-2 h-4 w-4" /> Edit
+                  <Pencil className="mr-2 size-4" /> Edit
                 </Button>
                 <DeleteEventConfirmModal onConfirm={onDelete}>
                   <Button variant={"ghost"}>
-                    <X className="mr-2 h-4 w-4" /> Delete
+                    <X className="mr-2 size-4" /> Delete
                   </Button>
                 </DeleteEventConfirmModal>
               </div>
@@ -292,7 +292,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
                   <Tooltip>
                     <TooltipTrigger>
                       <Mail
-                        className="ml-2 w-4 h-4"
+                        className="ml-2 size-4"
                         role="button"
                         onClick={copyContent}
                       />
@@ -308,7 +308,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
                   <Tooltip>
                     <TooltipTrigger>
                       <Pencil
-                        className="ml-2 w-4 h-4"
+                        className="ml-2 size-4"
                         role="button"
                         onClick={() => participants.onOpen(event)}
                       />
@@ -333,7 +333,7 @@ SpecificEventPage.Skeleton = function SpecificEventPageSkeleton() {
     <div className="flex flex-row w-full h-full bg-muted-foreground/10 rounded-md border gap-x-4 dark:border-white p-4">
       <div className="flex flex-col w-1/4">
         <div className="flex flex-col items-center gap-y-1">
-          <Skeleton className="w-36 h-36 rounded-full" />
+          <Skeleton className="size-36 rounded-full" />
           <Skeleton className="w-16 h-6 rounded-sm" />
           <Skeleton className="w-14 h-4 rounded-sm" />
         </div>

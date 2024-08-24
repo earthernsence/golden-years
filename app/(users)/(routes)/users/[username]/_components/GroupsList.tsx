@@ -48,8 +48,8 @@ export const GroupsList = ({
           <Badge key={index} variant={variant(group.value, group.isTeamGroup)}>
             {
               isUserLead && group.isTeamGroup
-                ? <Star className="w-4 h-4 mr-1" />
-                : <Users className="w-4 h-4 mr-1" />
+                ? <Star className="size-4 mr-1" />
+                : <Users className="size-4 mr-1" />
             }
             {group.label}
           </Badge>

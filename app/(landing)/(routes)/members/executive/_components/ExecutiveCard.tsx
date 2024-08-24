@@ -17,7 +17,7 @@ export const ExecutiveCard = ({ exec }: ExecutiveCardProps) => (
   <figure className="bg-slate-100 rounded-xl p-6 dark:bg-slate-800">
     <div className="flex md:flex-row items-center justify-around">
       <Image
-        className="w-24 h-24 md:w-48 md:h-48 md:rounded-lg rounded-full object-cover
+        className="size-24 md:w-48 md:h-48 md:rounded-lg rounded-full object-cover
         border-2"
         src={exec.image || "/no_image.png"}
         alt={exec.name}
