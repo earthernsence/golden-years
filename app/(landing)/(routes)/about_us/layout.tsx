@@ -1,3 +1,5 @@
+// About page layout.
+
 import { Metadata } from "next";
 
 import { Navbar } from "@/components/Navbar";

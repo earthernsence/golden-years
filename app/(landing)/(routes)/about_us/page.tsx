@@ -1,3 +1,5 @@
+// About page content.
+
 import Image from "next/image";
 
 import aboutImage from "#/about_cc_sl.jpg";

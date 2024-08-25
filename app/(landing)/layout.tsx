@@ -1,3 +1,5 @@
+// Main layout for the site. Contains the Navbar and Footer components to be used repeatedly
+
 import { Metadata } from "next";
 
 import { Footer } from "@/components/Footer";
