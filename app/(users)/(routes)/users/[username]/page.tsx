@@ -29,7 +29,7 @@ const UserPage = ({ params }: UserPageProps) => {
       <div className="min-h-full flex flex-col pt-40 items-center justify-center
                       text-center gap-y-8 flex-1 px-6 pb-10
                       h-full
-                      dark:bg-dark
+                      bg-gy-bg-light dark:bg-gy-bg-dark
                       md:justify-start"
       >
         <UserCard.Skeleton />
@@ -53,7 +53,7 @@ const UserPage = ({ params }: UserPageProps) => {
       <section className="flex flex-col items-center justify-center
                           text-center gap-y-8 flex-1 px-2 pb-10
                           h-full w-auto
-                          dark:bg-dark
+                          bg-gy-bg-light dark:bg-gy-bg-dark
                           md:justify-start"
       >
         <UserCard user={dbUser} isUser={isUser} />

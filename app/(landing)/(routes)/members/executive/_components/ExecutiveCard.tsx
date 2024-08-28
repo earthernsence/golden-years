@@ -14,7 +14,7 @@ interface ExecutiveCardProps {
 }
 
 export const ExecutiveCard = ({ exec }: ExecutiveCardProps) => (
-  <figure className="bg-slate-100 rounded-xl p-6 dark:bg-slate-800">
+  <figure className="bg-slate-100 rounded-xl p-6 dark:bg-slate-600">
     <div className="flex md:flex-row items-center justify-around">
       <Image
         className="size-24 md:w-48 md:h-48 md:rounded-lg rounded-full object-cover
@@ -26,7 +26,7 @@ export const ExecutiveCard = ({ exec }: ExecutiveCardProps) => (
       />
       <figcaption className="font-medium xs:text-lg md:text-xl">
         <Link
-          className="text-gy-light dark:text-gy-dark hover:underline"
+          className="text-gy-text-light dark:text-gy-text-dark hover:underline"
           href={`/users/${exec.username}`}
         >
           {exec.name}

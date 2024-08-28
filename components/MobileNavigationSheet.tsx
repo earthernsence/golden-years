@@ -24,7 +24,7 @@ import Icon from "./Icon";
 import { Separator } from "@/components/ui/Separator";
 import { Wordmark } from "./Wordmark";
 
-import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import { ListItem } from "./ui/ListItem";
 
@@ -92,6 +92,11 @@ const MobileNavigationSheet = () => (
           icon={faMessage}
           className="size-8"
           link={"https://groupme.com/join_group/100192539/3CkxOnJA"}
+        />
+        <Icon
+          icon={faTwitter}
+          className="size-8"
+          link={"https://x.com/goldenyearsfhhs"}
         />
       </div>
     </SheetContent>

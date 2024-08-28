@@ -41,7 +41,7 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background opacity-75 dark:opacity-50 hover:opacity-100 dark:hover:opacity-100 hover:underline px-4 py-2 text-sm font-medium transition-colors hover:bg-gy-bg-dark/10 dark:hover:bg-accent/50 hover:text-accent-foreground focus:bg-gy-bg-light focus:dark:bg-background focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gy-bg-light data-[state=open]:bg-gy-bg-light data-[active]:dark:bg-gy-bg-dark data-[state=open]:dark:bg-gy-bg-dark"
+  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background opacity-75 dark:opacity-50 hover:opacity-100 dark:hover:opacity-100 hover:underline px-4 py-2 text-sm font-medium transition-colors hover:bg-gy-bg-dark/10 dark:hover:bg-accent/50 hover:text-accent-foreground focus:bg-gy-bg-light focus:dark:bg-gy-bg-dark focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gy-bg-light data-[state=open]:bg-gy-bg-light data-[active]:dark:bg-gy-bg-dark data-[state=open]:dark:bg-gy-bg-dark"
 );
 
 const navigationSheetMenuTriggerStyle = cva(

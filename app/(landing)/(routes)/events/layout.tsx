@@ -12,9 +12,10 @@ const EventsLayout = ({
 }: {
   children: React.ReactNode
 }) => (
-  <div className="h-full dark:bg-dark">
+  <div className="h-full">
     <Navbar />
-    <main className="min-h-full flex flex-col justify-start items-center w-full h-full pt-40 dark:bg-dark">
+    <main className="min-h-full flex flex-col justify-start items-center w-full h-full pt-40
+    bg-gy-bg-light dark:bg-gy-bg-dark">
       { children }
     </main>
   </div>

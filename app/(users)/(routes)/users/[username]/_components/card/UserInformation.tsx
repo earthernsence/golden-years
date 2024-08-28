@@ -23,7 +23,7 @@ export const UserInformation = ({ user, team, isVisitorAdmin }: UserInformationP
     return (
       <div>
         This user is a member of the {team.name} Team{" "}
-        {isUserLead && (<span className="text-gy-light dark:text-gy-dark">(Team Leader)</span>) }
+        {isUserLead && (<span className="text-gy-text-light dark:text-gy-text-dark">(Team Leader)</span>) }
       </div>
     );
   };

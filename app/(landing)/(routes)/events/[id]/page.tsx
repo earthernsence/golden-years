@@ -58,7 +58,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
       <div className="min-h-full flex flex-col items-center justify-center
                       text-center gap-y-8 flex-1 px-6 pb-10
                       h-full
-                      dark:bg-dark
+                      bg-gy-bg-light dark:bg-gy-bg-dark
                       md:justify-start"
       >
         <SpecificEventPage.Skeleton />
@@ -227,7 +227,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
             <Image
               src={event.image || "/no_image.png"}
               alt="Event image"
-              className="xs:w-48 xs:h-48 md:w-36 md:h-36 rounded-sm border dark:border-gray-500"
+              className="xs:size-48 md:size-36 rounded-sm border object-cover dark:border-gray-500"
               width={1024}
               height={1024}
             />
