@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.29.10",
+    "@clerk/nextjs": "^5.5.2",
     "@edgestore/react": "^0.1.6",
     "@edgestore/server": "^0.1.6",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
