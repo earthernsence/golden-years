@@ -89,8 +89,8 @@ export const Navbar = () => {
           <>
             <SignInButton
               mode="modal"
-              afterSignInUrl="/"
-              afterSignUpUrl="/onboarding"
+              forceRedirectUrl="/"
+              signUpForceRedirectUrl="/onboarding"
             >
               <Button variant="ghost" size="sm">
                 Sign in
@@ -98,8 +98,8 @@ export const Navbar = () => {
             </SignInButton>
             <SignUpButton
               mode="modal"
-              afterSignInUrl="/"
-              afterSignUpUrl="/onboarding"
+              forceRedirectUrl="/onboarding"
+              signInForceRedirectUrl="/onboarding"
             >
               <Button variant="ghost" size="sm">
                 Sign up
@@ -109,7 +109,7 @@ export const Navbar = () => {
         )}
         {isAuthenticated && !isLoading && dbUser && (
           <>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton />
             <Link href={`/users/${dbUser.username}`}>
               <Button variant="outline" size="sm">
                 Go to profile

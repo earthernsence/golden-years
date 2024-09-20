@@ -19,25 +19,21 @@ const LandingPage = () => (
     >
       <div className="grid grid-cols-4 grid-rows-1 grid-flow-row w-full gap-4 min-h-[75svh]">
         <div className="flex col-span-1 items-end">
-          <div className="border-2 border-black">
-            <Image
-              src={Holly}
-              className="size-72 object-contain"
-              alt="Holly"
-            />
-          </div>
+          <Image
+            src={Holly}
+            className="size-72 object-contain"
+            alt="Holly"
+          />
         </div>
         <div className="flex col-span-2 flex-col items-center justify-center">
           <Header />
         </div>
         <div className="flex col-span-1 items-start justify-end">
-          <div className="border-2 border-black">
-            <Image
-              src={Carissa}
-              className="size-72 object-contain"
-              alt="Carissa"
-            />
-          </div>
+          <Image
+            src={Carissa}
+            className="size-96 object-contain"
+            alt="Carissa"
+          />
         </div>
       </div>
       <LandingCarousel />
