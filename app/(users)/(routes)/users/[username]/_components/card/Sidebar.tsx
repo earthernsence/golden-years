@@ -53,7 +53,7 @@ export const Sidebar = ({ user, isEditing, isUser, isVisitorAdmin, setIsEditing 
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden
                               group-hover:block group-hover:cursor-pointer"
             >
-              <Pencil className="h-12 w-12" />
+              <Pencil className="size-12" />
             </div>
           )}
         </div>
@@ -62,7 +62,7 @@ export const Sidebar = ({ user, isEditing, isUser, isVisitorAdmin, setIsEditing 
             "font-bold inline-flex flex-row justify-center items-center gap-x-1 min-h-6",
             user.admin && "text-red-500"
           )}>
-            {user.exec && (<Star className="w-4 h-4" />)} {user.name}
+            {user.exec && (<Star className="size-4" />)} {user.name}
           </div>
           <div className="flex text-sm opacity-75 min-h-6 justify-center items-center">
             {user.exec || "Member"}
@@ -75,12 +75,12 @@ export const Sidebar = ({ user, isEditing, isUser, isVisitorAdmin, setIsEditing 
               {isEditing
                 ? (
                   <Button variant={"outline"} onClick={() => setIsEditing(false)}>
-                    <X className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Cancel</span>
+                    <X className="md:mr-2 size-4" /> <span className="xs:hidden md:block">Cancel</span>
                   </Button>
                 )
                 : (
                   <Button variant={"outline"} onClick={() => setIsEditing(true)}>
-                    <Pencil className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Edit</span>
+                    <Pencil className="md:mr-2 size-4" /> <span className="xs:hidden md:block">Edit</span>
                   </Button>
                 )}
             </div>
@@ -88,7 +88,7 @@ export const Sidebar = ({ user, isEditing, isUser, isVisitorAdmin, setIsEditing 
           {isVisitorAdmin && !isEditing && (
             <div className="flex justify-center">
               <Button variant={"outline"} onClick={() => adminModal.onOpen(user)}>
-                <Cog className="md:mr-2 h-4 w-4" /> <span className="xs:hidden md:block">Admin</span>
+                <Cog className="md:mr-2 size-4" /> <span className="xs:hidden md:block">Admin</span>
               </Button>
             </div>
           )}

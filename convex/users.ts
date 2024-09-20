@@ -179,11 +179,11 @@ export const getUser = query({
       .query("users")
       .withIndex("by_username", q =>
         q.eq("username", args.username)
-      ).collect();
+      ).first();
 
     if (!user) return null;
 
-    return user.pop();
+    return user;
   }
 });
 
@@ -200,11 +200,11 @@ export const getUserById = query({
       .query("users")
       .withIndex("by_username_userid", q =>
         q.eq("userId", args.id || "")
-      ).collect();
+      ).first();
 
     if (!user) return null;
 
-    return user.pop();
+    return user;
   }
 });
 

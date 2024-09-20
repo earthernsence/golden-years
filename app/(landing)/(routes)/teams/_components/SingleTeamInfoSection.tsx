@@ -41,7 +41,7 @@ export const SingleTeamInfoSection = ({
         { team.name }
         {isVisitorAdmin && (
           <Pencil
-            className="h-4 w-4 ml-2"
+            className="size-4 ml-2"
             role="button"
             onClick={() => editModal.onOpen(team)}
           />

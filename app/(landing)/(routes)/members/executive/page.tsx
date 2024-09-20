@@ -46,10 +46,10 @@ const ExecutiveMembersPage = () => {
 
   return (
     <div className="place-self-center max-w-7xl h-full pt-0 pb-12 px-2
-                   dark:bg-dark xs:text-left md:text-justify"
+                   bg-gy-bg-light dark:bg-gy-bg-dark xs:text-left md:text-justify"
     >
       <div className="text-4xl pb-4 xs:text-center md:text-left w-full">
-        <span className="text-gy-light dark:text-gy-dark">Golden Years</span> Executive Team
+        <span className="text-gy-text-light dark:text-gy-text-dark">Golden Years</span> Executive Team
       </div>
       <div className="grid gap-3 p-4 md:grid-cols-2 xs:w-full">
         {

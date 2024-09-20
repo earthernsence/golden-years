@@ -5,8 +5,8 @@ const SpecificEventPageLayout = ({
 }: {
   children: React.ReactNode
 }) => (
-  <div className="h-full w-full min-w-full dark:bg-dark">
-    <main className="min-h-full flex flex-col justify-start items-center dark:bg-dark">
+  <div className="h-full w-full min-w-full bg-gy-bg-light dark:bg-gy-bg-dark">
+    <main className="min-h-full flex flex-col justify-start items-center bg-gy-bg-light dark:bg-gy-bg-dark">
       { children }
     </main>
   </div>

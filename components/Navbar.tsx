@@ -33,7 +33,7 @@ export const Navbar = () => {
   return (
     <div className={cn(
       "z-50 bg-background fixed top-0 flex flex-row items-center w-full p-6",
-      "dark:bg-dark",
+      "bg-gy-bg-light dark:bg-gy-bg-dark",
       "border-b shadow-sm"
     )}>
       <Link href="/" className="font-semibold flex text-center mr-6 md:w-auto">
@@ -49,7 +49,7 @@ export const Navbar = () => {
             {
               Pages.filter(page => page.text !== "Home" && !page.leaves).map((page: Page, index: number) => (
                 <Link href={page.route} legacyBehavior passHref key={index}>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "dark:bg-dark")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-gy-bg-light dark:bg-gy-bg-dark")}>
                     {page.text}
                   </NavigationMenuLink>
                 </Link>
@@ -58,14 +58,17 @@ export const Navbar = () => {
             {
               Pages.filter(page => page.leaves).map((page: Page, index: number) => (
                 <NavigationMenuItem key={index}>
-                  <NavigationMenuTrigger className="dark:bg-dark">{page.text}</NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuTrigger className="bg-gy-bg-light dark:bg-gy-bg-dark">
+                    {page.text}
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="bg-gy-bg-light dark:bg-background">
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       {page.leaves && page.leaves.map((leaf: Leaf, i: number) => (
                         <ListItem
                           key={i}
                           title={leaf.text}
                           href={leaf.route}
+                          className="focus:dark:bg-gy-bg-dark"
                         >
                           {leaf.description}
                         </ListItem>
@@ -86,8 +89,8 @@ export const Navbar = () => {
           <>
             <SignInButton
               mode="modal"
-              afterSignInUrl="/"
-              afterSignUpUrl="/onboarding"
+              forceRedirectUrl="/"
+              signUpForceRedirectUrl="/onboarding"
             >
               <Button variant="ghost" size="sm">
                 Sign in
@@ -95,8 +98,8 @@ export const Navbar = () => {
             </SignInButton>
             <SignUpButton
               mode="modal"
-              afterSignInUrl="/"
-              afterSignUpUrl="/onboarding"
+              forceRedirectUrl="/onboarding"
+              signInForceRedirectUrl="/onboarding"
             >
               <Button variant="ghost" size="sm">
                 Sign up
@@ -106,7 +109,7 @@ export const Navbar = () => {
         )}
         {isAuthenticated && !isLoading && dbUser && (
           <>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton />
             <Link href={`/users/${dbUser.username}`}>
               <Button variant="outline" size="sm">
                 Go to profile

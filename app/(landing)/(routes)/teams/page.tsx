@@ -34,7 +34,7 @@ const TeamsPage = () => {
         </div>
         {isVisitorAdmin && (
           <Button size="sm" onClick={createModal.onOpen} className="xs:max-w-auto md:max-w-full">
-            <Plus className="mr-2 h-4 w-4" /> Create a Team
+            <Plus className="mr-2 size-4" /> Create a Team
           </Button>
         )}
       </div>
@@ -43,7 +43,7 @@ const TeamsPage = () => {
                   text-sm xs:text-center md:text-left opacity-50"
         onClick={infoModal.onOpen}
       >
-        <Info role="button" className="mr-2 w-4 h-4" /> Click for info
+        <Info role="button" className="mr-2 size-4" /> Click for info
       </div>
       <br />
       <div className="flex flex-row flex-wrap w-full xs:justify-center md:justify-evenly xs:gap-y-4 md:gap-y-0">

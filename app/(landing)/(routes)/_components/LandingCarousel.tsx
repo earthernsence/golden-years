@@ -1,3 +1,5 @@
+// Image carousel on the main page.
+
 "use client";
 
 import Autoplay from "embla-carousel-autoplay";

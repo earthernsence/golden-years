@@ -114,7 +114,7 @@ export const TeamMembersModal = () => {
           />
           {canEditMembers && team.members.length >= 1 && (
             <Button variant={"default"} onClick={copyContent}>
-              <Mail className="mr-2 w-4 h-4" />
+              <Mail className="mr-2 size-4" />
               Copy Email Addresses
             </Button>
           )}

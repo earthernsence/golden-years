@@ -21,7 +21,7 @@ export const Icon = ({ icon, link, className, onClick }: IconProps) => (
       icon={icon}
       width={50}
       height={50}
-      className={`w-12 h-12 ${className}`}
+      className={`size-8 ${className}`}
     />
   </a>
 );

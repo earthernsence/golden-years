@@ -12,12 +12,14 @@ enum LogoSizes {
 
 interface LogoProps {
   size: keyof typeof LogoSizes
+  className?: string,
 }
 
 export const Logo = ({
-  size
+  size,
+  className
 }: LogoProps) => (
-  <>
+  <div className={className}>
     <Image
       src={logoImage}
       className="flex items-center"
@@ -25,5 +27,5 @@ export const Logo = ({
       width={LogoSizes[size]}
       height={LogoSizes[size]}
     />
-  </>
+  </div>
 );

@@ -20,8 +20,8 @@ const badgeVariants = cva(
                   dark:text-muted-foreground
                   hover:bg-muted-foreground/50 dark:hover:bg-muted-foreground/25`,
         executive: 
-          `bg-transparent text-gy-light border-gy-light
-                  dark:text-gy-dark dark:border-gy-dark
+          `bg-transparent text-gy-text-light border-gy-text-light
+                  dark:text-gy-text-dark dark:border-gy-text-dark
                   hover:bg-muted-foreground/50 dark:hover:bg-muted-foreground/25`,
         team: 
           `bg-transparent text-sky-500 border-sky-500

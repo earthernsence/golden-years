@@ -213,7 +213,7 @@ export function OnboardingForm({
                   {...field}
                   className="bg-transparent"
                   badgeClassName="bg-white text-foreground border-muted-foreground
-                  dark:bg-dark dark:text-muted-foreground
+                  bg-gy-bg-light dark:bg-gy-bg-dark dark:text-muted-foreground
                   hover:bg-muted-foreground/50 dark:hover:bg-muted-foreground/25"
                   defaultOptions={strippedOptions}
                   placeholder="Select the groups you are a member of..."

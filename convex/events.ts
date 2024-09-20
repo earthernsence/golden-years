@@ -20,11 +20,11 @@ export const getSpecificEvent = query({
       .query("events")
       .withIndex("by_event_id", q =>
         q.eq("eventId", args.id)
-      ).collect();
+      ).first();
 
     if (!event) return null;
 
-    return event.pop();
+    return event;
   }
 });
 
