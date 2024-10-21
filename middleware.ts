@@ -16,7 +16,7 @@ export default clerkMiddleware((auth, req) => {
 
   if (!authInstance.userId && !isPublicRoute(req)) return authInstance.redirectToSignIn({ returnBackUrl: req.url });
 
-  if (authInstance.userId && authInstance.sessionClaims.metadata.onboardingComplete) {
+  if (authInstance.userId && !authInstance.sessionClaims.metadata.onboardingComplete) {
     const onboardingURL = new URL("/onboarding", req.url);
     return NextResponse.redirect(onboardingURL);
   }
