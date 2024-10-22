@@ -5,10 +5,9 @@
 import { StaticImageData } from "next/image";
 
 import { Header } from "./_components/Header";
-import LandingCarousel from "./_components/LandingCarousel";
-
-import Partners from "./_components/Partners";
 import { ImageReel } from "./_components/ImageReel";
+import LandingCarousel from "./_components/LandingCarousel";
+import Partners from "./_components/Partners";
 
 import image1 from "#/reel/image_1.png";
 import image2 from "#/reel/image_2.png";

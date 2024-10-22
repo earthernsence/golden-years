@@ -38,7 +38,8 @@ const items: CarouselItems = {
   },
   2: {
     image: image2,
-    text: `On September 15, we sent volunteers to play balloon racquetball with residents at the Villages of St. Peters.`
+    text: `On September 15, we sent volunteers to play balloon racquetball with residents at the Villages of 
+    St. Peters.`
   },
   3: {
     image: image3,

@@ -51,7 +51,7 @@ const AboutPage = () => (
         <div className="xs:w-full md:w-2/3">
         Matthew Heering, a teacher at Francis Howell High School but known for teaching AP Biology and
         Computer Science classes. In the late spring of 2024, out of the kindness of his own heart he accepted
-        to be the club's sponsor for Golden Years. He helps us in various ways as giving us advice throughout
+        to be the club&apos;s sponsor for Golden Years. He helps us in various ways as giving us advice throughout
         our journey to make Golden Years strong for many years to come.
         </div>
         <div className="xs:w-full md:w-1/3 p-4">
