@@ -3,7 +3,7 @@
 import {
   Dialog,
   DialogContent,
-  DialogHeader
+  DialogTitle
 } from "@/components/ui/Dialog";
 
 import { useTeamInfoModal } from "@/hooks/use-team-info-modal";
@@ -14,11 +14,11 @@ export const TeamInfoModal = () => {
   return (
     <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
       <DialogContent className="h-auto max-h-[50%] overflow-y-auto">
-        <DialogHeader className="border-b pb-3">
+        <DialogTitle className="border-b pb-3">
           <div className="text-lg font-medium">
             Teams
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <div className="text-xs text-justify w-full">
           Welcome to Teams. Teams are a way of organising groups of volunteers to certain locations
           in order to create a more streamlined process for Event Organisers and the locations we serve.

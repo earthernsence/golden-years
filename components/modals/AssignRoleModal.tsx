@@ -8,7 +8,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader
+  DialogTitle
 } from "@/components/ui/Dialog";
 
 import { api } from "@/convex/_generated/api";
@@ -47,11 +47,11 @@ export const AssignRoleModal = () => {
     return (
       <Dialog open={assign.isOpen} onOpenChange={assign.onClose}>
         <DialogContent className="h-full max-h-[50%] overflow-y-auto">
-          <DialogHeader className="border-b pb-3">
+          <DialogTitle className="border-b pb-3">
             <div className="text-lg font-medium">
               Assign a role
             </div>
-          </DialogHeader>
+          </DialogTitle>
           <DialogDescription className="space-y-1">
             <div className="flex items-center text-xs">
               Use this admin panel to assign members a role. Assigning &quot;None&quot; will remove the
@@ -106,11 +106,11 @@ export const AssignRoleModal = () => {
   return (
     <Dialog open={assign.isOpen} onOpenChange={assign.onClose}>
       <DialogContent className="h-full max-h-[50%] overflow-y-auto">
-        <DialogHeader className="border-b pb-3">
+        <DialogTitle className="border-b pb-3">
           <div className="text-lg font-medium">
             Assign a role
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
             Use this admin panel to assign members a role. Assigning &quot;None&quot; will remove the

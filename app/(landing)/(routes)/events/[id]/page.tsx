@@ -5,6 +5,7 @@ import { faArrowRightToBracket, faUser } from "@fortawesome/free-solid-svg-icons
 import { useMutation, useQuery } from "convex/react";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
@@ -26,12 +27,10 @@ import { pluralise } from "@/lib/utils";
 import { useEditEventParticipantsModal } from "@/hooks/use-edit-event-participants-modal";
 
 interface SpecificEventPageProps {
-  params: {
-    id: Id<"events">
-  }
+  id: Id<"events">
 }
 
-const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
+const SpecificEventPage = ({ params }: { params: Promise<SpecificEventPageProps> }) => {
   const { toast } = useToast();
   const router = useRouter();
   const { edgestore } = useEdgeStore();
@@ -39,8 +38,10 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
   const edit = useEditEventModal();
   const participants = useEditEventParticipantsModal();
 
-  const event = useQuery(api.events.getEventByUUID, { id: params.id });
-  const participantEmails = useQuery(api.events.getEmailAddresses, { id: params.id });
+  const id = React.use(params).id;
+
+  const event = useQuery(api.events.getEventByUUID, { id });
+  const participantEmails = useQuery(api.events.getEmailAddresses, { id });
   const organiser = useQuery(api.users.getUserById, { id: `${event?.organiser}` });
   const remove = useMutation(api.events.remove);
 
@@ -58,7 +59,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
       <div className="min-h-full flex flex-col items-center justify-center
                       text-center gap-y-8 flex-1 px-6 pb-10
                       h-full
-                      dark:bg-dark
+                      bg-gy-bg-light dark:bg-gy-bg-dark
                       md:justify-start"
       >
         <SpecificEventPage.Skeleton />
@@ -66,11 +67,11 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
     );
   }
 
-  if (!params.id || event === null) {
+  if (!id || event === null) {
     return (
       <div className="flex flex-col items-center justify-center min-h-full">
         <div className="text-4xl">Oops!</div>
-        No event found with id {params.id}!
+        No event found with id {id}!
       </div>
     );
   }
@@ -158,7 +159,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
       id: event._id
     });
 
-    if (params.id === event._id) {
+    if (id === event._id) {
       router.push("/events");
     }
   };
@@ -227,7 +228,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
             <Image
               src={event.image || "/no_image.png"}
               alt="Event image"
-              className="xs:w-48 xs:h-48 md:w-36 md:h-36 rounded-sm border dark:border-gray-500"
+              className="xs:size-48 md:size-36 rounded-sm border object-cover dark:border-gray-500"
               width={1024}
               height={1024}
             />
@@ -250,11 +251,11 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
             {isUserAdmin && (
               <div className="flex justify-center flex-row">
                 <Button variant={"ghost"} onClick={() => edit.onOpen(event)}>
-                  <Pencil className="mr-2 h-4 w-4" /> Edit
+                  <Pencil className="mr-2 size-4" /> Edit
                 </Button>
                 <DeleteEventConfirmModal onConfirm={onDelete}>
                   <Button variant={"ghost"}>
-                    <X className="mr-2 h-4 w-4" /> Delete
+                    <X className="mr-2 size-4" /> Delete
                   </Button>
                 </DeleteEventConfirmModal>
               </div>
@@ -292,7 +293,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
                   <Tooltip>
                     <TooltipTrigger>
                       <Mail
-                        className="ml-2 w-4 h-4"
+                        className="ml-2 size-4"
                         role="button"
                         onClick={copyContent}
                       />
@@ -308,7 +309,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
                   <Tooltip>
                     <TooltipTrigger>
                       <Pencil
-                        className="ml-2 w-4 h-4"
+                        className="ml-2 size-4"
                         role="button"
                         onClick={() => participants.onOpen(event)}
                       />
@@ -333,7 +334,7 @@ SpecificEventPage.Skeleton = function SpecificEventPageSkeleton() {
     <div className="flex flex-row w-full h-full bg-muted-foreground/10 rounded-md border gap-x-4 dark:border-white p-4">
       <div className="flex flex-col w-1/4">
         <div className="flex flex-col items-center gap-y-1">
-          <Skeleton className="w-36 h-36 rounded-full" />
+          <Skeleton className="size-36 rounded-full" />
           <Skeleton className="w-16 h-6 rounded-sm" />
           <Skeleton className="w-14 h-4 rounded-sm" />
         </div>

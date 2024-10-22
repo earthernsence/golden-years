@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogHeader
+  DialogTitle
 } from "@/components/ui/Dialog";
 
 import { Button } from "@/components/ui/Button";
@@ -30,11 +30,11 @@ export const TeamLeaveModal = () => {
     return (
       <Dialog open={leaveModal.isOpen} onOpenChange={leaveModal.onClose}>
         <DialogContent className="h-full max-h-[50%] overflow-y-auto">
-          <DialogHeader className="border-b pb-3">
+          <DialogTitle className="border-b pb-3">
             <div className="text-lg font-medium">
               Leave this Team
             </div>
-          </DialogHeader>
+          </DialogTitle>
           <DialogDescription className="space-y-1">
             <div className="flex items-center text-xs">
               You will be removed from this Team. You will be able to rejoin any other team
@@ -88,11 +88,11 @@ export const TeamLeaveModal = () => {
   return (
     <Dialog open={leaveModal.isOpen} onOpenChange={leaveModal.onClose}>
       <DialogContent className="h-auto max-h-[50%] overflow-y-auto">
-        <DialogHeader className="border-b pb-3">
+        <DialogTitle className="border-b pb-3">
           <div className="text-lg font-medium">
             Leave this Team
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
             You will be removed from this Team. You will be able to rejoin any other team

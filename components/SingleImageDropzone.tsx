@@ -162,7 +162,7 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
           ) : (
             // Upload Icon
             <div className="flex flex-col items-center justify-center text-xs text-gray-400">
-              <UploadCloudIcon className="mb-2 h-7 w-7" />
+              <UploadCloudIcon className="mb-2 size-7" />
               <div className="text-gray-400">
                 click or drag to upload
               </div>
@@ -179,7 +179,7 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
                 void onChange?.(undefined);
               }}
             >
-              <div className="flex h-5 w-5 items-center justify-center rounded-md border border-solid border-gray-500
+              <div className="flex size-5 items-center justify-center rounded-md border border-solid border-gray-500
                             bg-white transition-all duration-300 hover:h-6 hover:w-6 dark:border-gray-400 dark:bg-black"
               >
                 <X

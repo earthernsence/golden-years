@@ -79,18 +79,18 @@ function Calendar(props: CalendarProps<DateValue>) {
           {...prevButtonProps}
           ref={prevButtonRef}
           variant="outline"
-          className={cn("absolute left-1 h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100")}
+          className={cn("absolute left-1 size-7 bg-transparent p-0 opacity-50 hover:opacity-100")}
         >
-          <ChevronLeftIcon className="h-4 w-4" />
+          <ChevronLeftIcon className="size-4" />
         </Button>
         <div className="text-sm font-medium">{title}</div>
         <Button
           {...nextButtonProps}
           ref={nextButtonRef}
           variant="outline"
-          className={cn("absolute right-1 h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100")}
+          className={cn("absolute right-1 size-7 bg-transparent p-0 opacity-50 hover:opacity-100")}
         >
-          <ChevronRightIcon className="h-4 w-4" />
+          <ChevronRightIcon className="size-4" />
         </Button>
       </div>
       <CalendarGrid state={state} />
@@ -168,7 +168,7 @@ function CalendarCell({ state, date }: CalendarCellProps) {
         ref={ref}
         className={cn(
           buttonProps.className,
-          "h-9 w-9",
+          "size-9",
           isToday && "bg-accent text-accent-foreground",
           isSelected &&
             "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
@@ -357,7 +357,7 @@ const DateTimePicker = React.forwardRef<
                     state.setOpen(true);
                   }}
                 >
-                  <CalendarIcon className="h-5 w-5" />
+                  <CalendarIcon className="size-5" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent ref={contentRef} className="w-full">
@@ -368,9 +368,9 @@ const DateTimePicker = React.forwardRef<
               </PopoverContent>
             </Popover>
             <DateField {...fieldProps} value={currentValue()} />
-            <div className={cn("-ml-2 mr-2 h-5 w-5", !showClearButton && "hidden")}>
+            <div className={cn("-ml-2 mr-2 size-5", !showClearButton && "hidden")}>
               <X
-                className={cn("h-5 w-5 cursor-pointer text-primary/30", !jsDatetime && "hidden")}
+                className={cn("size-5 cursor-pointer text-primary/30", !jsDatetime && "hidden")}
                 onClick={() => setJsDatetime(null)}
               />
             </div>

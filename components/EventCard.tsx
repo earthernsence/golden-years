@@ -120,9 +120,9 @@ const EventCard = ({
         <Link href={`/events/${event._id}`} className="text-2xl xs:text-center md:text-left dark:text-white">
           { event.title }
         </Link>
-        <div className="text-md light:text-gray-600 dark:text-gray-300 truncate">{ event.description }</div>
-        <div className="text-sm light:text-gray-700 dark:text-gray-400">{ teamString() }</div>
-        <div className="text-xs light:text-gray-800 dark:text-gray-500">
+        <div className="text-md text-gray-600 dark:text-gray-300 truncate">{ event.description }</div>
+        <div className="text-sm text-gray-700 dark:text-gray-400">{ teamString() }</div>
+        <div className="text-xs text-gray-800 dark:text-gray-500">
           { event.location } on { new Date(event.date).toDateString() } at { getTime() }
         </div>
       </div>
@@ -163,12 +163,12 @@ EventCard.Skeleton = function EventCardSkeleton() {
       </div>
       <div className="flex xs:w-auto md:w-1/4 xs:flex-col justify-center space-y-2">
         <div className="flex flex-row items-center text-left space-x-2">
-          <Skeleton className="w-16 h-16 rounded-sm" />
-          <Skeleton className="h-4 w-48 rounded-sm" />
+          <Skeleton className="size-16 rounded-sm" />
+          <Skeleton className="size-48 rounded-sm" />
         </div>
         <div className="flex flex-row items-center text-left space-x-2">
-          <Skeleton className="w-16 h-16 rounded-sm" />
-          <Skeleton className="h-4 w-48 rounded-sm" />
+          <Skeleton className="size-16 rounded-sm" />
+          <Skeleton className="size-48 rounded-sm" />
         </div>
       </div>
     </div>

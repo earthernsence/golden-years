@@ -24,7 +24,7 @@ import Icon from "./Icon";
 import { Separator } from "@/components/ui/Separator";
 import { Wordmark } from "./Wordmark";
 
-import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import { ListItem } from "./ui/ListItem";
 
@@ -85,13 +85,18 @@ const MobileNavigationSheet = () => (
       <div className="flex flex-row w-full">
         <Icon
           icon={faInstagram}
-          className="w-8 h-8"
+          className="size-8"
           link={"https://www.instagram.com/goldenyearsfhhs/"}
         />
         <Icon
           icon={faMessage}
-          className="w-8 h-8"
+          className="size-8"
           link={"https://groupme.com/join_group/100192539/3CkxOnJA"}
+        />
+        <Icon
+          icon={faXTwitter}
+          className="size-8"
+          link={"https://x.com/goldenyearsfhhs"}
         />
       </div>
     </SheetContent>

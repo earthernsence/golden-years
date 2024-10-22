@@ -12,9 +12,9 @@ interface VolunteerCardProps {
 }
 
 export const VolunteerCard = ({ volunteer }: VolunteerCardProps) => (
-  <figure className="bg-slate-100 rounded-xl p-6 dark:bg-slate-800 flex gap-y-2 flex-col">
+  <figure className="bg-slate-100 rounded-xl p-6 dark:bg-slate-600 flex gap-y-2 flex-col">
     <Image
-      className="flex w-24 h-24 md:w-48 md:h-48 rounded-lg object-cover
+      className="flex size-24 md:w-48 md:h-48 rounded-lg object-cover
       border-2 place-self-center"
       src={volunteer.image || "/no_image.png"}
       alt={volunteer.name}
@@ -23,7 +23,7 @@ export const VolunteerCard = ({ volunteer }: VolunteerCardProps) => (
     />
     <figcaption className="font-medium xs:text-lg md:text-xl">
       <Link
-        className="text-gy-light dark:text-gy-dark hover:underline"
+        className="text-gy-text-light dark:text-gy-text-dark hover:underline"
         href={`/users/${volunteer.username}`}
       >
         {volunteer.name}

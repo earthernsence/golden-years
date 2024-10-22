@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogHeader
+  DialogTitle
 } from "@/components/ui/Dialog";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/use-toast";
@@ -32,11 +32,11 @@ export const LeaveEventModal = () => {
     return (
       <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
         <DialogContent className="h-full max-h-[50%] overflow-y-auto">
-          <DialogHeader className="border-b pb-3">
+          <DialogTitle className="border-b pb-3">
             <div className="text-lg font-medium">
             Are you sure you wish to leave this event?
             </div>
-          </DialogHeader>
+          </DialogTitle>
           <DialogDescription className="space-y-1">
             <div className="flex items-center text-xs">
             You will be able to sign up again from the events page.
@@ -87,11 +87,11 @@ export const LeaveEventModal = () => {
   return (
     <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
       <DialogContent className="h-auto max-h-[50%] overflow-y-auto">
-        <DialogHeader className="border-b pb-3">
+        <DialogTitle className="border-b pb-3">
           <div className="text-lg font-medium">
             Are you sure you wish to leave this event?
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
             You will be able to sign up again from the events page.

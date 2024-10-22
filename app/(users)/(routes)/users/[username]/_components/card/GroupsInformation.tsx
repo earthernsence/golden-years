@@ -25,14 +25,14 @@ export const GroupsInformation = ({ user, isVisitorAdmin, isUserLead }: GroupsIn
             Groups
         {isVisitorAdmin && (
           <PlusCircle
-            className="h-4 w-4 ml-2"
+            className="size-4 ml-2"
             role="button"
             onClick={createGroupModal.onOpen}
           />
         )}
         {isVisitorAdmin && (
           <Pencil
-            className="h-4 w-4 ml-2"
+            className="size-4 ml-2"
             role="button"
             onClick={() => assignGroupModal.onOpen(user)}
           />

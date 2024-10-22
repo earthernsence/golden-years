@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogHeader
+  DialogTitle
 } from "@/components/ui/Dialog";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/use-toast";
@@ -30,11 +30,11 @@ export const SignUpModal = () => {
     return (
       <Dialog open={signup.isOpen} onOpenChange={signup.onClose}>
         <DialogContent className="h-full max-h-[50%] overflow-y-auto">
-          <DialogHeader className="border-b pb-3">
+          <DialogTitle className="border-b pb-3">
             <div className="text-lg font-medium">
               Confirm your signup
             </div>
-          </DialogHeader>
+          </DialogTitle>
           <DialogDescription className="space-y-1">
             <div className="flex items-center text-xs">
               Your information will appear on the event page under &quot;Participants&quot;, and other users
@@ -98,11 +98,11 @@ export const SignUpModal = () => {
   return (
     <Dialog open={signup.isOpen} onOpenChange={signup.onClose}>
       <DialogContent className="h-full max-h-[50%] overflow-y-auto">
-        <DialogHeader className="border-b pb-3">
+        <DialogTitle className="border-b pb-3">
           <div className="text-lg font-medium">
             Confirm your signup
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
             Your information will appear on the event page under &quot;Participants&quot;, and other users

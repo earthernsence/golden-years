@@ -20,7 +20,7 @@ export const Wordmark = ({
   if (forceFull) {
     return (
       <div className={`inline-flex ${WordmarkSizes[size]}`}>
-        <span className="text-gy-light dark:text-gy-dark ml-px">Golden</span> Years
+        <span className="text-gy-text-light dark:text-gy-text-dark ml-px">Golden</span> Years
       </div>
     );
   }
@@ -28,10 +28,10 @@ export const Wordmark = ({
   return (
     <>
       <div className={`hidden ${WordmarkSizes[size]} md:inline-flex`}>
-        <span className="text-gy-light dark:text-gy-dark ml-px">Golden</span> Years
+        <span className="text-gy-text-light dark:text-gy-text-dark ml-px">Golden</span> Years
       </div>
       <div className={`flex ${WordmarkSizes[size]} md:hidden`}>
-        <span className="text-gy-light dark:text-gy-dark ml-px">G</span>Y
+        <span className="text-gy-text-light dark:text-gy-text-dark ml-px">G</span>Y
       </div>
     </>
   );

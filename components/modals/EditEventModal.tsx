@@ -7,7 +7,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader
+  DialogTitle
 } from "@/components/ui/Dialog";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -32,11 +32,11 @@ export const EditEventModal = () => {
     return (
       <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
         <DialogContent className="h-auto max-h-[50%] overflow-y-auto">
-          <DialogHeader className="border-b pb-3">
+          <DialogTitle className="border-b pb-3">
             <div className="text-lg font-medium">
             Edit event information
             </div>
-          </DialogHeader>
+          </DialogTitle>
           <DialogDescription className="space-y-1">
             <div className="flex items-center text-xs">
             Use this modal to edit information about this event. Please try to notify any participants of
@@ -148,11 +148,11 @@ export const EditEventModal = () => {
   return (
     <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
       <DialogContent className="h-auto max-h-[50%] overflow-y-auto">
-        <DialogHeader className="border-b pb-3">
+        <DialogTitle className="border-b pb-3">
           <div className="text-lg font-medium">
             Edit event information
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
             Use this modal to edit information about this event. Please try to notify any participants of
