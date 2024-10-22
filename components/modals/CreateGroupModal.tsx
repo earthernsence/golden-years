@@ -10,7 +10,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader
+  DialogTitle
 } from "@/components/ui/Dialog";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -26,11 +26,11 @@ export const CreateGroupModal = () => {
   if (!allGroups) return (
     <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
       <DialogContent className="h-auto max-h-[50%] overflow-y-auto">
-        <DialogHeader className="border-b pb-3">
+        <DialogTitle className="border-b pb-3">
           <div className="text-lg font-medium">
             Create a group
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs text-justify">
             Use this modal to create different groups that can appear on profiles. These groups will be
@@ -82,11 +82,11 @@ export const CreateGroupModal = () => {
   return (
     <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
       <DialogContent className="h-auto max-h-[50%] overflow-y-auto">
-        <DialogHeader className="border-b pb-3">
+        <DialogTitle className="border-b pb-3">
           <div className="text-lg font-medium">
             Create a group
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs text-justify">
             Use this modal to create different groups that can appear on profiles. These groups will be

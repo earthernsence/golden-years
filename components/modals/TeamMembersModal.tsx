@@ -8,7 +8,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader
+  DialogTitle
 } from "@/components/ui/Dialog";
 import { Button } from "@/components/ui/Button";
 import Spinner from "../Spinner";
@@ -89,11 +89,11 @@ export const TeamMembersModal = () => {
   return (
     <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
       <DialogContent className="h-auto max-h-[50%] overflow-y-auto">
-        <DialogHeader className="border-b pb-3">
+        <DialogTitle className="border-b pb-3">
           <div className="text-lg font-medium">
             Team Members
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <DialogDescription className="space-y-1">
           Use this modal to view the members of this Team.{" "}
           {team.slots < Number.MAX_VALUE ? (

@@ -1,6 +1,6 @@
 "use client";
 
-import { faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import useSWR from "swr";
@@ -67,7 +67,7 @@ export const Footer = () => {
             link={"https://groupme.com/join_group/100192539/3CkxOnJA"}
           />
           <Icon
-            icon={faTwitter}
+            icon={faXTwitter}
             className="size-8"
             link={"https://x.com/goldenyearsfhhs"}
           />

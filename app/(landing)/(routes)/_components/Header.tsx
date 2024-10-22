@@ -9,7 +9,7 @@ export const Header = () => (
   <div className="max-w-3xl space-y-8 flex items-center flex-col md:flex-row">
     <div className="flex flex-col items-center space-y-8">
       <br />
-      <Logo size="Normal" className="xs:flex md:hidden" />
+      <Logo size="Small" className="xs:flex" />
       <br />
       <div className="text-2xl sm:text-4xl md:text-5xl font-bold">
         Welcome, this is{" "}
@@ -25,6 +25,7 @@ export const Header = () => (
       <div className="text-base opacity-50 sm:text-sm md:text-md font-medium hover:opacity-100 hover:cursor-pointer">
         <Link href={"/about_us"}>Learn more...</Link>
       </div>
+      <br />
       <br />
       <br />
       <div className="rounded-full border-2 dark:border-gy-text-dark size-16

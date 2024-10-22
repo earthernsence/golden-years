@@ -3,6 +3,7 @@
 "use client";
 
 import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/Card";
 import {
@@ -13,39 +14,61 @@ import {
   CarouselPrevious
 } from "@/components/ui/Carousel";
 
-import carouselImage1 from "#/carousel_1.jpg";
-import carouselImage2 from "#/carousel_2.jpg";
-import carouselImage3 from "#/carousel_3.jpg";
-import carouselImage4 from "#/carousel_4.jpg";
+import image1 from "#/carousel/carousel_1.png";
+import image2 from "#/carousel/carousel_2.png";
+import image3 from "#/carousel/carousel_3.png";
+import image4 from "#/carousel/carousel_4.png";
+import image5 from "#/carousel/carousel_5.png";
+import image6 from "#/carousel/carousel_6.png";
+import image7 from "#/carousel/carousel_7.png";
+import image8 from "#/carousel/carousel_8.png";
+import image9 from "#/carousel/carousel_9.png";
 
 interface CarouselItems {
   [key: number]: {
-    image: typeof carouselImage1,
+    image: typeof image1,
     text: string
   }
 }
 
 const items: CarouselItems = {
   1: {
-    image: carouselImage1,
-    text: `On July 7th, some of the members from Golden Years were able to come to the
-          Villages of St. Peter's to paint with the residents.`
+    image: image1,
+    text: `On October 5, Golden Years volunteers went to Breeze Park to help with their annual Walk to End Alzheimer's.`
   },
   2: {
-    image: carouselImage2,
-    text: `Vinay K and Jonathan N painting with the residents in Aubrey's Place at the Villages of St. Peter's`
+    image: image2,
+    text: `On September 15, we sent volunteers to play balloon racquetball with residents at the Villages of St. Peters.`
   },
   3: {
-    image: carouselImage3,
-    text: "A resident finished with her watercolor flowers."
+    image: image3,
+    text: "One of our volunteers with his Breeze Park resident after doing some watercolour painting."
   },
   4: {
-    image: carouselImage4,
-    text: "A resident finished with her otter painting with watercolor."
+    image: image4,
+    text: "A resident with her finish watercolour butterfly."
+  },
+  5: {
+    image: image5,
+    text: "On July 7, we hosted a watercolour painting event at the Villages of St. Peters."
+  },
+  6: {
+    image: image6,
+    text: "On October 5, Golden Years played bingo with residents at the Villages of St. Peters."
+  },
+  7: {
+    image: image7,
+    text: "On September 29, we arranged flowers with residents at the Villages of St. Peters."
+  },
+  8: {
+    image: image8,
+    text: "Through a fundraiser with Twisted Sugar, we delivered cookies to teachers at Francis Howell High School."
+  },
+  9: {
+    image: image9,
+    text: "One of our volunteers with his Breeze Park resident after doing some watercolour painting."
   }
 };
-
-import Image from "next/image";
 
 const LandingCarousel = () => (
   <Carousel
@@ -57,12 +80,13 @@ const LandingCarousel = () => (
     }}
     plugins={[
       Autoplay({
-        delay: 5000
+        delay: 5000,
+        stopOnInteraction: true,
       })
     ]}
   >
     <CarouselContent>
-      {Array.from({ length: 4 }).map((_, index) => (
+      {Array.from({ length: Object.keys(items).length }).map((_, index) => (
         <CarouselItem key={index}>
           <div className="p-1 flex flex-col">
             <Card>

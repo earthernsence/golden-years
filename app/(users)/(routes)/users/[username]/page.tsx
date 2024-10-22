@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useAuth } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 
@@ -9,19 +10,18 @@ import { FutureEvents } from "./_components/FutureEvents";
 import { UserCard } from "./_components/UserCard";
 
 interface UserPageProps {
-  params: {
-    username: string
-  }
+  username: string
 }
 
-const UserPage = ({ params }: UserPageProps) => {
+const UserPage = ({ params }: { params: Promise<UserPageProps> }) => {
+  const username = React.use(params).username;
   const usernames = useQuery(api.users.usernames);
-  const isUserReal = usernames?.includes(params.username);
+  const isUserReal = usernames?.includes(username);
 
   const { userId } = useAuth();
 
   const dbUser = useQuery(api.users.getUser, {
-    username: params.username
+    username
   });
 
   if (dbUser === undefined) {
@@ -41,7 +41,7 @@ const UserPage = ({ params }: UserPageProps) => {
     return (
       <div className="flex flex-col items-center justify-center min-h-full pt-40">
         <div className="text-4xl">Oops!</div>
-        No user found with name {params.username}!
+        No user found with name {username}!
       </div>
     );
   }

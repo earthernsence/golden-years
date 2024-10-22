@@ -45,15 +45,14 @@ const AboutPage = () => (
          Come learn about us more by scrolling down!
         </div>
       </div>
-      <div className="text-4xl pb-4 xs:text-center md:text-left">About Our Sponsor</div>
+      <br />
+      <div className="text-4xl pb-4 xs:text-center md:text-left">About Our Club Sponsor</div>
       <div className="relative flex xs:flex-col md:flex-row justify-between items-center w-full">
         <div className="xs:w-full md:w-2/3">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer viverra lacus lacus,
-          id fermentum diam pharetra sed. Ut ut cursus mauris. Donec vulputate est vitae ante
-          pulvinar dapibus nec sed libero. Vestibulum et dolor ut urna volutpat ornare ac in nisi.
-          Duis sed est tellus. Mauris fringilla sapien magna, sit amet laoreet augue consectetur vitae.
-          Nam luctus ligula nec viverra feugiat. Aenean scelerisque condimentum magna tristique ultricies.
-          Aenean commodo arcu neque. Ut tristique tellus in leo hendrerit pellentesque in eget magna.
+        Matthew Heering, a teacher at Francis Howell High School but known for teaching AP Biology and
+        Computer Science classes. In the late spring of 2024, out of the kindness of his own heart he accepted
+        to be the club's sponsor for Golden Years. He helps us in various ways as giving us advice throughout
+        our journey to make Golden Years strong for many years to come.
         </div>
         <div className="xs:w-full md:w-1/3 p-4">
           <Image

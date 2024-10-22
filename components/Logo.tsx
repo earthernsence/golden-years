@@ -7,6 +7,7 @@ import logoImage from "#/golden_years_logo.png";
 // ESLint is awful with enums. Sorry.
 enum LogoSizes {
   ExtraSmall = 100,
+  Small = 200,
   Normal = 300,
 }
 

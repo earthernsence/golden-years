@@ -10,7 +10,7 @@ import { useEdgeStore } from "@/lib/edgestore";
 import {
   Dialog,
   DialogContent,
-  DialogHeader
+  DialogTitle
 } from "@/components/ui/Dialog";
 import { SingleImageDropzone } from "@/components/SingleImageDropzone";
 import { useToast } from "@/components/ui/use-toast";
@@ -82,11 +82,11 @@ export const UploadProfilePictureModal = () => {
   return (
     <Dialog open={image.isOpen} onOpenChange={image.onClose}>
       <DialogContent>
-        <DialogHeader>
+        <DialogTitle>
           <div className="text-lg text-center font-semibold">
             Upload a new profile picture
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <SingleImageDropzone
           className="w-full outline-none"
           disabled={isSubmitting}

@@ -9,7 +9,7 @@ interface PartnerData {
 const Partner = ({ partner }: { partner: PartnerData }) => (
   <div className="flex rounded-lg md:space-x-4
    xs:flex-col md:flex-row w-full place-items-center md:h-auto">
-    <div className="flex md:w-1/4">
+    <div className="xs:flex md:hidden lg:flex md:w-1/4">
       <Image
         className="border-gray-300 border-2 xs:mb-4 md:mr-4 md:mb-0 flex xs:w-48 xs:h-48 md:w-32 md:h-32 object-cover"
         src={partner.image || "/no_image.png"}

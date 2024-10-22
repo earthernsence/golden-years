@@ -9,7 +9,6 @@ import {
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
-  AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger
 } from "@/components/ui/AlertDialog";
@@ -36,14 +35,14 @@ export const DeleteEventConfirmModal = ({
         {children}
       </AlertDialogTrigger>
       <AlertDialogContent>
-        <AlertDialogHeader>
+        <AlertDialogTitle>
           <AlertDialogTitle>
             Are you sure you wish to delete this event?
           </AlertDialogTitle>
           <AlertDialogDescription>
             This action is irreversible and may result in the loss of important work!
           </AlertDialogDescription>
-        </AlertDialogHeader>
+        </AlertDialogTitle>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={e => e.stopPropagation()}>
             Cancel

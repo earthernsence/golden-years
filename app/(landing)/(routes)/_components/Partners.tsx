@@ -9,7 +9,6 @@ import Spinner from "@/components/Spinner";
 import { api } from "@/convex/_generated/api";
 import Partner from "./Partner";
 
-
 const Partners = () => {
   const teams = useQuery(api.teams.get);
 
@@ -22,7 +21,7 @@ const Partners = () => {
   }));
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full max-w-xs md:max-w-2xl justify-center">
       {teamData?.map(team => <Partner key={team.name} partner={team} />)}
     </div>
   );

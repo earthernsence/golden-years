@@ -12,7 +12,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader
+  DialogTitle
 } from "@/components/ui/Dialog";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -91,11 +91,11 @@ export const TeamCreateModal = () => {
   return (
     <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
       <DialogContent className="h-full max-h-[50%] overflow-y-auto">
-        <DialogHeader className="border-b pb-3">
+        <DialogTitle className="border-b pb-3">
           <div className="text-lg font-medium">
             Create a Team
           </div>
-        </DialogHeader>
+        </DialogTitle>
         <DialogDescription className="space-y-1">
           <div className="flex items-center text-xs">
             This Team will be joinable by all members of Golden Years. It will become possible to assign Events

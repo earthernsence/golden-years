@@ -5,6 +5,7 @@ import { faArrowRightToBracket, faUser } from "@fortawesome/free-solid-svg-icons
 import { useMutation, useQuery } from "convex/react";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
@@ -26,12 +27,10 @@ import { pluralise } from "@/lib/utils";
 import { useEditEventParticipantsModal } from "@/hooks/use-edit-event-participants-modal";
 
 interface SpecificEventPageProps {
-  params: {
-    id: Id<"events">
-  }
+  id: Id<"events">
 }
 
-const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
+const SpecificEventPage = ({ params }: { params: Promise<SpecificEventPageProps> }) => {
   const { toast } = useToast();
   const router = useRouter();
   const { edgestore } = useEdgeStore();
@@ -39,8 +38,10 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
   const edit = useEditEventModal();
   const participants = useEditEventParticipantsModal();
 
-  const event = useQuery(api.events.getEventByUUID, { id: params.id });
-  const participantEmails = useQuery(api.events.getEmailAddresses, { id: params.id });
+  const id = React.use(params).id;
+
+  const event = useQuery(api.events.getEventByUUID, { id });
+  const participantEmails = useQuery(api.events.getEmailAddresses, { id });
   const organiser = useQuery(api.users.getUserById, { id: `${event?.organiser}` });
   const remove = useMutation(api.events.remove);
 
@@ -66,11 +67,11 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
     );
   }
 
-  if (!params.id || event === null) {
+  if (!id || event === null) {
     return (
       <div className="flex flex-col items-center justify-center min-h-full">
         <div className="text-4xl">Oops!</div>
-        No event found with id {params.id}!
+        No event found with id {id}!
       </div>
     );
   }
@@ -158,7 +159,7 @@ const SpecificEventPage = ({ params }: SpecificEventPageProps) => {
       id: event._id
     });
 
-    if (params.id === event._id) {
+    if (id === event._id) {
       router.push("/events");
     }
   };
