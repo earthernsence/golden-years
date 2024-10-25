@@ -58,17 +58,14 @@ export const Footer = () => {
         <div className="flex flex-row w-full gap-x-2 items-center">
           <Icon
             icon={faInstagram}
-            className="size-8"
             link={"https://www.instagram.com/goldenyearsfhhs/"}
           />
           <Icon
             icon={faMessage}
-            className="size-8"
             link={"https://groupme.com/join_group/100192539/3CkxOnJA"}
           />
           <Icon
             icon={faXTwitter}
-            className="size-8"
             link={"https://x.com/goldenyearsfhhs"}
           />
         </div>

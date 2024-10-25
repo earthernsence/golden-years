@@ -41,11 +41,11 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background opacity-75 dark:opacity-50 hover:opacity-100 dark:hover:opacity-100 hover:underline px-4 py-2 text-sm font-medium transition-colors hover:bg-gy-bg-dark/10 dark:hover:bg-accent/50 hover:text-accent-foreground focus:bg-gy-bg-light focus:dark:bg-gy-bg-dark focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gy-bg-light data-[state=open]:bg-gy-bg-light data-[active]:dark:bg-gy-bg-dark data-[state=open]:dark:bg-gy-bg-dark"
+  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-muted dark:bg-background opacity-75 dark:opacity-50 hover:opacity-100 dark:hover:opacity-100 hover:underline px-4 py-2 text-sm font-medium transition-colors hover:bg-gy-bg-dark/10 dark:hover:bg-accent/50 hover:text-accent-foreground focus:bg-gy-bg-light focus:dark:bg-gy-bg-dark focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-gy-bg-dark/10"
 );
 
 const navigationSheetMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background opacity-60 hover:opacity-100 hover:underline px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-muted dark:bg-background opacity-60 hover:opacity-100 hover:underline px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-muted/50 data-[state=open]:bg-muted/50"
 );
 
 const NavigationMenuTrigger = React.forwardRef<

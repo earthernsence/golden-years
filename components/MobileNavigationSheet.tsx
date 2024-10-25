@@ -33,7 +33,7 @@ const MobileNavigationSheet = () => (
     <SheetTrigger>
       <Menu />
     </SheetTrigger>
-    <SheetContent side={"top"}>
+    <SheetContent side={"top"} className="dark:bg-background bg-muted">
       <SheetHeader className="flex flex-row">
         <SheetTitle>
           <Link href="/">
@@ -63,7 +63,10 @@ const MobileNavigationSheet = () => (
                 <NavigationMenuItem key={index}>
                   <NavigationMenuTrigger>{page.text}</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    <ul
+                      className="grid md:grid-cols-2 w-[300px] md:w-[500px] lg:w-[600px] gap-3 p-4
+                      bg-muted dark:bg-background"
+                    >
                       {page.leaves && page.leaves.map((leaf: Leaf, i: number) => (
                         <ListItem
                           key={i}
@@ -85,17 +88,14 @@ const MobileNavigationSheet = () => (
       <div className="flex flex-row w-full">
         <Icon
           icon={faInstagram}
-          className="size-8"
           link={"https://www.instagram.com/goldenyearsfhhs/"}
         />
         <Icon
           icon={faMessage}
-          className="size-8"
           link={"https://groupme.com/join_group/100192539/3CkxOnJA"}
         />
         <Icon
           icon={faXTwitter}
-          className="size-8"
           link={"https://x.com/goldenyearsfhhs"}
         />
       </div>

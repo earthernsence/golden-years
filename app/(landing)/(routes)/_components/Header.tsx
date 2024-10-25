@@ -28,7 +28,7 @@ export const Header = () => (
       <br />
       <br />
       <br />
-      <div className="rounded-full border-2 dark:border-gy-text-dark size-16
+      <div className="rounded-full border-2 border-black dark:border-gy-text-dark size-16
                       flex items-center justify-center animate-bounce">
         <ArrowDownCircle className="rounded-full dark:text-gy-text-dark size-16" />
       </div>

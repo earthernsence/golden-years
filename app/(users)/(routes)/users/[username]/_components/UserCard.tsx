@@ -50,7 +50,7 @@ export const UserCard = ({ user, isUser }: UserCardProps) => {
   };
 
   return (
-    <div className="flex p-4 gap-x-8 bg-muted-foreground/10 rounded-md border
+    <div className="flex p-4 gap-x-8 bg-muted-foreground/25 dark:bg-muted-foreground/10 rounded-md border
                     xs:flex-col md:flex-row xs:w-full md:w-auto md:max-w-[50%] h-auto
                   dark:border-white"
     >

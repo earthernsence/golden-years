@@ -60,10 +60,10 @@ export const EventsView = () => {
           defaultValue={"all"}
           onValueChange={value => setView(value as EventsPageViewState)}
         >
-          <SelectTrigger className="w-56">
+          <SelectTrigger className="w-56 bg-muted dark:bg-background">
             <SelectValue placeholder="Events view" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-muted dark:bg-background">
             <SelectItem value="all">Viewing all Events</SelectItem>
             {team && (<SelectItem value="team">Viewing Team Events</SelectItem>)}
             <SelectItem value="past">Viewing past Events</SelectItem>

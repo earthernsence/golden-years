@@ -21,7 +21,7 @@ export const Icon = ({ icon, link, className, onClick }: IconProps) => (
       icon={icon}
       width={50}
       height={50}
-      className={`size-8 ${className}`}
+      className={className ? className : "size-8"}
     />
   </a>
 );

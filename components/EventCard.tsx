@@ -126,11 +126,12 @@ const EventCard = ({
           { event.location } on { new Date(event.date).toDateString() } at { getTime() }
         </div>
       </div>
-      <div className="flex xs:w-auto md:w-1/4 xs:flex-col justify-center xs:space-y-2 md:space-y-0">
+      <div className="flex xs:w-auto md:w-1/4 xs:flex-col justify-center space-y-2">
         <div className="flex flex-row items-center text-left">
           <Icon
             icon={faUser}
             link={`/users/${organiser.username}`}
+            className="size-8 md:size-12"
           />
           <div className="text-md dark:text-white">Organised by { organiser.name }</div>
         </div>
@@ -139,6 +140,7 @@ const EventCard = ({
             <Icon
               icon={faArrowRightToBracket}
               onClick={signUp}
+              className="size-8 md:size-12"
             />
             <div className="text-md dark:text-white">Sign up</div>
           </div>

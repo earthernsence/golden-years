@@ -74,12 +74,20 @@ export const Sidebar = ({ user, isEditing, isUser, isVisitorAdmin, setIsEditing 
             <div className="flex justify-center">
               {isEditing
                 ? (
-                  <Button variant={"outline"} onClick={() => setIsEditing(false)}>
+                  <Button
+                    variant={"outline"}
+                    onClick={() => setIsEditing(false)}
+                    className="border-black dark:border-white"
+                  >
                     <X className="md:mr-2 size-4" /> <span className="xs:hidden md:block">Cancel</span>
                   </Button>
                 )
                 : (
-                  <Button variant={"outline"} onClick={() => setIsEditing(true)}>
+                  <Button
+                    variant={"outline"}
+                    onClick={() => setIsEditing(true)}
+                    className="border-black dark:border-white"
+                  >
                     <Pencil className="md:mr-2 size-4" /> <span className="xs:hidden md:block">Edit</span>
                   </Button>
                 )}
@@ -87,7 +95,11 @@ export const Sidebar = ({ user, isEditing, isUser, isVisitorAdmin, setIsEditing 
           )}
           {isVisitorAdmin && !isEditing && (
             <div className="flex justify-center">
-              <Button variant={"outline"} onClick={() => adminModal.onOpen(user)}>
+              <Button
+                variant={"outline"}
+                onClick={() => adminModal.onOpen(user)}
+                className="border-black dark:border-white"
+              >
                 <Cog className="md:mr-2 size-4" /> <span className="xs:hidden md:block">Admin</span>
               </Button>
             </div>
