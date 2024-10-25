@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import EventCard from "@/components/EventCard";
 
 import { EventsNone } from "./EventsNone";
+import { AllEventsView } from "./AllEventsView";
 
 export type EventsPageViewState = "all" | "team" | "past" | "nonexclusive";
 
@@ -72,9 +73,7 @@ export const EventsView = () => {
         </Select>
       </div>
       <br />
-      {view === "all" && futureEvents?.map((event, index: number) => (
-        <EventCard key={index} event={event} />
-      ))}
+      {view === "all" && <AllEventsView events={futureEvents} />}
       {view === "team" && teamEvents?.map((event, index: number) => (
         <EventCard key={index} event={event} />
       ))}

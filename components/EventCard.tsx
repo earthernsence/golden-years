@@ -106,18 +106,18 @@ const EventCard = ({
   };
 
   return (
-    <div className="border-4 border-gray-500 flex rounded-lg md:space-x-2
-    xs:flex-col md:flex-row w-full place-items-center p-4 mb-2 md:h-40">
-      <div className="flex md:w-1/4">
+    <div className="border-4 border-gray-500 flex rounded-lg
+    flex-col w-full place-items-center p-4 mb-2">
+      <div className="flex">
         <Image
-          className="border-gray-300 border-2 xs:mb-4 md:mr-4 md:mb-0 flex xs:w-48 xs:h-48 md:w-32 md:h-32 object-cover"
+          className="border-gray-300 border-2 mb-4 flex w-48 h-48 object-cover"
           src={event.image || "/no_image.png"}
           alt={`Event image for ${event.title}`}
           height={512} width={512}
         />
       </div>
-      <div className="flex flex-col relative xs:w-5/6 md:w-1/2 xs:mb-4 md:mb-0">
-        <Link href={`/events/${event._id}`} className="text-2xl xs:text-center md:text-left dark:text-white">
+      <div className="flex flex-col relative w-5/6 mb-4">
+        <Link href={`/events/${event._id}`} className="text-2xl text-center dark:text-white">
           { event.title }
         </Link>
         <div className="text-md text-gray-600 dark:text-gray-300 truncate">{ event.description }</div>
@@ -126,12 +126,12 @@ const EventCard = ({
           { event.location } on { new Date(event.date).toDateString() } at { getTime() }
         </div>
       </div>
-      <div className="flex xs:w-auto md:w-1/4 xs:flex-col justify-center space-y-2">
+      <div className="flex w-auto flex-col justify-center space-y-2">
         <div className="flex flex-row items-center text-left">
           <Icon
             icon={faUser}
             link={`/users/${organiser.username}`}
-            className="size-8 md:size-12"
+            className="size-8"
           />
           <div className="text-md dark:text-white">Organised by { organiser.name }</div>
         </div>
@@ -140,7 +140,7 @@ const EventCard = ({
             <Icon
               icon={faArrowRightToBracket}
               onClick={signUp}
-              className="size-8 md:size-12"
+              className="size-8"
             />
             <div className="text-md dark:text-white">Sign up</div>
           </div>
