@@ -44,14 +44,14 @@ export const SingleTeamButtonsSection = ({
   if (!leader || !visitor) return <Spinner />;
 
   return (
-    <div className="flex flex-col justify-start w-full gap-y-2">
+    <div className="flex flex-col justify-start w-full gap-y-2 h-full">
       <div className="flex flex-row items-center">
-        <Icon icon={faUsers} onClick={() => membersModal.onOpen(team)} />
+        <Icon icon={faUsers} onClick={() => membersModal.onOpen(team)} className="size-8 md:size-12" />
         View Members {slotsString()}
       </div>
       <div className="flex flex-row items-center">
         <Link href={`/users/${leader.username}`}>
-          <Icon icon={faStar} />
+          <Icon icon={faStar} className="size-8 md:size-12" />
         </Link>
           Team led by {leader.name}
       </div>
