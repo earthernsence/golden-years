@@ -90,7 +90,7 @@ export function TeamEditForm({
       lead: teamLead?.username || "",
       link: team.link,
       hasSlotCap: team.slots !== Number.MAX_VALUE,
-      slots: team.slots === Number.MAX_VALUE ? `${team.members.length}` : `${team.slots}`
+      slots: team.slots === Number.MAX_VALUE ? `${Math.max(2, team.members.length)}` : `${team.slots}`
     },
   });
 
