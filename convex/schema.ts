@@ -61,5 +61,15 @@ export default defineSchema({
     members: v.array(v.string()),
     slots: v.number()
   })
-    .index("by_team_id", ["teamId"])
+    .index("by_team_id", ["teamId"]),
+  articles: defineTable({
+    title: v.string(),
+    date: v.number(),
+    content: v.string(),
+    image: v.optional(v.string()),
+    published: v.boolean(),
+    author: v.string()
+  })
+    .index("by_date", ["date"])
+    .index("by_published", ["published"])
 });

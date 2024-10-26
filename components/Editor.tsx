@@ -1,0 +1,61 @@
+"use client";
+
+import "@blocknote/react/style.css";
+
+import { useTheme } from "next-themes";
+
+import {
+  PartialBlock,
+} from "@blocknote/core";
+
+import { BlockNoteView } from "@blocknote/mantine";
+
+import { useCreateBlockNote } from "@blocknote/react";
+
+import { useEdgeStore } from "@/lib/edgestore";
+
+interface EditorProps {
+  // Interfaces are just like this. I don't know man
+  // eslint-disable-next-line no-unused-vars
+  onChange: (val: string) => void;
+  initialContent?: string,
+  editable?: boolean;
+}
+
+const Editor = ({
+  onChange,
+  initialContent,
+  editable
+}: EditorProps) => {
+  const { resolvedTheme } = useTheme();
+  const { edgestore } = useEdgeStore();
+
+  const handleUpload = async(file: File) => {
+    const res = await edgestore.publicFiles.upload({ file });
+    return res.url;
+  };
+
+  const editor = useCreateBlockNote({
+    initialContent: initialContent ? (JSON.parse(initialContent) as PartialBlock[]) : undefined,
+    uploadFile: handleUpload
+  });
+
+  const updateEditor = () => {
+    if (editable) {
+      onChange(JSON.stringify(editor.document, null, 2));
+    }
+  };
+
+  return (
+    <div>
+      <BlockNoteView
+        editor={editor}
+        theme={resolvedTheme === "dark" ? "dark" : "light"}
+        editable={editable}
+        onChange={updateEditor}
+      />
+    </div>
+  );
+};
+
+export default Editor;
