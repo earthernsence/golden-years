@@ -4,9 +4,17 @@ import { mutation, query } from "./_generated/server";
 
 export const get = query({
   handler: async ctx => {
-    const events = await ctx.db.query("articles").collect();
+    const articles = await ctx.db.query("articles").collect();
 
-    return events;
+    return articles;
+  }
+});
+
+export const getPublished = query({
+  handler: async ctx => {
+    const articles = await ctx.db.query("articles").collect();
+
+    return articles.filter(article => article.published);
   }
 });
 
@@ -51,7 +59,6 @@ export const update = mutation({
   args: {
     id: v.id("articles"),
     title: v.optional(v.string()),
-    date: v.optional(v.number()),
     content: v.optional(v.string()),
     image: v.optional(v.string()),
     published: v.optional(v.boolean()),
@@ -71,8 +78,10 @@ export const update = mutation({
 
     if (existingArticle.author !== userId) throw new Error("Unauthorised");
 
+    // If an article is updated or edited, it'll be set to the current date.
     const article = await ctx.db.patch(id, {
-      ...rest
+      ...rest,
+      date: Date.now(),
     });
 
     return article;

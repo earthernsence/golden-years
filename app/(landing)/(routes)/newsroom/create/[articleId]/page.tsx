@@ -38,13 +38,14 @@ const NewsroomCreatePage = ({
   if (article === null) return <div>not found</div>;
 
   return (
-    <div className="pb-40 dark:bg-gy-bg-dark">
+    <div className="pb-40 dark:bg-gy-bg-dark xs:w-11/12 md:w-1/2">
       <Cover url={article.image} />
-      <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
+      <div className="mx-auto">
         <Toolbar initial={article} />
         <Editor
           onChange={onChange}
           initialContent={article.content}
+          editable={true}
         />
       </div>
     </div>

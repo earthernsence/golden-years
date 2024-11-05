@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { ArticleCoverImageModal } from "../modals/ArticleCoverImageModal";
 import { AssignGroupModal } from "../modals/AssignGroupModal";
 import { AssignRoleModal } from "../modals/AssignRoleModal";
 import { CreateEventModal } from "../modals/CreateEventModal";
@@ -48,6 +49,7 @@ export const ModalProvider = () => {
       <TeamEditModal />
       <UploadProfilePictureModal />
       <EditEventParticipantsModal />
+      <ArticleCoverImageModal />
     </>
   );
 };

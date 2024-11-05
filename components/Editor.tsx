@@ -46,6 +46,8 @@ const Editor = ({
     }
   };
 
+  // For some reason, BlockNoteView gives a ton of errors for the editor, editable, and onChange properties.
+  // Unsure as to why -- as everything works as intended in spite of the error -- so not sure what's going on there.
   return (
     <div>
       <BlockNoteView

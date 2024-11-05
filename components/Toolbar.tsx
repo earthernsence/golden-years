@@ -41,11 +41,11 @@ export const Toolbar = ({
 
   const disableInput = () => setIsEditing(false);
 
-  const onInput = (val: string) => {
+  const onInput = async(val: string) => {
     setValue(val);
-    update({
+    await update({
       id: initial._id,
-      title: value || "Untitled"
+      title: val || "Untitled"
     });
   };
 
@@ -80,13 +80,14 @@ export const Toolbar = ({
           onKeyDown={onKeyDown}
           value={value}
           onChange={e => onInput(e.target.value)}
-          className="text-5xl font-bold break-words text-[#3F3F3F] dark:text-[#CFCFCF]
+          className="xs:text-3xl md:text-5xl font-bold break-words text-[#3F3F3F] dark:text-[#CFCFCF]
                     resize-none bg-transparent outline-none"
         />
       ) : (
         <div
           onClick={enableInput}
-          className="pb-[11.5px] text-5xl font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]"
+          className="pb-[11.5px] xs:text-3xl md:text-5xl font-bold
+                    break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]"
         >
           {initial.title}
         </div>
