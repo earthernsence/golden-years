@@ -68,7 +68,8 @@ export default defineSchema({
     content: v.string(),
     image: v.optional(v.string()),
     published: v.boolean(),
-    author: v.string()
+    author: v.string(),
+    pinned: v.boolean()
   })
     .index("by_date", ["date"])
     .index("by_published", ["published"])

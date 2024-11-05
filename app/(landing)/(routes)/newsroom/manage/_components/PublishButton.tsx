@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Copy, Globe } from "lucide-react";
+import { Check, Copy, Globe, GlobeLock } from "lucide-react";
 import { useMutation } from "convex/react";
 import { useState } from "react";
 
@@ -11,26 +11,26 @@ import { useOrigin } from "@/hooks/use-origin";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/Popover";
 import { Button } from "@/components/ui/Button";
 
-interface ToolbarPublishProps {
-  initialData: Doc<"articles">
+interface PublishButtonProps {
+  article: Doc<"articles">
 }
 
-export const ToolbarPublish = ({
-  initialData
-}: ToolbarPublishProps) => {
+export const PublishButton = ({
+  article
+}: PublishButtonProps) => {
   const origin = useOrigin();
   const update = useMutation(api.articles.update);
 
   const [copied, setCopied] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const url = `${origin}/newsroom/${initialData._id}`;
+  const url = `${origin}/newsroom/${article._id}`;
 
   const onPublish = () => {
     setIsSubmitting(true);
 
     update({
-      id: initialData._id,
+      id: article._id,
       published: true,
     }).finally(() => setIsSubmitting(false));
   };
@@ -39,7 +39,7 @@ export const ToolbarPublish = ({
     setIsSubmitting(true);
 
     update({
-      id: initialData._id,
+      id: article._id,
       published: false,
       pinned: false,
     }).finally(() => setIsSubmitting(false));
@@ -54,15 +54,20 @@ export const ToolbarPublish = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button size="sm" variant="outline">
-          {initialData.published && (
-            <Globe className="text-sky-500 size-4 mr-2 animate-pulse" />
+        <Button
+          size="icon"
+          variant="ghost"
+          className="transition-all duration-200 ease-in-out opacity-50 hover:opacity-100 hover:scale-110"
+        >
+          {article.published ? (
+            <Globe className="text-sky-500 size-8 animate-pulse" />
+          ) : (
+            <GlobeLock className="size-8" />
           )}
-          {initialData.published ? "published to newsroom" : "publish to newsroom"}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-72" align="end" alignOffset={8} forceMount>
-        {initialData.published ? (
+        {article.published ? (
           <div className="space-y-4">
             <div className="flex items-center gap-x-2">
               <Globe className="text-sky-500 animate-pulse size-6" />

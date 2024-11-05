@@ -10,6 +10,7 @@ import { CreateGroupModal } from "../modals/CreateGroupModal";
 import { EditEventModal } from "../modals/EditEventModal";
 import { EditEventParticipantsModal } from "../modals/EditEventParticipantsModal";
 import { LeaveEventModal } from "../modals/LeaveEventModal";
+import { NewsroomInfoModal } from "../modals/NewsroomInfoModal";
 import { PrivacyPolicyModal } from "../modals/PrivacyPolicy";
 import { SignUpModal } from "../modals/SignUpModal";
 import { TeamCreateModal } from "../modals/TeamCreateModal";
@@ -50,6 +51,7 @@ export const ModalProvider = () => {
       <UploadProfilePictureModal />
       <EditEventParticipantsModal />
       <ArticleCoverImageModal />
+      <NewsroomInfoModal />
     </>
   );
 };

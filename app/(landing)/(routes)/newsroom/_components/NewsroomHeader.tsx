@@ -50,7 +50,7 @@ export const NewsroomHeader = () => {
                 <Plus className="mr-2 size-4" /> Create new article
               </DropdownMenuItem>
             </div>
-            <div>
+            <div onClick={() => router.push("/newsroom/manage")}>
               <DropdownMenuItem role="button" className="hover:cursor-pointer">
                 <AlignJustify className="mr-2 size-4" /> Manage your articles
               </DropdownMenuItem>

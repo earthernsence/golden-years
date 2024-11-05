@@ -31,7 +31,8 @@ export const create = mutation({
       date: Date.now(),
       content: "",
       published: false,
-      author: userId
+      author: userId,
+      pinned: false,
     });
 
     return article;
@@ -62,6 +63,7 @@ export const update = mutation({
     content: v.optional(v.string()),
     image: v.optional(v.string()),
     published: v.optional(v.boolean()),
+    pinned: v.optional(v.boolean()),
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
