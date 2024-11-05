@@ -1,6 +1,6 @@
 "use client";
 
-import "@blocknote/react/style.css";
+import "@blocknote/mantine/style.css";
 
 import { useTheme } from "next-themes";
 
@@ -8,7 +8,7 @@ import {
   PartialBlock,
 } from "@blocknote/core";
 
-import { BlockNoteView } from "@blocknote/mantine";
+import { BlockNoteView, darkDefaultTheme, lightDefaultTheme, Theme } from "@blocknote/mantine";
 
 import { useCreateBlockNote } from "@blocknote/react";
 
@@ -21,6 +21,36 @@ interface EditorProps {
   initialContent?: string,
   editable?: boolean;
 }
+
+const gyLightEditor = {
+  colors: {
+    editor: {
+      background: "#fff6e4",
+      text: "#3f3f3f"
+    },
+    shadow: "#1a1a1a",
+    sideMenu: "#bababa",
+    highlights: lightDefaultTheme.colors!.highlights
+  }
+} satisfies Theme;
+
+const gyDarkEditor = {
+  ...gyLightEditor,
+  colors: {
+    ...gyLightEditor.colors,
+    editor: {
+      background: "#2f2f2f",
+      text: "#cfcfcf"
+    },
+    sideMenu: "#ffffff",
+    highlights: darkDefaultTheme.colors!.highlights,
+  }
+} satisfies Theme;
+
+const gyEditor = {
+  light: gyLightEditor,
+  dark: gyDarkEditor,
+};
 
 const Editor = ({
   onChange,
@@ -52,7 +82,7 @@ const Editor = ({
     <div>
       <BlockNoteView
         editor={editor}
-        theme={resolvedTheme === "dark" ? "dark" : "light"}
+        theme={resolvedTheme === "light" ? gyEditor.light : gyEditor.dark}
         editable={editable}
         onChange={updateEditor}
       />

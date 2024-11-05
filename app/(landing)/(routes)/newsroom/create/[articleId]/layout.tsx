@@ -1,25 +1,33 @@
 // Article creation page layout
 
-import { Metadata } from "next";
+"use client";
 
+import { ComponentRef, useRef } from "react";
+
+import { ArticleToolbar } from "./_components/ArticleToolbar";
 import { Navbar } from "@/components/Navbar";
-
-export const metadata: Metadata = {
-  title: "Golden Years | Newsroom",
-  description: "Connecting students to opportunities",
-};
 
 const CreateArticleLayout = ({
   children
-}: { children: React.ReactNode }) => (
-  <div className="h-full bg-gy-bg-light dark:bg-gy-bg-dark w-full">
-    <Navbar />
-    <main className="min-h-full flex flex-col place-self-center items-center w-full h-full
+}: { children: React.ReactNode }) => {
+  const articleToolbarRef = useRef<ComponentRef<"div">>(null);
+
+  return (
+    <div className="h-full bg-gy-bg-light dark:bg-gy-bg-dark w-full">
+      <Navbar />
+      <main className="min-h-full flex flex-col place-self-center items-center w-full h-full
                    bg-gy-bg-light dark:bg-gy-bg-dark"
-    >
-      { children }
-    </main>
-  </div>
-);
+      >
+        <div
+          ref={articleToolbarRef}
+          className="z-[99999] w-[calc(100% - 15rem)]"
+        >
+          <ArticleToolbar />
+        </div>
+        { children }
+      </main>
+    </div>
+  );
+};
 
 export default CreateArticleLayout;

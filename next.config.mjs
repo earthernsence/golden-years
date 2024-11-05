@@ -15,7 +15,8 @@ const nextConfig = {
         hostname: "files.edgestore.dev",
       }
     ]
-  }
+  },
+  reactStrictMode: false,
 };
 
 export default nextConfig;
