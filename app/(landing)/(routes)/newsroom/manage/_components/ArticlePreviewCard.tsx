@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useMutation } from "convex/react";
 import { useState } from "react";
 
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 import { Button } from "@/components/ui/Button";
 import { PublishButton } from "./PublishButton";
 import { useToast } from "@/components/ui/use-toast";
@@ -65,24 +66,51 @@ export const ArticlePreviewCard = ({
         {article.title}
       </Link>
       <div className="flex flex-row justify-evenly p-4">
-        <Link href={`/newsroom/create/${article._id}`}>
-          <Button
-            variant={"ghost"}
-            size={"icon"}
-            className="transition-all duration-200 ease-in-out opacity-50 hover:opacity-100 hover:scale-110"
-          >
-            <Pencil className="size-8" />
-          </Button>
-        </Link>
-        <PublishButton article={article} />
-        <Button
-          variant={"ghost"}
-          size={"icon"}
-          onClick={() => (pinned ? unpin() : pin())}
-          className="transition-all duration-200 ease-in-out opacity-50 hover:opacity-100 hover:scale-110"
-        >
-          {pinned ? (<PinOff className="size-8" />) : (<Pin className="size-8" />)}
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Link href={`/newsroom/create/${article._id}`}>
+                <Button
+                  variant={"ghost"}
+                  size={"icon"}
+                  className="transition-all duration-200 ease-in-out opacity-50 hover:opacity-100 hover:scale-110"
+                >
+                  <Pencil className="size-8" />
+                </Button>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              edit article
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <PublishButton article={article} />
+            </TooltipTrigger>
+            <TooltipContent>
+              publish article
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                variant={"ghost"}
+                size={"icon"}
+                onClick={() => (pinned ? unpin() : pin())}
+                className="transition-all duration-200 ease-in-out opacity-50 hover:opacity-100 hover:scale-110"
+              >
+                {pinned ? (<PinOff className="size-8" />) : (<Pin className="size-8" />)}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              {pinned ? "unpin article" : "pin article"}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
       <div className="text-xs font-light text-center opacity-50 mb-2">
         last edited on {new Date(article.date).toDateString()}

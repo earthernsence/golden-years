@@ -20,7 +20,7 @@ const CreateArticleLayout = ({
       >
         <div
           ref={articleToolbarRef}
-          className="z-[99999] w-[calc(100% - 15rem)]"
+          className="w-[calc(100% - 15rem)]"
         >
           <ArticleToolbar />
         </div>

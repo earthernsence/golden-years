@@ -20,7 +20,7 @@ const NewsroomPage = () => {
       >
         <Info role="button" className="mr-2 size-4" /> Click for info
       </div>
-      <div className="font-extrabold xs:text-[28px] sm:text-gy-large-header border-b-2 border-black dark:border-white">
+      <div className="font-bold xs:text-[28px] sm:text-gy-large-header border-b-2 border-black dark:border-white">
         Latest articles
       </div>
       <Articles />
