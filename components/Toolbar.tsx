@@ -1,9 +1,10 @@
 "use client";
 
 import { ComponentRef, useRef, useState } from "react";
+import { useMutation, useQuery } from "convex/react";
 import { ImageIcon } from "lucide-react";
+import Link from "next/link";
 import TextareaAutosize from "react-textarea-autosize";
-import { useMutation } from "convex/react";
 
 import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
@@ -11,6 +12,7 @@ import { Doc } from "@/convex/_generated/dataModel";
 import { useImage } from "@/hooks/use-image";
 
 import { Button } from "@/components/ui/Button";
+import Spinner from "./Spinner";
 
 interface ToolbarProps {
   initial: Doc<"articles">,
@@ -21,6 +23,7 @@ export const Toolbar = ({
   initial,
   preview
 }: ToolbarProps) => {
+  const author = useQuery(api.users.getUserById, { id: initial.author });
   const inputRef = useRef<ComponentRef<"textarea">>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initial.title);
@@ -58,8 +61,10 @@ export const Toolbar = ({
     }
   };
 
+  if (!author) return <Spinner />;
+
   return (
-    <div className="pl-[54px] group relative">
+    <div className="pl-[54px] group relative xs:pr-[54px] md:pr-0">
       <div className="opacity-0 group-hover:opacity-100 flex items-center gap-x-1 py-4">
         {!initial.image && !preview && (
           <Button
@@ -81,15 +86,33 @@ export const Toolbar = ({
           value={value}
           onChange={e => onInput(e.target.value)}
           className="xs:text-3xl md:text-5xl font-bold text-[#3F3F3F] dark:text-[#CFCFCF]
-                    bg-transparent outline-none w-full"
+                    bg-transparent outline-none w-full resize-none"
         />
       ) : (
-        <div
-          onClick={enableInput}
-          className="pb-[11.5px] xs:text-3xl md:text-5xl font-bold
+        <>
+          <div
+            onClick={enableInput}
+            className="pb-[11.5px] xs:text-3xl md:text-5xl font-bold
                     break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] w-full"
-        >
-          {initial.title}
+          >
+            {initial.title}
+          </div>
+        </>
+      )}
+      {preview && (
+        <div className="font-bold lg:font-medium lg:mt-1 text-sm p-0 flex flex-row items-center text-gray-400">
+          <div className="inline-block mt-2">
+          by{" "}
+            <Link href={`/users/${author.username}`} className="text-[#1b2a3d] dark:text-slate-200">
+              {author.name}
+            </Link>
+          </div>
+          <div className="text-gray-300 mx-2 inline-block mt-2">
+            /
+          </div>
+          <div className="inline-block mt-2">
+            {new Date(initial.date).toDateString()}
+          </div>
         </div>
       )}
     </div>

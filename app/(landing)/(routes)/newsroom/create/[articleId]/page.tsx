@@ -3,6 +3,7 @@
 import { use, useMemo } from "react";
 import { useMutation, useQuery } from "convex/react";
 import dynamic from "next/dynamic";
+import { useAuth } from "@clerk/nextjs";
 
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -18,6 +19,7 @@ interface NewsroomCreatePageProps {
 const NewsroomCreatePage = ({
   params
 }: { params: Promise<NewsroomCreatePageProps> }) => {
+  const { userId } = useAuth();
   const articleId = use(params).articleId;
   const Editor = useMemo(() => dynamic(() => import("@/components/Editor"), { ssr: false }), []);
 
@@ -36,6 +38,8 @@ const NewsroomCreatePage = ({
 
   if (article === undefined) return <Spinner />;
   if (article === null) return <div>not found</div>;
+
+  if (article.author !== userId) return <div>unauthorized! you are not the author of this article.</div>;
 
   return (
     <div className="pb-40 dark:bg-gy-bg-dark xs:w-11/12 md:w-1/2">

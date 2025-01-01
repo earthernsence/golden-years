@@ -43,7 +43,7 @@ export const Cover = ({
 
   return (
     <div className={cn(
-      "relative w-full h-[35vh] group",
+      "relative w-full xs:h-[30vh] md:h-[40vh] group",
       !url && "h-[6vh]",
       url && "bg-muted"
     )}>
@@ -55,7 +55,7 @@ export const Cover = ({
         <Image
           src={url as string}
           fill
-          alt="cover"
+          alt={`Image for the article`}
           className="object-cover"
         />
       )}
