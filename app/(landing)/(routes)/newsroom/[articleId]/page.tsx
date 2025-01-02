@@ -6,6 +6,8 @@ import { ArrowLeft } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
+import { DataCompressor } from "@/lib/compressor";
+
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
@@ -27,6 +29,8 @@ const NewsroomArticlePage = ({
     articleId
   });
 
+  // This won't end up actually getting used, but we'll throw it in
+  // to prevent some type wonkiness in editor
   const update = useMutation(api.articles.update);
 
   const onChange = (content: string) => {
@@ -38,6 +42,8 @@ const NewsroomArticlePage = ({
 
   if (article === undefined) return <Spinner />;
   if (article === null) return <div>not found</div>;
+
+  const articleContent = DataCompressor.deserialise(article.content);
 
   return (
     <>
@@ -57,7 +63,7 @@ const NewsroomArticlePage = ({
           <Editor
             editable={false}
             onChange={onChange}
-            initialContent={article.content}
+            initialContent={articleContent}
           />
         </div>
       </div>
