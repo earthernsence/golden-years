@@ -17,6 +17,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { Cover } from "@/components/Cover";
 import Spinner from "@/components/Spinner";
 import Toolbar from "@/components/Toolbar";
+import { useToast } from "@/components/ui/use-toast";
 
 interface NewsroomCreatePageProps {
   articleId: Id<"articles">
@@ -25,36 +26,36 @@ interface NewsroomCreatePageProps {
 const NewsroomCreatePage = ({
   params
 }: { params: Promise<NewsroomCreatePageProps> }) => {
-  let timeoutId: NodeJS.Timeout;
-  const [isSaving, setIsSaving] = useState(false);
+  const { toast } = useToast();
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [content, setContent] = useState("");
   const { userId } = useAuth();
   const articleId = use(params).articleId;
   const Editor = useMemo(() => dynamic(() => import("@/components/Editor"), { ssr: false }), []);
 
+  const article = useQuery(api.articles.getById, {
+    articleId
+  });
+
+  useEffect(() => {
+    if (article && article.content) {
+      const articleContent = DataCompressor.deserialise(article.content);
+      setContent(articleContent);
+    }
+  }, [article]);
+
   // Handles saving on refresh.
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      const compressedData = DataCompressor.serialise(content);
+
+      update({
+        id: articleId,
+        content: compressedData
+      });
+
       e.preventDefault();
       e.returnValue = "";
-
-      if (article && article.content) {
-        const hasEdited = content !== DataCompressor.deserialise(article.content);
-
-        if (content && hasEdited) {
-          const compressedData = DataCompressor.serialise(content);
-
-          update({
-            id: articleId,
-            content: compressedData
-          });
-        } else {
-          update({
-            id: articleId,
-            content: article.content
-          });
-        }
-      }
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -64,29 +65,29 @@ const NewsroomCreatePage = ({
     };
   });
 
-  const article = useQuery(api.articles.getById, {
-    articleId
-  });
-
   const update = useMutation(api.articles.update);
 
   // THIS IS EXTREMELY VOLATILE! I have not entirely figured out how this all works, but so far,
   // it's done what I want it to do.
   const onChange = () => {
-    clearTimeout(timeoutId);
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
 
-    setIsSaving(true);
+    const newTimeoutId = setTimeout(() => {
+      const compressedData = DataCompressor.serialise(content);
 
-    timeoutId = setTimeout(() => {
-      if (!isSaving) {
-        const compressedData = DataCompressor.serialise(content);
+      update({
+        id: articleId,
+        content: compressedData
+      });
 
-        update({
-          id: articleId,
-          content: compressedData
-        }).then(() => setIsSaving(false));
-      }
+      toast({
+        title: "Article successfully saved"
+      });
     }, 2000);
+
+    setTimeoutId(newTimeoutId);
   };
 
   if (article === undefined) return <Spinner />;
