@@ -17,7 +17,7 @@ import { useEdgeStore } from "@/lib/edgestore";
 interface EditorProps {
   // Interfaces are just like this. I don't know man
   // eslint-disable-next-line no-unused-vars
-  onChange: (val: string) => void;
+  onChange?: (val: string) => void;
   initialContent?: string,
   editable?: boolean;
 }
@@ -72,7 +72,7 @@ const Editor = ({
 
   const updateEditor = () => {
     if (editable) {
-      onChange(JSON.stringify(editor.document, null, 2));
+      if (onChange) onChange(JSON.stringify(editor.document, null, 2));
     }
   };
 

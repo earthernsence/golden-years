@@ -1,10 +1,10 @@
 "use client";
 
 import { use, useMemo } from "react";
-import { useMutation, useQuery } from "convex/react";
 import { ArrowLeft } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useQuery } from "convex/react";
 
 import { DataCompressor } from "@/lib/compressor";
 
@@ -29,17 +29,6 @@ const NewsroomArticlePage = ({
     articleId
   });
 
-  // This won't end up actually getting used, but we'll throw it in
-  // to prevent some type wonkiness in editor
-  const update = useMutation(api.articles.update);
-
-  const onChange = (content: string) => {
-    update({
-      id: articleId,
-      content
-    });
-  };
-
   if (article === undefined) return <Spinner />;
   if (article === null) return <div>not found</div>;
 
@@ -62,7 +51,6 @@ const NewsroomArticlePage = ({
           <Toolbar preview initial={article} />
           <Editor
             editable={false}
-            onChange={onChange}
             initialContent={articleContent}
           />
         </div>
