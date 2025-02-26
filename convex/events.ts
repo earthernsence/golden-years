@@ -109,6 +109,7 @@ export const update = mutation({
     id: v.id("events"),
     title: v.string(),
     date: v.number(),
+    endDate: v.number(),
     description: v.string(),
     location: v.string(),
     slots: v.number(),

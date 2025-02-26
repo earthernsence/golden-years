@@ -68,6 +68,15 @@ export const CreateEventModal = () => {
       return;
     }
 
+    if (values.endDate.getTime() === values.date.getTime()) {
+      toast({
+        title: "The event can't end at the same time it starts, silly!",
+        description: "Change the end date to be after the start date."
+      });
+
+      return;
+    }
+
     const imageURL = await uploadFile(values.image);
 
     // Users can either choose not to select a team at all, or choose one and then decide
