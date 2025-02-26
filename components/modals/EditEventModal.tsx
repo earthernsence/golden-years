@@ -94,6 +94,15 @@ export const EditEventModal = () => {
       return;
     }
 
+    if (values.endDate.getTime() === values.date.getTime()) {
+      toast({
+        title: "The event can't end at the same time it starts, silly!",
+        description: "Change the end date to be after the start date."
+      });
+
+      return;
+    }
+
     let eventImage = modal.event.image;
 
     if (values.image && !values.removeImage) eventImage = await uploadFile(values.image);
@@ -133,6 +142,7 @@ export const EditEventModal = () => {
       id: modal.event._id,
       title: values.title,
       date: values.date.getTime(),
+      endDate: values.endDate.getTime(),
       description: values.description,
       image: eventImage,
       location: values.location,
