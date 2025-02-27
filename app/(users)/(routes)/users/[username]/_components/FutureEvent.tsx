@@ -49,20 +49,20 @@ export const FutureEvent = ({ event }: FutureEventProps) => {
           { event.location } on { new Date(event.date).toDateString() } at { getTime() }
         </div>
       </div>
-      <div className="flex w-1/2 xs:flex-col items-end justify-center xs:space-y-2 md:space-y-0">
+      <div className="flex xs:w-2/3 md:w-1/2 xs:flex-col items-end justify-center space-y-2">
         <div className="flex flex-row items-center text-left">
           <div className="text-md dark:text-white">Organised by { organiser.name }</div>
           <Icon
             icon={faUser}
             link={`/users/${organiser.username}`}
-            className="mr-0 ml-4"
+            className="size-8 md:size-12 mr-0 ml-4"
           />
         </div>
         <div className="flex flex-row items-center text-left">
           <div className="text-md dark:text-white">Leave event</div>
           <Icon
             icon={faArrowRightFromBracket}
-            className="mr-0 ml-4"
+            className="size-8 md:size-12 mr-0 ml-4"
             onClick={() => modal.onOpen(event)}
           />
         </div>

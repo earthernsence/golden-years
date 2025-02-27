@@ -4,6 +4,7 @@ import { Doc } from "@/convex/_generated/dataModel";
 
 import { TimeSpan } from "../formatter/TimeSpan";
 
+import { ArticlesInformation } from "./ArticlesInformation";
 import { EventsInformation } from "./EventsInformation";
 import { GroupsInformation } from "./GroupsInformation";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -29,28 +30,28 @@ export const UserInformation = ({ user, team, isVisitorAdmin }: UserInformationP
   };
 
   return (
-    <div className="flex flex-col xs:w-full md:w-3/4 gap-y-2">
-      <div className="min-h-1/6 h-auto text-left text-sm">
+    <div className="flex flex-col xs:w-full md:w-3/4">
+      <div className="h-auto text-left text-sm">
         <div className="text-lg font-semibold">Account age</div>
         This account was created {new TimeSpan(Date.now() - user.signupTime).toStringNoDecimals()} ago
       </div>
       <br />
-      <div className="min-h-1/6 h-auto text-left text-sm">
+      <div className="h-auto text-left text-sm">
         <div className="text-lg font-semibold">Biography</div>
         {user.bio ?? "None provided..."}
       </div>
       <br />
-      <div className="min-h-1/6 h-auto text-left text-sm">
+      <div className="h-auto text-left text-sm">
         <div className="text-lg font-semibold">Location</div>
         {user.location ?? "None provided..."}
       </div>
       <br />
-      <div className="min-h-1/6 h-auto text-left text-sm">
+      <div className="h-auto text-left text-sm">
         <div className="text-lg font-semibold">Team</div>
         {teamString()}
       </div>
       <br />
-      <div className="min-h-1/6 h-auto text-left text-sm">
+      <div className="h-auto text-left text-sm">
         <GroupsInformation
           user={user}
           isVisitorAdmin={isVisitorAdmin}
@@ -58,8 +59,12 @@ export const UserInformation = ({ user, team, isVisitorAdmin }: UserInformationP
         />
       </div>
       <br />
-      <div className="h-1/3 text-left text-sm">
+      <div className="h-auto text-left text-sm">
         <EventsInformation user={user} />
+      </div>
+      <br />
+      <div className="h-auto text-left text-sm">
+        <ArticlesInformation user={user} />
       </div>
     </div>
   );

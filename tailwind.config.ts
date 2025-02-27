@@ -86,6 +86,9 @@ const config = {
       },
       minHeight: {
         "1/6": `${1 / 6}%`
+      },
+      fontSize: {
+        "gy-large-header": "calc(28px + 30*(100vw - 450px) / (1350 - 450))",
       }
     },
   },
