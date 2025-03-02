@@ -12,7 +12,7 @@
     "@blocknote/core": "^0.18.0",
     "@blocknote/mantine": "^0.18.1",
     "@blocknote/react": "^0.18.1",
-    "@clerk/nextjs": "^5.5.2",
+    "@clerk/nextjs": "^6.12.2",
     "@edgestore/react": "^0.1.6",
     "@edgestore/server": "^0.1.6",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
