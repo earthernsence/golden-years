@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { ArticleCoverImageModal } from "../modals/ArticleCoverImageModal";
 import { AssignGroupModal } from "../modals/AssignGroupModal";
 import { AssignRoleModal } from "../modals/AssignRoleModal";
 import { CreateEventModal } from "../modals/CreateEventModal";
@@ -9,6 +10,7 @@ import { CreateGroupModal } from "../modals/CreateGroupModal";
 import { EditEventModal } from "../modals/EditEventModal";
 import { EditEventParticipantsModal } from "../modals/EditEventParticipantsModal";
 import { LeaveEventModal } from "../modals/LeaveEventModal";
+import { NewsroomInfoModal } from "../modals/NewsroomInfoModal";
 import { PrivacyPolicyModal } from "../modals/PrivacyPolicy";
 import { SignUpModal } from "../modals/SignUpModal";
 import { TeamCreateModal } from "../modals/TeamCreateModal";
@@ -48,6 +50,8 @@ export const ModalProvider = () => {
       <TeamEditModal />
       <UploadProfilePictureModal />
       <EditEventParticipantsModal />
+      <ArticleCoverImageModal />
+      <NewsroomInfoModal />
     </>
   );
 };

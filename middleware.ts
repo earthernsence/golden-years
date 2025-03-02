@@ -5,16 +5,18 @@ import { NextResponse } from "next/server";
 // up for an account. All this does is ensure that before they go to any other page on the site that they
 // have their account set up.
 
-const isPublicRoute = createRouteMatcher(["/", "/about_us", "/events", "/users", "/teams"]);
+const isPublicRoute = createRouteMatcher(["/", "/about_us", "/events(.*)", "/users(.*)", "/teams", "/newsroom(.*)"]);
+const isProtectedRoute = createRouteMatcher(["/newsroom/create(.*)", "/newsroom/manage"]);
 
-export default clerkMiddleware((auth, req) => {
-  const authInstance = auth();
+export default clerkMiddleware(async(auth, req) => {
+  const authInstance = await auth();
 
   if (authInstance.userId && req.nextUrl.pathname === "/onboarding") {
     return NextResponse.next();
   }
 
   if (!authInstance.userId && !isPublicRoute(req)) return authInstance.redirectToSignIn({ returnBackUrl: req.url });
+  if (!authInstance.userId && isProtectedRoute(req)) return authInstance.redirectToSignIn({ returnBackUrl: req.url });
 
   if (authInstance.userId && !authInstance.sessionClaims.metadata.onboardingComplete) {
     const onboardingURL = new URL("/onboarding", req.url);

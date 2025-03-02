@@ -33,5 +33,9 @@ export const Pages: Array<Page> = [
         description: "Meet the heart and soul of Golden Years -- our volunteers!"
       }
     ]
+  },
+  {
+    route: "/newsroom",
+    text: "Newsroom",
   }
 ];

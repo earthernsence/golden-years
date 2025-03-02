@@ -114,7 +114,7 @@ export function TeamCreateForm({
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="Name of Team" {...field} />
@@ -132,7 +132,7 @@ export function TeamCreateForm({
           control={form.control}
           name="description"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea placeholder="Description of Team" className="resize-none" {...field} />
@@ -150,7 +150,7 @@ export function TeamCreateForm({
           control={form.control}
           name="location"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Location</FormLabel>
               <FormControl>
                 <Input placeholder="Location of Team" {...field} />
@@ -168,7 +168,7 @@ export function TeamCreateForm({
           control={form.control}
           name="groupValue"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Group Value</FormLabel>
               <FormControl>
                 <Input placeholder="Group value of Team" {...field} />
@@ -186,7 +186,7 @@ export function TeamCreateForm({
           control={form.control}
           name="lead"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Leader Username</FormLabel>
               <FormControl>
                 <Input placeholder="Username of Team Leader" {...field} />
@@ -205,7 +205,7 @@ export function TeamCreateForm({
           control={form.control}
           name="link"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Link to Website</FormLabel>
               <FormControl>
                 <Input placeholder="Facility Website URL" {...field} />
@@ -224,7 +224,7 @@ export function TeamCreateForm({
           name="image"
           // eslint-disable-next-line no-unused-vars
           render={({ field: { value, onChange, ...fieldProps } }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Image</FormLabel>
               <FormControl>
                 <Input
@@ -271,7 +271,7 @@ export function TeamCreateForm({
             control={form.control}
             name="slots"
             render={({ field }) => (
-              <FormItem className="max-w-screen-xs">
+              <FormItem className="max-w-(--breakpoint-xs)">
                 <FormLabel>Slots</FormLabel>
                 <FormControl>
                   <Input type="number" placeholder="Number of Slots" {...field} />
