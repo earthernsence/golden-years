@@ -19,8 +19,8 @@ export const Icon = ({ icon, link, className, onClick }: IconProps) => (
   >
     <FontAwesomeIcon
       icon={icon}
-      width={50}
-      height={50}
+      width={128}
+      height={128}
       className={className ? className : "size-8"}
     />
   </a>

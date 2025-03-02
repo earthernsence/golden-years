@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 // up for an account. All this does is ensure that before they go to any other page on the site that they
 // have their account set up.
 
-const isPublicRoute = createRouteMatcher(["/", "/about_us", "/events", "/users(.*)", "/teams", "/newsroom(.*)"]);
+const isPublicRoute = createRouteMatcher(["/", "/about_us", "/events(.*)", "/users(.*)", "/teams", "/newsroom(.*)"]);
 const isProtectedRoute = createRouteMatcher(["/newsroom/create(.*)", "/newsroom/manage"]);
 
 export default clerkMiddleware(async(auth, req) => {
