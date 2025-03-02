@@ -77,7 +77,7 @@ export const DataCompressor: IDataCompressor = {
       decode: (x: string) => Uint8Array.from(Array.from(x).map(i => i.charCodeAt(0)))
     },
     // This step makes the characters in the data printable. At this point in the process, all characters
-    // will already have codepoints less than 256 (from the previous step), so emoji in the moriginal data
+    // will already have codepoints less than 256 (from the previous step), so emoji in the original data
     // won't break this.
     {
       encode: (x: string) => btoa(x),

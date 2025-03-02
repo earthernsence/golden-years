@@ -8,8 +8,8 @@ import { NextResponse } from "next/server";
 const isPublicRoute = createRouteMatcher(["/", "/about_us", "/events", "/users(.*)", "/teams", "/newsroom(.*)"]);
 const isProtectedRoute = createRouteMatcher(["/newsroom/create(.*)", "/newsroom/manage"]);
 
-export default clerkMiddleware((auth, req) => {
-  const authInstance = auth();
+export default clerkMiddleware(async(auth, req) => {
+  const authInstance = await auth();
 
   if (authInstance.userId && req.nextUrl.pathname === "/onboarding") {
     return NextResponse.next();
