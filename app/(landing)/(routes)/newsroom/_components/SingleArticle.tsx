@@ -34,7 +34,7 @@ export const SingleArticle = ({
               height={1024}
             />
           </div>
-          <div className="sm:pr-2 sm:py-3 max-w-full flex-grow-[2] flex-shrink mt-0">
+          <div className="sm:pr-2 sm:py-3 max-w-full flex-grow-2 shrink mt-0">
             <div className="font-normal xs:text-lg lg:text-xl max-w-full mt-0 flex">
               <Link href={`/newsroom/${article._id}`}>
                 {article.title}

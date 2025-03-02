@@ -103,7 +103,7 @@ export function EditEventForm({
           control={form.control}
           name="title"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input placeholder="Title of Event" {...field} />
@@ -121,7 +121,7 @@ export function EditEventForm({
           control={form.control}
           name="date"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs flex flex-col">
+            <FormItem className="max-w-(--breakpoint-xs) flex flex-col">
               <FormLabel>Start Date and Time (U.S. Central Time GMT-5)</FormLabel>
               <FormControl>
                 <DateTimePicker
@@ -143,7 +143,7 @@ export function EditEventForm({
           control={form.control}
           name="endDate"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs flex flex-col">
+            <FormItem className="max-w-(--breakpoint-xs) flex flex-col">
               <FormLabel>End Date and Time (U.S. Central Time GMT-5)</FormLabel>
               <FormControl>
                 <DateTimePicker
@@ -165,7 +165,7 @@ export function EditEventForm({
           control={form.control}
           name="description"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea placeholder="Some basic information about the event" className="resize-none" {...field} />
@@ -184,7 +184,7 @@ export function EditEventForm({
           name="image"
           // eslint-disable-next-line no-unused-vars
           render={({ field: { value, onChange, ...fieldProps } }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Image</FormLabel>
               <FormControl>
                 <Input
@@ -231,7 +231,7 @@ export function EditEventForm({
           control={form.control}
           name="location"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Location</FormLabel>
               <FormControl>
                 <Input placeholder="Location of Event" {...field} />
@@ -249,7 +249,7 @@ export function EditEventForm({
           control={form.control}
           name="slots"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Slots</FormLabel>
               <FormControl>
                 <Input type="number" placeholder="Number of Slots" {...field} />
@@ -266,7 +266,7 @@ export function EditEventForm({
           control={form.control}
           name="team"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Team</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>

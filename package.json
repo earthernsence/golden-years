@@ -37,6 +37,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@react-email/components": "^0.0.19",
+    "@tailwindcss/postcss": "^4.0.9",
     "@tanstack/react-table": "^8.20.1",
     "@types/pako": "^2.0.3",
     "break_infinity.js": "^2.2.0",
@@ -76,8 +77,8 @@
     "eslint": "^8",
     "eslint-config-next": "15.0.1-canary.0",
     "eslint-config-prettier": "^9.1.0",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.9",
     "typescript": "^5"
   },
   "overrides": {

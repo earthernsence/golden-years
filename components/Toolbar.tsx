@@ -86,14 +86,14 @@ export const Toolbar = ({
           value={value}
           onChange={e => onInput(e.target.value)}
           className="xs:text-3xl md:text-5xl font-bold text-[#3F3F3F] dark:text-[#CFCFCF]
-                    bg-transparent outline-none w-full resize-none"
+                    bg-transparent outline-hidden w-full resize-none"
         />
       ) : (
         <>
           <div
             onClick={enableInput}
             className="pb-[11.5px] xs:text-3xl md:text-5xl font-bold
-                    break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] w-full"
+                    break-words outline-hidden text-[#3F3F3F] dark:text-[#CFCFCF] w-full"
           >
             {initial.title}
           </div>

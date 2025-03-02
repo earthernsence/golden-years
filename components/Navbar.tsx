@@ -34,7 +34,7 @@ export const Navbar = () => {
     <div className={cn(
       "z-50 bg-background fixed top-0 flex flex-row items-center w-full p-6",
       "bg-gy-bg-light dark:bg-gy-bg-dark",
-      "border-b shadow-sm"
+      "border-b shadow-xs"
     )}>
       <Link href="/" className="font-semibold flex text-center mr-6 md:w-auto">
         <Wordmark />
@@ -68,7 +68,7 @@ export const Navbar = () => {
                           key={i}
                           title={leaf.text}
                           href={leaf.route}
-                          className="focus:dark:bg-gy-bg-dark"
+                          className="dark:focus:bg-gy-bg-dark"
                         >
                           {leaf.description}
                         </ListItem>

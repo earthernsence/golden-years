@@ -90,7 +90,7 @@ export function AssignGroupForm({
           control={form.control}
           name="groups"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs text-left text-sm gap-y-2">
+            <FormItem className="max-w-(--breakpoint-xs) text-left text-sm gap-y-2">
               <FormLabel className="text-lg font-semibold">Groups</FormLabel>
               <FormControl>
                 <MultipleSelector
