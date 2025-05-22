@@ -121,7 +121,7 @@ export function OnboardingForm({
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="your displayed name" {...field} />
@@ -138,7 +138,7 @@ export function OnboardingForm({
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input placeholder="your email" {...field} />
@@ -155,7 +155,7 @@ export function OnboardingForm({
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input placeholder="your username" {...field} />
@@ -172,7 +172,7 @@ export function OnboardingForm({
           control={form.control}
           name="bio"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Bio</FormLabel>
               <FormControl>
                 <Textarea placeholder="a little about yourself" className="resize-none" {...field} />
@@ -190,7 +190,7 @@ export function OnboardingForm({
           control={form.control}
           name="location"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs">
+            <FormItem className="max-w-(--breakpoint-xs)">
               <FormLabel>Location</FormLabel>
               <FormControl>
                 <Input placeholder="your location or school" {...field} />
@@ -206,7 +206,7 @@ export function OnboardingForm({
           control={form.control}
           name="groups"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs text-left text-sm">
+            <FormItem className="max-w-(--breakpoint-xs) text-left text-sm">
               <FormLabel className="text-lg font-semibold">Groups</FormLabel>
               <FormControl>
                 <MultipleSelector
@@ -240,7 +240,7 @@ export function OnboardingForm({
           // eslint-disable-next-line no-unused-vars
           render={({ field }) => (
             <FormItem
-              className="max-w-screen-xs flex flex-row items-center justify-between rounded-lg border p-4"
+              className="max-w-(--breakpoint-xs) flex flex-row items-center justify-between rounded-lg border p-4"
             >
               <div className="space-y-0.5">
                 <FormLabel>Terms and Privacy Policy</FormLabel>

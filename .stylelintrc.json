@@ -97,8 +97,8 @@
           "noEmptyLineBetween": true,
           "properties": [
             "flex",
-            "flex-grow",
-            "flex-shrink",
+            "grow",
+            "shrink",
             "flex-basis",
             "flex-flow",
             "flex-direction",
@@ -290,11 +290,11 @@
           "properties": ["box-shadow", "box-sizing"]
         },
         {
-          "groupName": "outline",
+          "groupName": "outline-solid",
           "emptyLineBefore": "never",
           "noEmptyLineBetween": true,
           "properties": [
-            "outline",
+            "outline-solid",
             "outline-width",
             "outline-style",
             "outline-color",

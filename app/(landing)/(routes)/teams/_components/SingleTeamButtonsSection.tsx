@@ -61,7 +61,7 @@ export const SingleTeamButtonsSection = ({
         </Button>
       )}
       {!Boolean(visitorTeam) && !canJoin && (
-        <Button variant={"outline"} disabled>
+        <Button variant={"outline-solid"} disabled>
           This Team is full!
         </Button>
       )}
@@ -71,7 +71,7 @@ export const SingleTeamButtonsSection = ({
         </Button>
       )}
       {Boolean(visitorTeam) && !isMember && (
-        <Button variant={"outline"} disabled>
+        <Button variant={"outline-solid"} disabled>
           You are already a Member of another Team
         </Button>
       )}

@@ -101,7 +101,7 @@ export function EditProfileForm({
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs text-left text-sm">
+            <FormItem className="max-w-(--breakpoint-xs) text-left text-sm">
               <FormLabel className="text-lg font-semibold">Name</FormLabel>
               <FormControl>
                 <Input placeholder="your displayed name" className="dark:bg-dark" {...field} />
@@ -118,7 +118,7 @@ export function EditProfileForm({
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs text-left text-sm">
+            <FormItem className="max-w-(--breakpoint-xs) text-left text-sm">
               <FormLabel className="text-lg font-semibold">Email</FormLabel>
               <FormControl>
                 <Input placeholder="your email" className="dark:bg-dark" {...field} />
@@ -135,7 +135,7 @@ export function EditProfileForm({
           control={form.control}
           name="bio"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs text-left text-sm">
+            <FormItem className="max-w-(--breakpoint-xs) text-left text-sm">
               <FormLabel className="text-lg font-semibold">Bio</FormLabel>
               <FormControl>
                 <Textarea placeholder="a little about yourself" className="resize-none dark:bg-dark" {...field} />
@@ -153,7 +153,7 @@ export function EditProfileForm({
           control={form.control}
           name="location"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs text-left text-sm">
+            <FormItem className="max-w-(--breakpoint-xs) text-left text-sm">
               <FormLabel className="text-lg font-semibold">Location</FormLabel>
               <FormControl>
                 <Input placeholder="your location or school" className="dark:bg-dark" {...field} />
@@ -169,7 +169,7 @@ export function EditProfileForm({
           control={form.control}
           name="groups"
           render={({ field }) => (
-            <FormItem className="max-w-screen-xs text-left text-sm">
+            <FormItem className="max-w-(--breakpoint-xs) text-left text-sm">
               <FormLabel className="text-lg font-semibold">Groups</FormLabel>
               <FormControl>
                 <MultipleSelector
