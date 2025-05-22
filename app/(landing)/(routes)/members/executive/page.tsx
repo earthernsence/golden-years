@@ -17,9 +17,11 @@ interface ExecutiveMemberInformation {
 }
 
 // We need to generate this page in a specific order, with the higher-ranking officials on top.
-const renderOrder = ["President",
+const renderOrder = ["Founders",
+  "President",
   "Co-President",
   "Vice President",
+  "Co-Vice President",
   "Fundraising Specialist",
   "Social Media Specialist",
   "Secretary",

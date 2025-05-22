@@ -19,6 +19,7 @@ export default defineSchema({
     groups: v.array(v.string()),
     events: v.array(v.id("events")),
     team: v.optional(v.string()),
+    eventOrganiser: v.optional(v.boolean())
   })
     .index("by_user", ["userId"])
     .index("by_username", ["username"])

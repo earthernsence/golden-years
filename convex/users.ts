@@ -32,6 +32,7 @@ export const create = mutation({
       username: args.username,
       signupTime: args.signupTime,
       admin: args.admin,
+      eventOrganiser: false,
       exec: "",
       bio: args.bio,
       location: args.location,
@@ -103,6 +104,7 @@ export const updateRole = mutation({
     userId: v.string(),
     exec: v.string(),
     admin: v.optional(v.boolean()),
+    eventOrganiser: v.optional(v.boolean())
   },
   handler: async(ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -130,7 +132,8 @@ export const updateRole = mutation({
     const user = await ctx.db.patch(dbUser._id, {
       exec: isRemovingRole ? "" : args.exec,
       groups: newGroups,
-      admin: args.admin
+      admin: args.admin,
+      eventOrganiser: args.eventOrganiser
     });
 
     return user;

@@ -20,8 +20,10 @@ import { Switch } from "@/components/ui/Switch";
 import { ElementType } from "@/lib/utils";
 
 const ROLES = [
+  "Founders",
   "President",
   "Co-President",
+  "Co-Vice President",
   "Vice President",
   "Fundraising Specialist",
   "Social Media Specialist",
@@ -33,8 +35,10 @@ const ROLES = [
 
 export const formSchema = z.object({
   role: z.enum([
+    "Founders",
     "President",
     "Co-President",
+    "Co-Vice President",
     "Vice President",
     "Fundraising Specialist",
     "Social Media Specialist",

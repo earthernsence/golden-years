@@ -21,8 +21,10 @@ import { AssignRoleForm, formSchema } from "./AssignRoleForm";
 import { ElementType } from "@/lib/utils";
 
 const ROLES = [
+  "Founders",
   "President",
   "Co-President",
+  "Co-Vice President",
   "Vice President",
   "Fundraising Specialist",
   "Social Media Specialist",
